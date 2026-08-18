@@ -53,7 +53,7 @@ export const MILESTONES: Record<string, Milestone> = {
 
   // ── 1947 – 1949 ─────────────────────────────────────────────────────────
   vietBac: {
-    id: 'chapter-1947',
+    id: 'kc-47-vietbac',
     year: '1947',
     eyebrow: '07/10 – 20/12/1947 · Việt Bắc Thu – Đông',
     heading: 'Bẻ gãy các gọng kìm',
@@ -93,7 +93,7 @@ export const MILESTONES: Record<string, Milestone> = {
 
   // ── 1950 ────────────────────────────────────────────────────────────────
   dongKhe: {
-    id: 'chapter-1950',
+    id: 'kc-50-dongkhe',
     year: '1950',
     eyebrow: '16/09/1950 · Đông Khê',
     heading: 'Chiến dịch Biên giới mở màn',
@@ -184,7 +184,7 @@ export const MILESTONES: Record<string, Milestone> = {
 
   // ── 1953 – 1954 · ĐIỆN BIÊN PHỦ ────────────────────────────────────────
   cuDiem: {
-    id: 'chapter-1954',
+    id: 'kc-54-cudiem',
     year: '1953',
     eyebrow: 'Cuối 1953 · Điện Biên Phủ',
     heading: 'Pháp xây dựng tập đoàn cứ điểm',
@@ -247,7 +247,7 @@ export const MILESTONES: Record<string, Milestone> = {
 
   // ── KẾT QUẢ & Ý NGHĨA ──────────────────────────────────────────────────
   geneve: {
-    id: 'y-nghia',
+    id: 'kc-yn-geneve',
     year: '21.07',
     eyebrow: '21/07/1954 · Giơ-ne-vơ',
     heading: 'Hiệp định Giơ-ne-vơ được ký kết',

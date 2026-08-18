@@ -86,14 +86,13 @@ export default function WordCascade({
         )}
         {words.map((w, i) => {
           const accent = accentWords.includes(w);
-          // cụm càng dài → cỡ chữ càng nhỏ, để cả cụm luôn nằm TRỌN một dòng
-          // (không "rơi" chữ cuối xuống dòng dưới)
-          const size =
-            w.length > 18
-              ? 'clamp(26px, 4.6vw, 84px)'
-              : w.length > 12
-                ? 'clamp(32px, 6.4vw, 118px)'
-                : undefined; // ngắn → giữ cỡ headline-mega mặc định
+          // cỡ chữ tính theo ĐỘ DÀI cụm — cụm nào (dù nguyên văn dài) cũng nằm
+          // TRỌN một dòng, không "rơi" chữ; cụm ngắn vẫn to kiểu điện ảnh
+          const len = Math.max(6, w.length);
+          const minPx = Math.max(15, Math.min(44, Math.floor(580 / len)));
+          const vwF = Math.min(10, +(165 / len).toFixed(2));
+          const maxPx = Math.max(40, Math.min(185, Math.floor(3200 / len)));
+          const size = `clamp(${minPx}px, ${vwF}vw, ${maxPx}px)`;
           return (
             <h2
               key={`${w}-${i}`}
@@ -101,7 +100,7 @@ export default function WordCascade({
                 'cascade-word will-transform headline-mega absolute select-none whitespace-nowrap text-center',
                 accent ? 'text-vn-red' : 'text-vn-ivory',
               ].join(' ')}
-              style={size ? { fontSize: size } : undefined}
+              style={{ fontSize: size }}
             >
               {w}
             </h2>
