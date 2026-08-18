@@ -307,17 +307,16 @@ export default function Home() {
           accentWords={['TIỀN TUYẾN LỚN']}
           perWordVh={75}
         />
-        <SlideSection
-          eyebrow="Điện Biên Phủ"
-          groups={[
-            {
-              title: '07/05/1954 — Chiến thắng Điện Biên Phủ',
-              bullets: [
-                'Tập đoàn cứ điểm Điện Biên Phủ bị tiêu diệt.',
-                'Tướng De Castries và bộ chỉ huy bị bắt.',
-              ],
-            },
+        {/* 07/05/1954 — màn công bố chiến thắng: ngày ghép số + 2 dòng đóng dấu */}
+        <DateReveal
+          id="kc-54-chienthang"
+          parts={['07', '05', '1954']}
+          heading="CHIẾN THẮNG ĐIỆN BIÊN PHỦ"
+          lines={[
+            { text: 'Tập đoàn cứ điểm Điện Biên Phủ bị tiêu diệt.' },
+            { text: 'Tướng De Castries và bộ chỉ huy bị bắt.', accent: true },
           ]}
+          background="radial-gradient(ellipse at 50% 42%, #23100c 0%, #080808 70%)"
         />
         {/* Câu hỏi tương tác (trước khi hiện màn chiến thắng) */}
         <InteractiveQuestion

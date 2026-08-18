@@ -56,28 +56,29 @@ export default function Hero() {
             src="/images/kc/modau.webp"
             alt=""
             className="hero-bgimg will-transform pointer-events-none absolute inset-0 h-full w-full object-cover"
-            style={{ filter: 'sepia(0.35) contrast(1.06) brightness(0.62)', objectPosition: 'center 18%' }}
+            style={{ filter: 'sepia(0.35) contrast(1.06) brightness(0.62)', objectPosition: '30% 20%' }}
           />
-          {/* scrim: nhẹ ở trên (giữ rõ gương mặt), đậm dần xuống dưới cho chữ nổi */}
+          {/* scrim: đậm bên PHẢI cho khối chữ — gương mặt Bác bên trái luôn thoáng */}
           <div
             className="pointer-events-none absolute inset-0"
             style={{
               background:
-                'linear-gradient(180deg, rgba(8,8,8,0.35) 0%, rgba(8,8,8,0.25) 34%, rgba(8,8,8,0.72) 62%, rgba(8,8,8,0.96) 100%)',
+                'linear-gradient(270deg, rgba(8,8,8,0.94) 0%, rgba(8,8,8,0.8) 30%, rgba(8,8,8,0.45) 55%, rgba(8,8,8,0.12) 78%, rgba(8,8,8,0) 100%)',
             }}
           />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[24vh] bg-gradient-to-t from-vn-black/80 to-transparent" />
 
-          {/* sao vàng mờ phía sau khối chữ (dưới thấp, không chạm gương mặt) */}
-          <div className="pointer-events-none absolute bottom-[4vh] left-1/2 -translate-x-1/2 opacity-20">
+          {/* sao vàng mờ phía sau khối chữ bên phải */}
+          <div className="pointer-events-none absolute right-[4vw] top-1/2 -translate-y-1/2 opacity-20">
             <GoldStar breathe className="h-[46vh] w-[46vh]" />
           </div>
 
-          {/* khối chữ — neo ĐÁY màn hình để không che gương mặt trong ảnh */}
-          <div className="relative z-10 flex h-full flex-col items-center justify-end px-6 pb-[9vh] text-center">
+          {/* khối chữ — GÓC PHẢI màn hình (mobile: giữa), không che gương mặt */}
+          <div className="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center md:items-end md:pr-[6vw] md:text-right">
             <p className="hw-0 will-transform eyebrow mb-6 whitespace-nowrap text-vn-gold-antique opacity-0">
               1946 – 1954 · Chín năm trường kỳ
             </p>
-            <h1 className="flex w-full flex-col items-center leading-none">
+            <h1 className="flex w-full flex-col items-center leading-none md:items-end">
               <span
                 className="hw-1 will-transform font-display font-semibold uppercase tracking-[0.3em] text-vn-ivory/90 opacity-0"
                 style={{ fontSize: 'clamp(22px, 3.4vw, 54px)' }}

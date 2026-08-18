@@ -11,15 +11,17 @@ interface DateRevealProps {
   /** Dòng chữ lớn hiện sau khi ngày ghép xong. */
   heading?: string;
   sub?: string;
+  /** Các dòng "tuyên bố" đóng dấu lần lượt sau tiêu đề (vd kết quả chiến dịch). */
+  lines?: { text: string; accent?: boolean }[];
   background?: string;
 }
 
 /**
  * Màn ghép ngày tháng: từng cụm số hiện lần lượt (kèm tiếng chime), giữ lại
- * trên màn hình, rồi dòng tiêu đề lớn hiện bên dưới. Timeline được đệm tới
- * length 1 để các mốc khớp 1:1 với phần trăm cuộn.
+ * trên màn hình; tiêu đề lớn hiện bên dưới; các dòng tuyên bố (nếu có) đóng dấu
+ * lần lượt. Timeline đệm tới ~1 để mốc khớp phần trăm cuộn.
  */
-export default function DateReveal({ id, parts, heading, sub, background = '#080808' }: DateRevealProps) {
+export default function DateReveal({ id, parts, heading, sub, lines = [], background = '#080808' }: DateRevealProps) {
   const root = useRef<HTMLDivElement>(null);
 
   useGSAP(
@@ -43,6 +45,12 @@ export default function DateReveal({ id, parts, heading, sub, background = '#080
         tl.fromTo(q('.d-heading'), { opacity: 0, scale: 1.18 }, { opacity: 1, scale: 1, duration: 0.06 }, after);
       }
       if (sub) tl.fromTo(q('.d-sub'), { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.05 }, after + 0.1);
+      // các dòng tuyên bố — đóng dấu (scale-in) lần lượt, ở lại
+      lines.forEach((_, i) => {
+        const at = after + 0.16 + i * 0.16;
+        tl.call(playChime, [parts.length + 1 + i], at);
+        tl.fromTo(q(`.d-line-${i}`), { opacity: 0, scale: 1.28 }, { opacity: 1, scale: 1, ease: 'power2.out', duration: 0.07 }, at);
+      });
       // giữ trên màn hình tới cuối section (đệm timeline tới ~1)
       tl.to(q('.d-stage'), { opacity: 1, duration: 0.02 }, 0.98);
     },
@@ -77,6 +85,22 @@ export default function DateReveal({ id, parts, heading, sub, background = '#080
             <p className="d-sub will-transform mt-6 max-w-2xl font-serif-hist text-base italic leading-relaxed text-vn-ivory/70 opacity-0 md:text-xl">
               {sub}
             </p>
+          )}
+          {lines.length > 0 && (
+            <div className="mt-10 flex flex-col items-center gap-5">
+              {lines.map((l, i) => (
+                <p
+                  key={i}
+                  className={[
+                    `d-line-${i} will-transform font-serif-hist text-lg font-bold uppercase leading-snug tracking-[0.06em] opacity-0 md:text-3xl`,
+                    l.accent ? 'text-vn-red' : 'text-vn-ivory',
+                  ].join(' ')}
+                  style={l.accent ? { textShadow: '0 0 34px rgba(218,37,29,0.4)' } : undefined}
+                >
+                  {l.text}
+                </p>
+              ))}
+            </div>
           )}
         </div>
       </div>
