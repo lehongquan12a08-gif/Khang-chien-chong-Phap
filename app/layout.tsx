@@ -30,10 +30,10 @@ const beVietnam = Be_Vietnam_Pro({
 });
 
 export const metadata: Metadata = {
-  title: 'HÀNH TRÌNH THEO CHÂN BÁC',
+  title: 'ĐƯỜNG LỐI KHÁNG CHIẾN CHỐNG PHÁP · 1946–1954',
   description:
-    'Một hành trình – Một lý tưởng – Một cuộc đời vì dân tộc. Triển lãm số tương tác về cuộc đời Chủ tịch Hồ Chí Minh.',
-  keywords: ['Hồ Chí Minh', 'lịch sử Việt Nam', 'triển lãm số', 'độc lập tự do'],
+    'Toàn dân – Toàn diện – Trường kỳ – Tự lực cánh sinh – Tranh thủ sự ủng hộ quốc tế. Triển lãm số tương tác về đường lối kháng chiến chống thực dân Pháp (1946–1954).',
+  keywords: ['kháng chiến chống Pháp', 'Điện Biên Phủ', 'lịch sử Việt Nam', 'triển lãm số', '1946-1954'],
 };
 
 export const viewport: Viewport = {

@@ -1,8 +1,8 @@
 {
-  "name": "hanh-trinh-theo-chan-bac",
+  "name": "khang-chien-chong-phap",
   "version": "1.0.0",
   "private": true,
-  "description": "HÀNH TRÌNH THEO CHÂN BÁC — Interactive cinematic digital exhibition about President Ho Chi Minh",
+  "description": "ĐƯỜNG LỐI KHÁNG CHIẾN CHỐNG PHÁP (1946–1954) — Interactive cinematic digital exhibition",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

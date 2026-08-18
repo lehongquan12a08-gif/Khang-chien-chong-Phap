@@ -3,17 +3,12 @@
 import { useRef } from 'react';
 import { gsap, useGSAP } from '@/lib/gsap';
 import GoldStar from '@/components/objects/GoldStar';
-import TextureBg from '@/components/TextureBg';
-import Portrait from '@/components/Portrait';
+import { playChime } from '@/lib/uiSound';
 
 /**
- * HERO — the cinematic entry. A ~360vh scroll surface with a pinned (sticky)
- * 100vh stage. Clean, layered composition (no crossing text): portrait above,
- * title anchored at the bottom over a scrim. One scrubbed timeline plays:
- *   1. depth reveal (parallax layers ease in, star turns)
- *   2. title + portrait recede
- *   3. the gold star scales up and swallows the frame, black → Vietnam red,
- *      handing off to Chapter 1890.
+ * HERO — landing page. LƯỚT XUỐNG: từng chữ của tiêu đề hiện ra lần lượt và
+ * GIỮ lại trên màn hình (ĐƯỜNG LỐI → KHÁNG CHIẾN → CHỐNG PHÁP → 1946–1954),
+ * trên nền ảnh tư liệu mở đầu.
  */
 export default function Hero() {
   const root = useRef<HTMLDivElement>(null);
@@ -30,79 +25,77 @@ export default function Hero() {
         },
       });
 
-      // --- Phase 1 : depth & light ---------------------------------------
-      tl.to(q('.hero-portrait'), { scale: 1.08, yPercent: -3, ease: 'none' }, 0)
-        .to(q('.hero-star'), { scale: 1.15, ease: 'none' }, 0)
-        .to(q('.hero-scrollhint'), { opacity: 0, ease: 'none' }, 0.12);
-
-      // --- Phase 2 : title + portrait recede QUICKLY (fully gone by ~0.5) -
-      tl.to(q('.hero-title'), { scale: 1.06, opacity: 0, y: -30, ease: 'none', duration: 0.18 }, 0.3)
-        .to(q('.hero-portrait'), { opacity: 0, scale: 1.12, ease: 'power2.in', duration: 0.16 }, 0.34);
-
-      // --- Phase 3 : dive through the star (only AFTER the face is gone) --
-      tl.to(q('.hero-star'), { scale: 9, ease: 'power1.in' }, 0.54)
-        .to(
-          q('.hero-bg'),
-          {
-            background:
-              'radial-gradient(ellipse at center, #DA251D 0%, #8F1713 55%, #080808 100%)',
-            ease: 'none',
-          },
-          0.58
-        )
-        .to(q('.hero-redwash'), { opacity: 1, ease: 'power2.in' }, 0.82);
+      tl.to(q('.hero-bgimg'), { scale: 1.08, ease: 'none', duration: 0.9 }, 0)
+        .to(q('.hero-scrollhint'), { opacity: 0, duration: 0.04 }, 0.05)
+        // từng chữ hiện và Ở LẠI
+        .call(playChime, [0], 0.06)
+        .fromTo(q('.w-1'), { opacity: 0, y: 44 }, { opacity: 1, y: 0, duration: 0.05 }, 0.06)
+        .call(playChime, [1], 0.17)
+        .fromTo(q('.w-2'), { opacity: 0, y: 44 }, { opacity: 1, y: 0, duration: 0.05 }, 0.17)
+        .call(playChime, [2], 0.28)
+        .fromTo(q('.w-3'), { opacity: 0, y: 44 }, { opacity: 1, y: 0, duration: 0.05 }, 0.28)
+        .call(playChime, [3], 0.42)
+        .fromTo(q('.w-years'), { opacity: 0, scale: 1.2 }, { opacity: 1, scale: 1, duration: 0.05 }, 0.42)
+        .fromTo(q('.w-tagline'), { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.05 }, 0.52)
+        // giữ trọn khung, rồi mờ dần nhường chương mở đầu
+        .to(q('.hero-stage'), { opacity: 0, duration: 0.08 }, 0.9)
+        .to(q('.hero-bgimg'), { scale: 1.1, ease: 'none', duration: 0.02 }, 0.98);
     },
     { scope: root }
   );
 
   return (
-    <section id="hero" ref={root} className="relative h-[360vh]">
-      <div className="sticky top-0 flex h-screen items-center justify-center overflow-hidden">
-        {/* background layer */}
-        <div
-          className="hero-bg will-transform absolute inset-0"
-          style={{
-            background:
-              'radial-gradient(ellipse at 50% 40%, #1a0b09 0%, #0d0605 55%, #080808 100%)',
-          }}
-        />
+    <section id="hero" ref={root} className="relative h-[340vh]">
+      <div className="sticky top-0 h-screen overflow-hidden bg-vn-black">
+        <div className="hero-stage absolute inset-0">
+          {/* ảnh tư liệu mở đầu — full-bleed */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/kc/modau.webp"
+            alt=""
+            className="hero-bgimg will-transform pointer-events-none absolute inset-0 h-full w-full object-cover"
+            style={{ filter: 'sepia(0.35) contrast(1.06) brightness(0.55)' }}
+          />
+          {/* scrim tối để chữ nổi */}
+          <div
+            className="pointer-events-none absolute inset-0"
+            style={{
+              background:
+                'radial-gradient(ellipse at 50% 45%, rgba(8,8,8,0.42) 0%, rgba(8,8,8,0.62) 55%, rgba(8,8,8,0.95) 100%)',
+            }}
+          />
 
-        {/* faint original starfield */}
-        <TextureBg src="/images/stars-lite.webp" className="opacity-50" />
+          {/* sao vàng mờ phía sau chữ */}
+          <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-25">
+            <GoldStar breathe className="h-[52vh] w-[52vh]" />
+          </div>
 
-        {/* symbolic gold star, behind the portrait */}
-        <div className="hero-star will-transform pointer-events-none absolute left-1/2 top-[42%] -translate-x-1/2 -translate-y-1/2 opacity-40">
-          <GoldStar breathe className="h-[40vh] w-[40vh]" />
+          {/* khối chữ — từng dòng hiện theo cuộn */}
+          <div className="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center">
+            <p className="w-1 will-transform eyebrow mb-7 text-vn-gold-antique opacity-0">
+              1946 – 1954 · Chín năm trường kỳ
+            </p>
+            <h1 className="flex flex-col items-center gap-1 leading-none">
+              <span className="w-2 will-transform headline-mega text-vn-ivory opacity-0">
+                ĐƯỜNG LỐI KHÁNG CHIẾN
+              </span>
+              <span className="w-3 will-transform headline-mega text-vn-red opacity-0" style={{ textShadow: '0 0 44px rgba(218,37,29,0.5)' }}>
+                CHỐNG PHÁP
+              </span>
+            </h1>
+            <p className="w-years will-transform mt-7 font-serif-hist text-xl tracking-[0.4em] text-vn-gold text-glow-gold opacity-0 md:text-3xl">
+              1946&nbsp;—&nbsp;1954
+            </p>
+            <p className="w-tagline will-transform mt-6 max-w-2xl font-body text-[11px] font-light uppercase leading-relaxed tracking-[0.22em] text-vn-ivory/70 opacity-0 md:text-[13px]">
+              Toàn dân · Toàn diện · Trường kỳ · Tự lực cánh sinh · Tranh thủ sự ủng hộ quốc tế
+            </p>
+          </div>
+
+          {/* gợi ý cuộn */}
+          <div className="hero-scrollhint pointer-events-none absolute bottom-5 left-1/2 z-20 -translate-x-1/2">
+            <span className="scroll-hint-line" />
+          </div>
         </div>
-
-        {/* portrait — historical photograph, sits in the upper stage */}
-        <div className="hero-portrait will-transform absolute left-1/2 top-[7vh] z-10 -translate-x-1/2">
-          <Portrait heightClass="h-[62vh]" />
-        </div>
-
-        {/* bottom scrim so the title always stays legible over the portrait */}
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-[52vh] bg-gradient-to-t from-vn-black via-vn-black/85 to-transparent" />
-
-        {/* title block, anchored at the bottom (never crosses the face) */}
-        <div className="hero-title will-transform pointer-events-none absolute inset-x-0 bottom-[15vh] z-30 flex flex-col items-center text-center">
-          <h1 className="headline-mega select-none leading-none text-vn-ivory text-glow-gold">
-            HỒ CHÍ MINH
-          </h1>
-          <p className="mt-4 font-serif-hist text-lg tracking-[0.4em] text-vn-gold md:text-2xl">
-            1890&nbsp;—&nbsp;1969
-          </p>
-          <p className="mt-3 max-w-xl px-6 font-body text-[12px] font-light uppercase leading-relaxed tracking-[0.24em] text-vn-ivory/65 md:text-sm">
-            Hành trình của một con người gắn với hành trình của dân tộc
-          </p>
-        </div>
-
-        {/* scroll hint — thin animated line only (no text, avoids overlap) */}
-        <div className="hero-scrollhint pointer-events-none absolute bottom-5 left-1/2 z-40 -translate-x-1/2">
-          <span className="scroll-hint-line" />
-        </div>
-
-        {/* final red wash that seals the transition into 1890 */}
-        <div className="hero-redwash pointer-events-none absolute inset-0 z-50 bg-vn-red opacity-0" />
       </div>
     </section>
   );

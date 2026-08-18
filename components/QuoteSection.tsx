@@ -4,12 +4,12 @@ import { useRef } from 'react';
 import { gsap, useGSAP } from '@/lib/gsap';
 import { verifiedQuote } from '@/data/timeline';
 
-// Verified quote, split into cadence groups. "ĐỘC LẬP" / "TỰ DO" get red accent.
+// Verified quote, split into cadence groups (Lời kêu gọi Toàn quốc kháng chiến).
 const GROUPS: { text: string; accent?: boolean }[] = [
-  { text: 'KHÔNG CÓ GÌ' },
-  { text: 'QUÝ HƠN' },
-  { text: 'ĐỘC LẬP', accent: true },
-  { text: 'TỰ DO', accent: true },
+  { text: 'THÀ HY SINH TẤT CẢ,' },
+  { text: 'CHỨ NHẤT ĐỊNH' },
+  { text: 'KHÔNG CHỊU MẤT NƯỚC,', accent: true },
+  { text: 'KHÔNG CHỊU LÀM NÔ LỆ.', accent: true },
 ];
 
 export default function QuoteSection() {

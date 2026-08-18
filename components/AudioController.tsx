@@ -43,13 +43,9 @@ const AMBIENT_VOL = 0.6;
 
 // `voice: true` = a spoken clip (kept loud, ducks everything else).
 type Sfx = { id: string; src: string; vol: number; loop?: boolean; range?: [number, number]; voice?: boolean };
-const SFX: Sfx[] = [
-  // supporting ambience — deliberately quiet
-  { id: 'chapter-1911', src: `/audio/sfx/ship-1911.wav?${V}`, vol: 0.1 },
-  { id: 'chapter-1941', src: `/audio/sfx/mountain-1941.wav?${V}`, vol: 0.1 },
-  { id: 'chapter-1945', src: `/audio/sfx/crowd-1945.wav?${V}`, vol: 0.07 },
-  // (Tuyên ngôn is now a <video> handled separately — see DECL_RANGE)
-];
+// (chưa dùng tiếng phụ họa theo chương cho dự án Kháng chiến — thêm sau nếu cần)
+const SFX: Sfx[] = [];
+void V; // giữ cache-bust helper cho các file wav khi thêm SFX
 
 const LS_KEY = 'httcb-audio';
 const LS_VOL = 'httcb-vol';
@@ -139,14 +135,17 @@ export default function AudioController() {
     }
     sfxRef.current = m;
 
-    // narration files (2 parts)
+    // narration files (2 parts) — only created once cues exist (no 404 spam
+    // while the voiceover hasn't been recorded yet)
     const nm = new Map<1 | 2, HTMLAudioElement>();
-    ([1, 2] as const).forEach((part) => {
-      const a = new Audio(NARRATION_FILES[part]);
-      a.preload = 'auto';
-      a.volume = 0;
-      nm.set(part, a);
-    });
+    if (NARRATION.length > 0) {
+      ([1, 2] as const).forEach((part) => {
+        const a = new Audio(NARRATION_FILES[part]);
+        a.preload = 'auto';
+        a.volume = 0;
+        nm.set(part, a);
+      });
+    }
     narrRef.current = nm;
 
     // route narration through a Web Audio gain so the quiet voice can be lifted

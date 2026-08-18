@@ -1,7 +1,6 @@
 // ---------------------------------------------------------------------------
-//  DÒNG THỜI GIAN — Verified historical milestones
-//  Nguồn tham khảo: Bảo tàng Hồ Chí Minh, Hồ Chí Minh Toàn tập (NXB CTQG).
-//  Chỉ dùng các dữ kiện & năm đã được kiểm chứng. Không tự sáng tác trích dẫn.
+//  DÒNG THỜI GIAN — Đường lối kháng chiến chống Pháp (1946–1954)
+//  Chỉ dùng các dữ kiện & năm đã được kiểm chứng theo kịch bản biên soạn.
 // ---------------------------------------------------------------------------
 
 export interface TimelineEntry {
@@ -12,28 +11,26 @@ export interface TimelineEntry {
 
 /** Các mốc hiển thị trên thanh Timeline Indicator (phải màn hình desktop). */
 export const timelineMarkers: TimelineEntry[] = [
-  { id: 'hero', year: '1890', short: 'Sinh ra' },
-  { id: 'chapter-1911', year: '1911', short: 'Ra đi tìm đường' },
-  { id: 'chapter-1919', year: '1919', short: 'Bản yêu cầu An Nam' },
-  { id: 'chapter-1920', year: '1920', short: 'Đại hội Tours' },
-  { id: 'chapter-1930', year: '1930', short: 'Thành lập Đảng' },
-  { id: 'chapter-1941', year: '1941', short: 'Trở về Tổ quốc' },
-  { id: 'chapter-1945', year: '1945', short: 'Tuyên ngôn Độc lập' },
+  { id: 'hero', year: '1945', short: 'Mở đầu' },
+  { id: 'chapter-1946', year: '1946', short: 'Toàn quốc kháng chiến' },
+  { id: 'chapter-1947', year: '1947', short: 'Việt Bắc Thu – Đông' },
+  { id: 'chapter-1950', year: '1950', short: 'Chiến dịch Biên giới' },
+  { id: 'chapter-1951', year: '1951', short: 'Phát triển thế và lực' },
   { id: 'chapter-1954', year: '1954', short: 'Điện Biên Phủ' },
-  { id: 'final', year: '1969', short: 'Trọn một cuộc đời' },
+  { id: 'y-nghia', year: 'Ý NGHĨA', short: 'Kết quả & Ý nghĩa' },
 ];
 
 /** Trích dẫn đã được kiểm chứng, dùng cho Quote Section. */
 export const verifiedQuote = {
-  text: 'KHÔNG CÓ GÌ QUÝ HƠN ĐỘC LẬP, TỰ DO',
+  text: 'Thà hy sinh tất cả, chứ nhất định không chịu mất nước, nhất định không chịu làm nô lệ.',
   attribution: 'Chủ tịch Hồ Chí Minh',
-  context: 'Lời kêu gọi, 17 tháng 7 năm 1966',
+  context: 'Lời kêu gọi Toàn quốc kháng chiến · 19/12/1946',
 };
 
 export const NAV_LINKS = [
-  { label: 'Hành trình', href: '#hero' },
-  { label: 'Dòng thời gian', href: '#chapter-1911' },
-  { label: 'Tư liệu', href: '#gallery' },
+  { label: 'Mở đầu', href: '#hero' },
+  { label: 'Dòng thời gian', href: '#chapter-1946' },
+  { label: 'Điện Biên Phủ', href: '#chapter-1954' },
   { label: 'Nghe & Xem', href: '#media' },
   { label: 'Về dự án', href: '#footer' },
 ];
