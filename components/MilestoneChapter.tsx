@@ -121,7 +121,12 @@ export default function MilestoneChapter({ milestone: m }: { milestone: Mileston
           src={m.image}
           alt={m.heading}
           className="m-bgphoto will-transform pointer-events-none absolute inset-0 z-[1] h-full w-full object-cover"
-          style={{ objectPosition: 'center', filter: 'contrast(1.04) brightness(0.9)' }}
+          style={{
+            // neo phần TRÊN của ảnh (gương mặt thường ở nửa trên) — không cắt đầu;
+            // từng mốc có thể tự chỉnh qua `pos` trong data/milestones.ts
+            objectPosition: m.pos ?? 'center 22%',
+            filter: 'contrast(1.04) brightness(0.9)',
+          }}
           onError={(e) => {
             (e.currentTarget as HTMLImageElement).style.display = 'none';
           }}

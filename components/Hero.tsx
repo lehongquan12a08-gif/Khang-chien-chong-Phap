@@ -56,24 +56,24 @@ export default function Hero() {
             src="/images/kc/modau.webp"
             alt=""
             className="hero-bgimg will-transform pointer-events-none absolute inset-0 h-full w-full object-cover"
-            style={{ filter: 'sepia(0.35) contrast(1.06) brightness(0.55)' }}
+            style={{ filter: 'sepia(0.35) contrast(1.06) brightness(0.62)', objectPosition: 'center 18%' }}
           />
-          {/* scrim tối để chữ nổi */}
+          {/* scrim: nhẹ ở trên (giữ rõ gương mặt), đậm dần xuống dưới cho chữ nổi */}
           <div
             className="pointer-events-none absolute inset-0"
             style={{
               background:
-                'radial-gradient(ellipse at 50% 45%, rgba(8,8,8,0.42) 0%, rgba(8,8,8,0.62) 55%, rgba(8,8,8,0.95) 100%)',
+                'linear-gradient(180deg, rgba(8,8,8,0.35) 0%, rgba(8,8,8,0.25) 34%, rgba(8,8,8,0.72) 62%, rgba(8,8,8,0.96) 100%)',
             }}
           />
 
-          {/* sao vàng mờ phía sau chữ */}
-          <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-25">
-            <GoldStar breathe className="h-[52vh] w-[52vh]" />
+          {/* sao vàng mờ phía sau khối chữ (dưới thấp, không chạm gương mặt) */}
+          <div className="pointer-events-none absolute bottom-[4vh] left-1/2 -translate-x-1/2 opacity-20">
+            <GoldStar breathe className="h-[46vh] w-[46vh]" />
           </div>
 
-          {/* khối chữ — từng dòng hiện theo cuộn (cỡ chữ canh để LUÔN lọt khung) */}
-          <div className="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center">
+          {/* khối chữ — neo ĐÁY màn hình để không che gương mặt trong ảnh */}
+          <div className="relative z-10 flex h-full flex-col items-center justify-end px-6 pb-[9vh] text-center">
             <p className="hw-0 will-transform eyebrow mb-6 whitespace-nowrap text-vn-gold-antique opacity-0">
               1946 – 1954 · Chín năm trường kỳ
             </p>

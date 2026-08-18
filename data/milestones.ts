@@ -14,6 +14,8 @@ export interface Milestone {
   symbol: MilestoneSymbol;
   background: string;
   contain?: boolean;
+  /** object-position cho ảnh full-bleed (vd 'center 10%') — mặc định 'center 22%'. */
+  pos?: string;
 }
 
 const BG_DARK = 'linear-gradient(180deg, #080808 0%, #1a140c 50%, #080808 100%)';
@@ -192,6 +194,7 @@ export const MILESTONES: Record<string, Milestone> = {
     image: '/images/kc/y54-a1.webp',
     symbol: 'letter',
     background: BG_DARK,
+    contain: true, // ảnh gốc nhỏ + nhiều nhân vật — hiện trọn khung, không cắt mặt
   },
   soDoCuDiem: {
     id: 'kc-54-sodo',
