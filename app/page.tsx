@@ -17,9 +17,9 @@ import Footer from '@/components/Footer';
 import { MILESTONES } from '@/data/milestones';
 
 /**
- * Bố cục bám SÁT kịch bản docx "Đường lối kháng chiến chống Pháp (1946–1954)":
- * mỗi giai đoạn = [Slide nội dung] → [Hình ảnh] → [Phần giữa: lướt xuống] →
- * [Câu hỏi] → [Phần cuối]. Không thêm màn ngoài kịch bản.
+ * Bố cục bám SÁT kịch bản docx — ảnh của mỗi slide được GỘP vào cùng màn slide
+ * (thẻ H1/H2… gắn trên ảnh). Chỉ giữ riêng các màn điện ảnh: ảnh Bác 1951,
+ * bộ ảnh 56 ngày đêm, màn lá cờ Toàn thắng.
  */
 export default function Home() {
   return (
@@ -42,7 +42,6 @@ export default function Home() {
         />
 
         {/* ═══ GIAI ĐOẠN 1946: TOÀN QUỐC KHÁNG CHIẾN BÙNG NỔ ═══ */}
-        {/* Phần đầu — slide nội dung */}
         <SlideSection
           id="chapter-1946"
           eyebrow="Giai đoạn 1946 · Toàn quốc kháng chiến bùng nổ"
@@ -51,16 +50,18 @@ export default function Home() {
             {
               bullets: [
                 'Pháp liên tiếp gây hấn, lấn chiếm.',
-                '18–19/12/1946: Quyết định phát động toàn quốc kháng chiến. (H1)',
-                '19/12/1946: Toàn quốc kháng chiến bùng nổ. (H2)',
+                '18–19/12/1946: Quyết định phát động toàn quốc kháng chiến.',
+                '19/12/1946: Toàn quốc kháng chiến bùng nổ.',
                 'Đường lối: Toàn dân – Toàn diện – Trường kỳ – Tự lực cánh sinh – Tranh thủ quốc tế.',
                 'Nhân dân cả nước nhất tề đứng lên bảo vệ độc lập.',
               ],
             },
           ]}
+          images={[
+            { src: '/images/kc/y46-h1.webp', tag: 'H1', caption: 'Bút tích "Lời kêu gọi Toàn quốc kháng chiến" của Chủ tịch Hồ Chí Minh' },
+            { src: '/images/kc/y46-h2.webp', tag: 'H2', caption: 'Pháo đài Láng khai hỏa — khoảng 20 giờ, 19/12/1946' },
+          ]}
         />
-        <MilestoneChapter milestone={MILESTONES.loiKeuGoi} />
-        <MilestoneChapter milestone={MILESTONES.phaoDaiLang} />
         {/* Phần giữa — LƯỚT XUỐNG: câu trích nguyên văn, từng vế một màn */}
         <QuoteSection />
         <InteractiveQuestion
@@ -83,11 +84,11 @@ export default function Home() {
           eyebrow="Giai đoạn 1947 – 1949 · Giữ vững căn cứ kháng chiến"
           groups={[
             {
-              title: '1947 — Việt Bắc Thu – Đông (H1)',
+              title: '1947 — Việt Bắc Thu – Đông',
               bullets: [
                 '07/10/1947: Pháp tiến công Việt Bắc.',
                 'Mục tiêu: tiêu diệt đầu não – chủ lực – phá căn cứ.',
-                'Quân dân ta phản công, bẻ gãy các mũi tiến công. (H2)',
+                'Quân dân ta phản công, bẻ gãy các mũi tiến công.',
                 '19–20/12/1947: Pháp rút khỏi Việt Bắc.',
                 '"Đánh nhanh, thắng nhanh" thất bại.',
               ],
@@ -95,17 +96,19 @@ export default function Home() {
             {
               title: '1948 – 1949 — Củng cố và phát triển',
               bullets: [
-                'Giữ vững căn cứ địa Việt Bắc. (H3)',
+                'Giữ vững căn cứ địa Việt Bắc.',
                 'Lực lượng kháng chiến ngày càng trưởng thành.',
                 'Đẩy mạnh chiến tranh du kích, xây dựng hậu phương.',
                 'Pháp buộc phải chuyển sang đánh lâu dài.',
               ],
             },
           ]}
+          images={[
+            { src: '/images/kc/y47-h1.webp', tag: 'H1', caption: 'Lược đồ Chiến dịch Việt Bắc Thu – Đông 1947' },
+            { src: '/images/kc/y47-h2.webp', tag: 'H2', caption: 'Bộ đội pháo binh trên sông Lô' },
+            { src: '/images/kc/y47-h3.webp', tag: 'H3', caption: 'Chủ tịch Hồ Chí Minh và Hội đồng Chính phủ nghe Đại tướng Võ Nguyên Giáp báo cáo chiến sự' },
+          ]}
         />
-        <MilestoneChapter milestone={MILESTONES.vietBac} />
-        <MilestoneChapter milestone={MILESTONES.songLo} />
-        <MilestoneChapter milestone={MILESTONES.cungCo4849} />
         {/* Phần giữa */}
         <WordCascade
           eyebrow="1947 – 1949"
@@ -131,7 +134,7 @@ export default function Home() {
         {/* ═══ GIAI ĐOẠN 1950: BƯỚC NGOẶT CỦA CUỘC KHÁNG CHIẾN ═══ */}
         <SlideSection
           id="chapter-1950"
-          eyebrow="Giai đoạn 1950 · Bước ngoặt của cuộc kháng chiến (H1)"
+          eyebrow="Giai đoạn 1950 · Bước ngoặt của cuộc kháng chiến"
           groups={[
             {
               title: '01/1950 — Bước ngoặt ngoại giao',
@@ -141,7 +144,7 @@ export default function Home() {
               ],
             },
             {
-              title: '16/09 – 14/10/1950 — Chiến dịch Biên giới (H2)',
+              title: '16/09 – 14/10/1950 — Chiến dịch Biên giới',
               bullets: [
                 'Phá thế bao vây của Pháp.',
                 'Khai thông biên giới Việt – Trung.',
@@ -156,9 +159,11 @@ export default function Home() {
               ],
             },
           ]}
+          images={[
+            { src: '/images/kc/y50-h1.webp', tag: 'H1', caption: 'Chủ tịch Hồ Chí Minh tại mặt trận Đông Khê' },
+            { src: '/images/kc/y50-h2.webp', tag: 'H2', caption: 'Lược đồ Chiến dịch Biên giới Thu – Đông 1950' },
+          ]}
         />
-        <MilestoneChapter milestone={MILESTONES.dongKhe} />
-        <MilestoneChapter milestone={MILESTONES.bienGioi} />
         {/* Phần giữa */}
         <WordCascade
           eyebrow="1950"
@@ -181,7 +186,7 @@ export default function Home() {
         {/* ═══ GIAI ĐOẠN 1951–1953: PHÁT TRIỂN THẾ VÀ LỰC ═══ */}
         {/* Phần I. Mở đầu — 1 ảnh lớn */}
         <MilestoneChapter milestone={MILESTONES.theVaLuc} />
-        {/* Phần II. Các mốc thời gian */}
+        {/* Phần II. Các mốc thời gian — slide + ảnh gộp, xen kẽ đúng docx */}
         <SlideSection
           eyebrow="Giai đoạn 1951 – 1953 · Phát triển thế và lực"
           groups={[
@@ -193,6 +198,14 @@ export default function Home() {
                 'Đẩy mạnh xây dựng hậu phương.',
               ],
             },
+          ]}
+          images={[
+            { src: '/images/kc/y51-a1.webp', tag: 'Ảnh 1', caption: 'Đại hội đại biểu toàn quốc lần thứ II của Đảng, năm 1951' },
+          ]}
+        />
+        <SlideSection
+          eyebrow="Giai đoạn 1951 – 1953 · Phát triển thế và lực"
+          groups={[
             {
               title: '1952 — Mở rộng hoạt động quân sự',
               bullets: [
@@ -201,19 +214,12 @@ export default function Home() {
                 'Hậu phương đẩy mạnh sản xuất, chi viện tiền tuyến.',
               ],
             },
-            {
-              title: '1953 — Tạo thế cho bước ngoặt',
-              bullets: [
-                'Tiếp tục giữ và phát triển thế chủ động.',
-                'Hậu phương ngày càng được củng cố.',
-                'Pháp ngày càng gặp khó khăn, chiến tranh ngày càng sa lầy.',
-              ],
-            },
+          ]}
+          images={[
+            { src: '/images/kc/y51-a2.webp', tag: 'Ảnh 2', caption: 'Công tác bảo đảm vũ khí, trang bị kỹ thuật' },
+            { src: '/images/kc/y51-a3.webp', tag: 'Ảnh 3', caption: 'Bộ đội hành quân, chiến đấu' },
           ]}
         />
-        <MilestoneChapter milestone={MILESTONES.daiHoi2} />
-        <MilestoneChapter milestone={MILESTONES.vuKhi52} />
-        <MilestoneChapter milestone={MILESTONES.hanhQuan52} />
         {/* Câu hỏi tương tác (sau Ảnh 2 và 3 — 1952) */}
         <InteractiveQuestion
           question="Ai tạo nên sức mạnh kháng chiến?"
@@ -223,7 +229,22 @@ export default function Home() {
           ]}
           answer="Toàn thể nhân dân. Kháng chiến là sự kết hợp giữa tiền tuyến và hậu phương, giữa quân đội và nhân dân."
         />
-        <MilestoneChapter milestone={MILESTONES.taoThe53} />
+        <SlideSection
+          eyebrow="Giai đoạn 1951 – 1953 · Phát triển thế và lực"
+          groups={[
+            {
+              title: '1953 — Tạo thế cho bước ngoặt',
+              bullets: [
+                'Tiếp tục giữ và phát triển thế chủ động.',
+                'Hậu phương ngày càng được củng cố.',
+                'Pháp ngày càng gặp khó khăn, chiến tranh ngày càng sa lầy.',
+              ],
+            },
+          ]}
+          images={[
+            { src: '/images/kc/y51-a4.webp', tag: 'Ảnh 4', caption: 'Bộ đội, dân công, hậu phương chuẩn bị cho những chiến dịch lớn' },
+          ]}
+        />
         {/* Phần III. Kết luận — LƯỚT XUỐNG (đưa ra ý nghĩa) */}
         <WordCascade
           eyebrow="1951 – 1953 · Kết luận"
@@ -233,7 +254,6 @@ export default function Home() {
         />
 
         {/* ═══ GIAI ĐOẠN 1953–1954: ĐIỆN BIÊN PHỦ ═══ */}
-        {/* Phần I. Mở đầu (dành cho lồng tiếng — ảnh background) */}
         <ClosingText
           id="chapter-1954"
           eyebrow="Giai đoạn 1953 – 1954 · Điện Biên Phủ"
@@ -244,7 +264,6 @@ export default function Home() {
             'Hãy cùng nhìn lại những dấu mốc quan trọng dẫn đến Chiến thắng Điện Biên Phủ năm 1954.',
           ]}
         />
-        {/* Phần II. Các mốc thời gian */}
         <SlideSection
           eyebrow="Điện Biên Phủ"
           groups={[
@@ -256,9 +275,11 @@ export default function Home() {
               ],
             },
           ]}
+          images={[
+            { src: '/images/kc/y54-a1.webp', tag: 'Ảnh 1', caption: 'Quân Pháp xây dựng công sự, cứ điểm' },
+            { src: '/images/kc/y54-a2.webp', tag: 'Ảnh 2', caption: 'Sơ đồ tập đoàn cứ điểm Điện Biên Phủ' },
+          ]}
         />
-        <MilestoneChapter milestone={MILESTONES.cuDiem} />
-        <MilestoneChapter milestone={MILESTONES.soDoCuDiem} />
         <SlideSection
           eyebrow="Điện Biên Phủ"
           groups={[
@@ -270,9 +291,11 @@ export default function Home() {
               ],
             },
           ]}
+          images={[
+            { src: '/images/kc/y54-a3.webp', tag: 'Ảnh 3', caption: 'Pháo binh Việt Nam kéo pháo vào trận địa' },
+            { src: '/images/kc/y54-a4.webp', tag: 'Ảnh 4', caption: 'Quân ta trước giờ chiến đấu' },
+          ]}
         />
-        <MilestoneChapter milestone={MILESTONES.keoPhao} />
-        <MilestoneChapter milestone={MILESTONES.truocGioG} />
         {/* LƯỚT XUỐNG (đưa ra ý chính) */}
         <DateReveal id="kc-54-batdau" parts={['13', '03', '1954']} heading="CHIẾN DỊCH BẮT ĐẦU" />
         <SlideSection
@@ -334,7 +357,6 @@ export default function Home() {
         <MilestoneChapter milestone={MILESTONES.toanThang} />
 
         {/* ═══ KẾT LUẬN VÀ Ý NGHĨA ═══ */}
-        {/* Phần I. Mở đầu — Dấu ấn lịch sử (dành cho lồng tiếng — ảnh background) */}
         <ClosingText
           id="y-nghia"
           eyebrow="Dấu ấn lịch sử · 1946 – 1954"
@@ -344,9 +366,22 @@ export default function Home() {
             'Thắng lợi vang dội của cuộc kháng chiến chống thực dân Pháp không chỉ là một mốc son chói lọi trong lịch sử dân tộc, mà còn mang lại những kết quả và ý nghĩa vô cùng to lớn.',
           ]}
         />
-        {/* Phần II. Các mốc sự kiện trọng tâm */}
-        <MilestoneChapter milestone={MILESTONES.geneve} />
-        <MilestoneChapter milestone={MILESTONES.mienBac} />
+        {/* Phần II. Các mốc sự kiện trọng tâm — slide + 2 ảnh gộp */}
+        <SlideSection
+          eyebrow="Các mốc sự kiện trọng tâm"
+          groups={[
+            {
+              bullets: [
+                '21/07/1954: Hiệp định Giơ-ne-vơ về Đông Dương được ký kết.',
+                '10/10/1954: Giải phóng hoàn toàn miền Bắc (tiếp quản Thủ đô).',
+              ],
+            },
+          ]}
+          images={[
+            { src: '/images/kc/yn-a1.webp', tag: 'Ảnh 1', caption: 'Hiệp định Giơ-ne-vơ được ký kết' },
+            { src: '/images/kc/yn-a2.webp', tag: 'Ảnh 2', caption: 'Miền Bắc hoàn toàn giải phóng — tiếp quản Thủ đô, 10/10/1954' },
+          ]}
+        />
         {/* 5 thành tựu + khẳng định đường lối */}
         <ConclusionSection />
 
