@@ -67,7 +67,8 @@ export default function MilestoneChapter({ milestone: m }: { milestone: Mileston
             {/* text */}
             <div className="order-2 flex-1 text-center md:order-1 md:text-left">
               <p className="eyebrow mb-5 text-vn-gold-antique">{m.eyebrow}</p>
-              <h2 className="m-year will-transform font-serif-hist text-7xl font-black leading-none text-vn-ivory text-glow-gold md:text-8xl">
+              <h2 className="m-year will-transform font-serif-hist text-7xl font-black leading-none text-vn-ivory text-glow-gold md:text-8xl"
+              style={m.year.length > 6 ? { fontSize: 'clamp(38px, 8.5vw, 88px)' } : undefined}>
                 {m.year}
               </h2>
               <h3 className="m-head will-transform mt-4 font-display text-xl font-semibold uppercase tracking-[0.14em] text-vn-ivory md:text-3xl">
@@ -147,7 +148,8 @@ export default function MilestoneChapter({ milestone: m }: { milestone: Mileston
         <div className="relative z-20 flex h-full items-center">
           <div className="max-w-2xl px-6 sm:px-10 md:px-16">
             <p className="eyebrow mb-5 text-vn-gold-antique">{m.eyebrow}</p>
-            <h2 className="m-year will-transform font-serif-hist text-7xl font-black leading-none text-vn-ivory text-glow-gold md:text-8xl">
+            <h2 className="m-year will-transform font-serif-hist text-7xl font-black leading-none text-vn-ivory text-glow-gold md:text-8xl"
+              style={m.year.length > 6 ? { fontSize: 'clamp(38px, 8.5vw, 88px)' } : undefined}>
               {m.year}
             </h2>
             <h3 className="m-head will-transform mt-4 font-display text-xl font-semibold uppercase tracking-[0.14em] text-vn-ivory md:text-3xl">

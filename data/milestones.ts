@@ -40,7 +40,7 @@ export const MILESTONES: Record<string, Milestone> = {
   },
   phaoDaiLang: {
     id: 'kc-46-phaodailang',
-    year: '19.12',
+    year: '19/12/1946',
     eyebrow: 'Khoảng 20 giờ · 19/12/1946 · Hà Nội',
     heading: 'Pháo đài Láng khai hỏa',
     keyText: 'TIẾNG SÚNG MỞ ĐẦU',
@@ -106,7 +106,7 @@ export const MILESTONES: Record<string, Milestone> = {
   },
   bienGioi: {
     id: 'kc-50-biengioi',
-    year: '14.10',
+    year: '14/10/1950',
     eyebrow: '16/09 – 14/10/1950 · Chiến dịch Biên giới',
     heading: 'Khai thông biên giới Việt – Trung',
     keyText: 'PHÁ THẾ BAO VÂY',
@@ -223,7 +223,7 @@ export const MILESTONES: Record<string, Milestone> = {
   },
   truocGioG: {
     id: 'kc-54-tructien',
-    year: '13.03',
+    year: '13/03/1954',
     eyebrow: 'Trước giờ nổ súng',
     heading: 'Quân ta sẵn sàng chiến đấu',
     keyText: 'QUYẾT CHIẾN',
@@ -234,7 +234,7 @@ export const MILESTONES: Record<string, Milestone> = {
   },
   toanThang: {
     id: 'kc-54-toanthang',
-    year: '07.05.1954',
+    year: '07/05/1954',
     eyebrow: 'Lá cờ "Quyết chiến – Quyết thắng" trên nóc hầm De Castries',
     heading: 'Chiến dịch Điện Biên Phủ',
     keyText: 'TOÀN THẮNG',
@@ -248,7 +248,7 @@ export const MILESTONES: Record<string, Milestone> = {
   // ── KẾT QUẢ & Ý NGHĨA ──────────────────────────────────────────────────
   geneve: {
     id: 'kc-yn-geneve',
-    year: '21.07',
+    year: '21/07/1954',
     eyebrow: '21/07/1954 · Giơ-ne-vơ',
     heading: 'Hiệp định Giơ-ne-vơ được ký kết',
     keyText: 'ĐỘC LẬP ĐƯỢC CÔNG NHẬN',
@@ -261,7 +261,7 @@ export const MILESTONES: Record<string, Milestone> = {
   },
   mienBac: {
     id: 'kc-yn-mienbac',
-    year: '10.10',
+    year: '10/10/1954',
     eyebrow: '10/10/1954 · Tiếp quản Thủ đô',
     heading: 'Giải phóng hoàn toàn miền Bắc',
     keyText: 'HÀ NỘI NGÀY VỀ',

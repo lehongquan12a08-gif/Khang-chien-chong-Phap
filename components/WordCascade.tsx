@@ -86,21 +86,26 @@ export default function WordCascade({
         )}
         {words.map((w, i) => {
           const accent = accentWords.includes(w);
-          // cỡ chữ tính theo ĐỘ DÀI cụm — cụm nào (dù nguyên văn dài) cũng nằm
-          // TRỌN một dòng, không "rơi" chữ; cụm ngắn vẫn to kiểu điện ảnh
-          const len = Math.max(6, w.length);
-          const minPx = Math.max(15, Math.min(44, Math.floor(580 / len)));
-          const vwF = Math.min(10, +(165 / len).toFixed(2));
-          const maxPx = Math.max(40, Math.min(185, Math.floor(3200 / len)));
-          const size = `clamp(${minPx}px, ${vwF}vw, ${maxPx}px)`;
+          // Cụm NGẮN: một dòng, cỡ điện ảnh. Cụm DÀI: cho xuống 2 dòng cân đối
+          // (text-wrap: balance) — chữ vẫn to, không bị ép nhỏ/tràn mép.
+          const long = w.length > 16;
+          const style: React.CSSProperties = long
+            ? {
+                fontSize: 'clamp(30px, 5.8vw, 100px)',
+                whiteSpace: 'normal',
+                textWrap: 'balance',
+                maxWidth: '90vw',
+                lineHeight: 1.08,
+              }
+            : { fontSize: 'clamp(38px, 9vw, 170px)', whiteSpace: 'nowrap' };
           return (
             <h2
               key={`${w}-${i}`}
               className={[
-                'cascade-word will-transform headline-mega absolute select-none whitespace-nowrap text-center',
+                'cascade-word will-transform headline-mega absolute select-none text-center',
                 accent ? 'text-vn-red' : 'text-vn-ivory',
               ].join(' ')}
-              style={{ fontSize: size }}
+              style={style}
             >
               {w}
             </h2>

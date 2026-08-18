@@ -56,7 +56,7 @@ export default function DateReveal({ id, parts, heading, sub, background = '#080
           <div className="flex items-baseline gap-3 md:gap-6">
             {parts.map((p, i) => (
               <span key={i} className="flex items-baseline gap-3 md:gap-6">
-                {i > 0 && <span className="headline-mega text-vn-gold/70">·</span>}
+                {i > 0 && <span className="headline-mega text-vn-gold/70">/</span>}
                 <span
                   className={[
                     `dp-${i} will-transform headline-mega opacity-0`,

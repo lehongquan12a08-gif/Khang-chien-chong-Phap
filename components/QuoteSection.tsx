@@ -58,16 +58,19 @@ export default function QuoteSection() {
         </p>
 
         {CLAUSES.map((c, i) => {
-          // vế dài → cỡ chữ nhỏ lại để luôn TRỌN một dòng (không rơi chữ)
-          const size = c.text.length > 28 ? 'clamp(19px, 3.4vw, 64px)' : 'clamp(28px, 5.2vw, 96px)';
+          // vế dài → xuống 2 dòng cân đối, chữ vẫn to (không ép nhỏ/tràn mép)
+          const long = c.text.length > 22;
+          const style: React.CSSProperties = long
+            ? { fontSize: 'clamp(26px, 4.6vw, 82px)', whiteSpace: 'normal', textWrap: 'balance', maxWidth: '88vw', lineHeight: 1.12 }
+            : { fontSize: 'clamp(30px, 5.4vw, 98px)', whiteSpace: 'nowrap' };
           return (
             <h2
               key={i}
               className={[
-                'qline will-transform absolute select-none whitespace-nowrap text-center font-serif-hist font-black leading-tight opacity-0',
+                'qline will-transform absolute select-none text-center font-serif-hist font-black opacity-0',
                 c.accent ? 'text-vn-red' : 'text-vn-charcoal',
               ].join(' ')}
-              style={{ fontSize: size }}
+              style={style}
             >
               {c.text}
             </h2>
