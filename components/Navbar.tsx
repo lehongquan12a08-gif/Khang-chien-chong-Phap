@@ -68,7 +68,7 @@ export default function Navbar() {
         >
           <span className="inline-block h-2 w-2 rotate-45 bg-vn-gold transition-transform duration-500 group-hover:rotate-[135deg]" />
           <span className="font-display text-[12.5px] font-semibold uppercase tracking-[0.16em] text-vn-ivory sm:text-[15px] sm:tracking-[0.28em]">
-            Hành trình theo chân Bác
+            Kháng chiến chống Pháp
           </span>
         </a>
 

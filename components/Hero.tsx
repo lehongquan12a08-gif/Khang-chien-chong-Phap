@@ -30,13 +30,15 @@ export default function Hero() {
         // từng chữ hiện và Ở LẠI
         .call(playChime, [0], 0.06)
         .fromTo(q('.w-1'), { opacity: 0, y: 44 }, { opacity: 1, y: 0, duration: 0.05 }, 0.06)
-        .call(playChime, [1], 0.17)
-        .fromTo(q('.w-2'), { opacity: 0, y: 44 }, { opacity: 1, y: 0, duration: 0.05 }, 0.17)
-        .call(playChime, [2], 0.28)
-        .fromTo(q('.w-3'), { opacity: 0, y: 44 }, { opacity: 1, y: 0, duration: 0.05 }, 0.28)
-        .call(playChime, [3], 0.42)
-        .fromTo(q('.w-years'), { opacity: 0, scale: 1.2 }, { opacity: 1, scale: 1, duration: 0.05 }, 0.42)
-        .fromTo(q('.w-tagline'), { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.05 }, 0.52)
+        .call(playChime, [1], 0.15)
+        .fromTo(q('.w-2a'), { opacity: 0, y: 34 }, { opacity: 1, y: 0, duration: 0.05 }, 0.15)
+        .call(playChime, [2], 0.24)
+        .fromTo(q('.w-2'), { opacity: 0, y: 44 }, { opacity: 1, y: 0, duration: 0.05 }, 0.24)
+        .call(playChime, [3], 0.33)
+        .fromTo(q('.w-3'), { opacity: 0, y: 44 }, { opacity: 1, y: 0, duration: 0.05 }, 0.33)
+        .call(playChime, [4], 0.45)
+        .fromTo(q('.w-years'), { opacity: 0, scale: 1.2 }, { opacity: 1, scale: 1, duration: 0.05 }, 0.45)
+        .fromTo(q('.w-tagline'), { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.05 }, 0.55)
         // giữ trọn khung, rồi mờ dần nhường chương mở đầu
         .to(q('.hero-stage'), { opacity: 0, duration: 0.08 }, 0.9)
         .to(q('.hero-bgimg'), { scale: 1.1, ease: 'none', duration: 0.02 }, 0.98);
@@ -70,16 +72,28 @@ export default function Hero() {
             <GoldStar breathe className="h-[52vh] w-[52vh]" />
           </div>
 
-          {/* khối chữ — từng dòng hiện theo cuộn */}
+          {/* khối chữ — từng dòng hiện theo cuộn (cỡ chữ canh để LUÔN lọt khung) */}
           <div className="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center">
-            <p className="w-1 will-transform eyebrow mb-7 text-vn-gold-antique opacity-0">
+            <p className="w-1 will-transform eyebrow mb-6 text-vn-gold-antique opacity-0">
               1946 – 1954 · Chín năm trường kỳ
             </p>
-            <h1 className="flex flex-col items-center gap-1 leading-none">
-              <span className="w-2 will-transform headline-mega text-vn-ivory opacity-0">
-                ĐƯỜNG LỐI KHÁNG CHIẾN
+            <h1 className="flex flex-col items-center leading-none">
+              <span
+                className="w-2a will-transform font-display font-semibold uppercase tracking-[0.3em] text-vn-ivory/90 opacity-0"
+                style={{ fontSize: 'clamp(22px, 3.4vw, 54px)' }}
+              >
+                Đường lối
               </span>
-              <span className="w-3 will-transform headline-mega text-vn-red opacity-0" style={{ textShadow: '0 0 44px rgba(218,37,29,0.5)' }}>
+              <span
+                className="w-2 will-transform font-serif-hist font-black uppercase text-vn-ivory opacity-0"
+                style={{ fontSize: 'clamp(44px, 7.2vw, 132px)', lineHeight: 1.02 }}
+              >
+                KHÁNG CHIẾN
+              </span>
+              <span
+                className="w-3 will-transform font-serif-hist font-black uppercase text-vn-red opacity-0"
+                style={{ fontSize: 'clamp(44px, 7.2vw, 132px)', lineHeight: 1.02, textShadow: '0 0 44px rgba(218,37,29,0.5)' }}
+              >
                 CHỐNG PHÁP
               </span>
             </h1>

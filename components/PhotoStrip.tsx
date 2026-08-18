@@ -37,8 +37,9 @@ export default function PhotoStrip({ id, eyebrow, images, keyText, background = 
       const slot = span / n;
       images.forEach((_, i) => {
         const at = 0.04 + i * slot;
-        tl.fromTo(q(`.ps-${i}`), { opacity: 0, scale: 1.04 }, { opacity: 1, scale: 1, duration: slot * 0.3 }, at);
-        tl.to(q(`.ps-${i}`), { opacity: 0, scale: 0.98, duration: slot * 0.25 }, at + slot * 0.72);
+        // hiện nhanh (25% slot) → GIỮ lâu (tới 80%) → nhường ảnh kế
+        tl.fromTo(q(`.ps-${i}`), { opacity: 0, scale: 1.04 }, { opacity: 1, scale: 1, duration: slot * 0.25 }, at);
+        tl.to(q(`.ps-${i}`), { opacity: 0, scale: 0.98, duration: slot * 0.2 }, at + slot * 0.8);
       });
       if (keyText) {
         tl.call(playChime, [0], 0.8);
