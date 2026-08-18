@@ -45,7 +45,7 @@ export default function Home() {
         <WordCascade
           id="kc-duongloi"
           eyebrow="Đường lối kháng chiến"
-          words={['TOÀN DÂN', 'TOÀN DIỆN', 'TRƯỜNG KỲ', 'TỰ LỰC CÁNH SINH', 'TRANH THỦ QUỐC TẾ']}
+          words={['TOÀN DÂN', 'TOÀN DIỆN', 'TRƯỜNG KỲ', 'TỰ LỰC CÁNH SINH', 'TRANH THỦ', 'QUỐC TẾ']}
           perWordVh={70}
         />
         <QuoteSection />

@@ -86,13 +86,22 @@ export default function WordCascade({
         )}
         {words.map((w, i) => {
           const accent = accentWords.includes(w);
+          // cụm càng dài → cỡ chữ càng nhỏ, để cả cụm luôn nằm TRỌN một dòng
+          // (không "rơi" chữ cuối xuống dòng dưới)
+          const size =
+            w.length > 18
+              ? 'clamp(26px, 4.6vw, 84px)'
+              : w.length > 12
+                ? 'clamp(32px, 6.4vw, 118px)'
+                : undefined; // ngắn → giữ cỡ headline-mega mặc định
           return (
             <h2
               key={`${w}-${i}`}
               className={[
-                'cascade-word will-transform headline-mega absolute select-none text-center',
+                'cascade-word will-transform headline-mega absolute select-none whitespace-nowrap text-center',
                 accent ? 'text-vn-red' : 'text-vn-ivory',
               ].join(' ')}
+              style={size ? { fontSize: size } : undefined}
             >
               {w}
             </h2>

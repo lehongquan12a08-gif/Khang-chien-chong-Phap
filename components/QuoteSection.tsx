@@ -63,7 +63,7 @@ export default function QuoteSection() {
                 'qline block',
                 g.accent ? 'text-vn-red' : 'text-vn-charcoal',
               ].join(' ')}
-              style={{ fontSize: 'clamp(40px, 7vw, 110px)' }}
+              style={{ fontSize: 'clamp(24px, 4.1vw, 68px)' }}
             >
               {g.text}
             </span>
