@@ -43,11 +43,14 @@ export default function InteractiveQuestion({
 
   const goOn = () => {
     if (!continueTo) return;
-    const el = document.querySelector(continueTo);
+    const el = document.querySelector(continueTo) as HTMLElement | null;
     if (!el) return;
+    // "click chuyển màn hình" (đúng kịch bản): nhảy thẳng tới GIỮA section đích
+    // để cảnh (lá cờ + TOÀN THẮNG) hiện trọn — scrub mượt phần còn lại.
+    const y = el.offsetTop + Math.max(0, (el.offsetHeight - window.innerHeight) * 0.55);
     const lenis = getLenis();
-    if (lenis) lenis.scrollTo(el as HTMLElement, { duration: 1.4 });
-    else (el as HTMLElement).scrollIntoView({ behavior: 'smooth' });
+    if (lenis) lenis.scrollTo(y, { immediate: true, force: true });
+    else window.scrollTo(0, y);
   };
 
   return (

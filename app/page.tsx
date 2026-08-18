@@ -112,7 +112,7 @@ export default function Home() {
         <MilestoneChapter milestone={MILESTONES.cungCo4849} />
         <WordCascade
           eyebrow="1947 – 1949"
-          words={['GIỮ VỮNG VIỆT BẮC', 'LỰC LƯỢNG', 'TRƯỞNG THÀNH']}
+          words={['GIỮ VỮNG VIỆT BẮC', 'CĂN CỨ CỦNG CỐ', 'LỰC LƯỢNG TRƯỞNG THÀNH']}
           perWordVh={70}
         />
         <InteractiveQuestion
@@ -127,6 +127,13 @@ export default function Home() {
           words={['"ĐÁNH NHANH, THẮNG NHANH"', 'THẤT BẠI']}
           accentWords={['THẤT BẠI']}
           perWordVh={75}
+        />
+        <ClosingText
+          eyebrow="Việt Bắc 1947 – 1949"
+          paragraphs={[
+            'Đập tan chiến lược "đánh nhanh, thắng nhanh" của thực dân Pháp.',
+            'Tạo thế và lực cho cuộc kháng chiến lâu dài.',
+          ]}
         />
 
         {/* ══ GIAI ĐOẠN 1950 · BƯỚC NGOẶT CỦA CUỘC KHÁNG CHIẾN ══ */}
@@ -173,6 +180,13 @@ export default function Home() {
         <WordCascade
           words={['TỪ PHÒNG NGỰ', 'ĐẾN CHỦ ĐỘNG', 'TIẾN CÔNG']}
           perWordVh={70}
+        />
+        <ClosingText
+          eyebrow="Biên giới Thu – Đông 1950"
+          paragraphs={[
+            'Quân sự thắng lợi cùng ngoại giao mở rộng — kháng chiến bước sang thế chủ động.',
+            'Đánh dấu bước trưởng thành vượt bậc của lực lượng kháng chiến, tạo thế và lực cho những thắng lợi lớn tiếp theo.',
+          ]}
         />
 
         {/* ══ GIAI ĐOẠN 1951–1953 · PHÁT TRIỂN THẾ VÀ LỰC ══ */}
@@ -258,14 +272,14 @@ export default function Home() {
         />
         <MilestoneChapter milestone={MILESTONES.cuDiem} />
         <MilestoneChapter milestone={MILESTONES.soDoCuDiem} />
+        <MilestoneChapter milestone={MILESTONES.keoPhao} />
+        <MilestoneChapter milestone={MILESTONES.truocGioG} />
+        {/* LƯỚT XUỐNG → ý chính, đúng vị trí trong kịch bản */}
         <DateReveal
           id="kc-54-batdau"
           parts={['13', '03', '1954']}
           heading="CHIẾN DỊCH BẮT ĐẦU"
-          sub="Những trận đánh đầu tiên chính thức nổ súng."
         />
-        <MilestoneChapter milestone={MILESTONES.keoPhao} />
-        <MilestoneChapter milestone={MILESTONES.truocGioG} />
         <PhotoStrip
           eyebrow="13/03 → 07/05/1954 · 56 ngày đêm · Hàng chục vạn người cùng hướng về Điện Biên Phủ"
           images={[
@@ -292,6 +306,14 @@ export default function Home() {
         <MilestoneChapter milestone={MILESTONES.toanThang} />
 
         {/* ══ KẾT LUẬN & Ý NGHĨA ══ */}
+        <ClosingText
+          eyebrow="Dấu ấn lịch sử · 1946 – 1954"
+          bgImage="/images/kc/yn-dbp.webp"
+          paragraphs={[
+            'Trải qua 9 năm gian khổ với bao hy sinh, mất mát — từ mùa đông năm 1946 khói lửa tại Thủ đô Hà Nội đến mùa xuân năm 1954 rực rỡ tại lòng chảo Điện Biên — dân tộc Việt Nam đã viết nên một bản anh hùng ca bất diệt.',
+            'Thắng lợi vang dội của cuộc kháng chiến chống thực dân Pháp không chỉ là một mốc son chói lọi trong lịch sử dân tộc, mà còn mang lại những kết quả và ý nghĩa vô cùng to lớn.',
+          ]}
+        />
         <MilestoneChapter milestone={MILESTONES.geneve} />
         <MilestoneChapter milestone={MILESTONES.mienBac} />
         <ConclusionSection />
