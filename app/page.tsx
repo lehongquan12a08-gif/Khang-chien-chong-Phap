@@ -9,7 +9,7 @@ import SlideSection from '@/components/SlideSection';
 import ClosingText from '@/components/ClosingText';
 import MilestoneChapter from '@/components/MilestoneChapter';
 import InteractiveQuestion from '@/components/InteractiveQuestion';
-import PhotoStrip from '@/components/PhotoStrip';
+import FiftySixDays from '@/components/FiftySixDays';
 import QuoteSection from '@/components/QuoteSection';
 import ConclusionSection from '@/components/ConclusionSection';
 import MediaSection from '@/components/MediaSection';
@@ -298,29 +298,8 @@ export default function Home() {
         />
         {/* LƯỚT XUỐNG (đưa ra ý chính) */}
         <DateReveal id="kc-54-batdau" parts={['13', '03', '1954']} heading="CHIẾN DỊCH BẮT ĐẦU" />
-        <SlideSection
-          eyebrow="Điện Biên Phủ"
-          groups={[
-            {
-              title: '13/03 → 07/05/1954 — 56 ngày đêm',
-              bullets: [
-                'Bộ đội, dân công, thanh niên xung phong vượt núi, băng rừng.',
-                'Vận chuyển lương thực, vũ khí, đạn dược ra mặt trận.',
-                'Ba đợt tiến công từng bước phá vỡ tập đoàn cứ điểm.',
-              ],
-            },
-          ]}
-        />
-        <PhotoStrip
-          eyebrow="Hàng chục vạn người cùng hướng về Điện Biên Phủ"
-          images={[
-            { src: '/images/kc/d56-1.webp', caption: 'Bộ đội kéo pháo vào trận địa' },
-            { src: '/images/kc/d56-2.webp', caption: 'Công tác giao thông vận tải' },
-            { src: '/images/kc/d56-3.webp', caption: 'Người dân vận chuyển lương thực ra mặt trận' },
-            { src: '/images/kc/d56-4.webp', caption: 'Thanh niên xung phong mở đường' },
-            { src: '/images/kc/d56-5.webp', caption: 'Đội quân xe thồ lên Điện Biên Phủ' },
-          ]}
-        />
+        {/* 56 NGÀY ĐÊM — bộ đếm ngày chạy theo cuộn + ảnh tư liệu thay nhau làm nền */}
+        <FiftySixDays id="kc-54-56ngaydem" />
         {/* LƯỚT XUỐNG (đưa ra ý chính) */}
         <WordCascade
           eyebrow="56 ngày đêm"
