@@ -173,19 +173,21 @@ export default function Home() {
           accentWords={['DIỆT VIỆN']}
           perWordVh={75}
         />
+        {/* Phần giữa (LƯỚT XUỐNG): Quân sự thắng lợi + Ngoại giao mở rộng → thế chủ động */}
+        <WordCascade
+          eyebrow="1950 · Thế trận đổi chiều"
+          words={['QUÂN SỰ THẮNG LỢI', 'NGOẠI GIAO MỞ RỘNG', 'TỪ PHÒNG NGỰ', 'SANG THẾ CHỦ ĐỘNG']}
+          accentWords={['SANG THẾ CHỦ ĐỘNG']}
+          perWordVh={70}
+        />
         <InteractiveQuestion
           question="Tại sao Chiến thắng Biên giới năm 1950 được xem là bước ngoặt của cuộc kháng chiến, chứ không chỉ là một chiến thắng quân sự?"
           answer="Bởi vì chiến thắng này đã làm thay đổi thế trận của cả cuộc chiến: thế cô lập bị phá vỡ về ngoại giao, biên giới được khai thông, căn cứ được mở rộng — từ phòng ngự đến giành quyền chủ động."
         />
-        <WordCascade
-          words={['TỪ PHÒNG NGỰ', 'ĐẾN CHỦ ĐỘNG', 'TIẾN CÔNG']}
-          perWordVh={70}
-        />
         <ClosingText
           eyebrow="Biên giới Thu – Đông 1950"
           paragraphs={[
-            'Quân sự thắng lợi cùng ngoại giao mở rộng — kháng chiến bước sang thế chủ động.',
-            'Đánh dấu bước trưởng thành vượt bậc của lực lượng kháng chiến, tạo thế và lực cho những thắng lợi lớn tiếp theo.',
+            'Đánh dấu bước trưởng thành vượt bậc của lực lượng kháng chiến — tạo thế và lực cho những thắng lợi lớn tiếp theo.',
           ]}
         />
 
@@ -233,12 +235,12 @@ export default function Home() {
           answer="Kháng chiến là sự kết hợp giữa tiền tuyến và hậu phương, giữa quân đội và nhân dân. Người dân không chỉ trực tiếp tham gia chiến đấu mà còn đóng góp lương thực, nhân lực và vật lực cho tiền tuyến."
         />
         <MilestoneChapter milestone={MILESTONES.taoThe53} />
-        <ClosingText
-          eyebrow="1951 – 1953"
-          paragraphs={[
-            'Từ năm 1951 đến 1953, cuộc kháng chiến không chỉ được duy trì mà còn từng bước phát triển về cả thế và lực.',
-            'Thế và lực của ta ngày càng được củng cố — tạo tiền đề cho bước ngoặt 1953–1954.',
-          ]}
+        {/* KẾT LUẬN (LƯỚT XUỐNG — đưa ra ý nghĩa) */}
+        <WordCascade
+          eyebrow="1951 – 1953 · Kết luận"
+          words={['THẾ VÀ LỰC', 'NGÀY CÀNG CỦNG CỐ', 'TẠO TIỀN ĐỀ', 'BƯỚC NGOẶT 1953–1954']}
+          accentWords={['BƯỚC NGOẶT 1953–1954']}
+          perWordVh={70}
         />
 
         {/* ══ 1953–1954 · ĐIỆN BIÊN PHỦ ══ */}
@@ -289,7 +291,13 @@ export default function Home() {
             { src: '/images/kc/d56-4.webp', caption: 'Thanh niên xung phong mở đường' },
             { src: '/images/kc/d56-5.webp', caption: 'Đội quân xe thồ lên Điện Biên Phủ' },
           ]}
-          keyText="HẬU PHƯƠNG LỚN — TIỀN TUYẾN LỚN"
+        />
+        {/* LƯỚT XUỐNG (đưa ra ý chính) */}
+        <WordCascade
+          eyebrow="56 ngày đêm"
+          words={['HẬU PHƯƠNG LỚN', 'TIỀN TUYẾN LỚN']}
+          accentWords={['TIỀN TUYẾN LỚN']}
+          perWordVh={75}
         />
         <InteractiveQuestion
           question="Sau 56 ngày đêm, điều gì đã xảy ra tại Điện Biên Phủ?"
