@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { gsap, useGSAP } from '@/lib/gsap';
 import { playChime } from '@/lib/uiSound';
 
@@ -35,9 +35,75 @@ export default function SlideSection({ id, eyebrow, title, groups, images = [], 
   const rows = groups.reduce((n, g) => n + (g.title ? 1 : 0) + g.bullets.length, 0) + (title ? 1 : 0);
   const heightVh = 130 + rows * 26 + images.length * 16;
 
+  // ĐIỆN THOẠI: slide KHÔNG ghim (nội dung dài hơn màn hình sẽ bị cắt nếu ghim)
+  // — chảy tự nhiên, từng dòng/ảnh hiện khi lướt tới. Desktop giữ kiểu ghim.
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 767px)');
+    const on = () => setIsMobile(mq.matches);
+    on();
+    mq.addEventListener('change', on);
+    return () => mq.removeEventListener('change', on);
+  }, []);
+
+  // MOBILE: reveal bằng IntersectionObserver thuần (không GSAP) — dòng/ảnh
+  // hiện dần khi lướt tới, hoạt động với mọi kiểu cuộn.
+  useEffect(() => {
+    if (!isMobile || !root.current) return;
+    const els = [
+      ...root.current.querySelectorAll<HTMLElement>('.sl-row, .sl-img, .sl-line'),
+    ];
+    for (const el of els) {
+      el.style.transition = 'opacity 0.55s ease, transform 0.55s ease';
+      if (el.classList.contains('sl-line')) el.style.transform = 'scaleX(0)';
+      else if (el.classList.contains('sl-img')) el.style.transform = 'translateY(26px)';
+      else el.style.transform = 'translateX(-20px)';
+    }
+    const pending = new Set<HTMLElement>(els);
+    const reveal = (el: HTMLElement) => {
+      if (!pending.has(el)) return;
+      pending.delete(el);
+      el.style.opacity = '1';
+      el.style.transform = el.classList.contains('sl-line') ? 'scaleX(1)' : 'none';
+      io.unobserve(el);
+    };
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) if (e.isIntersecting) reveal(e.target as HTMLElement);
+      },
+      { rootMargin: '0px 0px -8% 0px' }
+    );
+    els.forEach((el) => io.observe(el));
+    // Fallback theo sự kiện cuộn — phòng webview không bắn IO đều
+    let lastCheck = 0;
+    const onScroll = () => {
+      const now = Date.now();
+      if (now - lastCheck < 120 || pending.size === 0) return;
+      lastCheck = now;
+      const vh = window.innerHeight;
+      for (const el of [...pending]) {
+        const r = el.getBoundingClientRect();
+        if (r.top < vh * 0.94 && r.bottom > 0) reveal(el);
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    return () => {
+      io.disconnect();
+      window.removeEventListener('scroll', onScroll);
+      for (const el of els) {
+        el.style.transition = '';
+        el.style.transform = '';
+        el.style.opacity = '';
+      }
+    };
+  }, [isMobile]);
+
   useGSAP(
     () => {
       const q = gsap.utils.selector(root);
+      if (isMobile) return; // mobile dùng IntersectionObserver ở trên
+
       const tl = gsap.timeline({
         scrollTrigger: { trigger: root.current, start: 'top top', end: 'bottom bottom', scrub: 1 },
       });
@@ -61,12 +127,23 @@ export default function SlideSection({ id, eyebrow, title, groups, images = [], 
       tl.fromTo(q('.sl-imgcol'), { y: 34 }, { y: -34, ease: 'none', duration: 0.94 }, 0.03);
       tl.to(q('.sl-stage'), { opacity: 1, duration: 0.01 }, 0.99); // đệm tới ~1
     },
-    { scope: root }
+    { scope: root, dependencies: [isMobile], revertOnUpdate: true }
   );
 
   return (
-    <section id={id} ref={root} className="relative" style={{ height: `${heightVh}vh`, background }}>
-      <div className="sticky top-0 flex h-screen items-center overflow-hidden">
+    <section
+      id={id}
+      ref={root}
+      className="relative"
+      style={{ height: isMobile ? 'auto' : `${heightVh}vh`, background }}
+    >
+      <div
+        className={
+          isMobile
+            ? 'relative overflow-hidden py-24'
+            : 'sticky top-0 flex h-screen items-center overflow-hidden'
+        }
+      >
         {backgroundImage && (
           <>
             <div
