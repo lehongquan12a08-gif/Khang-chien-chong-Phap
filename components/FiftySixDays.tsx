@@ -140,7 +140,7 @@ export default function FiftySixDays({ id }: { id?: string }) {
               {PHASES.map((p, i) => (
                 <span
                   key={i}
-                  className={`ph56-${i} font-body text-[11px] uppercase tracking-[0.2em] text-vn-gold opacity-20 md:text-[12.5px]`}
+                  className={`ph56-${i} font-body text-[12px] uppercase tracking-[0.2em] text-vn-gold opacity-20 md:text-[14px]`}
                 >
                   ◆ {p.label}
                 </span>
@@ -148,11 +148,11 @@ export default function FiftySixDays({ id }: { id?: string }) {
             </div>
 
             {/* các ý của slide */}
-            <ul className="mt-8 flex max-w-xl flex-col gap-3">
+            <ul className="mt-8 flex max-w-2xl flex-col gap-3">
               {BULLETS.map((b, i) => (
                 <li key={i} className={`b56-${i} will-transform flex items-start gap-3 opacity-0`}>
                   <span className="mt-[8px] h-[7px] w-[7px] shrink-0 rotate-45 bg-vn-gold-antique/80" />
-                  <span className="text-pretty font-body text-[13.5px] leading-relaxed text-vn-ivory/90 md:text-[16px]">{b}</span>
+                  <span className="text-pretty font-body text-[15px] leading-relaxed text-vn-ivory/95 md:text-[length:clamp(19px,1.25vw,24px)]">{b}</span>
                 </li>
               ))}
             </ul>

@@ -77,7 +77,7 @@ export default function MilestoneChapter({ milestone: m }: { milestone: Mileston
               <p className="m-key will-transform mt-6 font-display text-2xl font-bold uppercase tracking-[0.16em] text-vn-gold md:text-4xl">
                 {m.keyText}
               </p>
-              <p className="m-cap will-transform mx-auto mt-7 max-w-xl font-body text-base leading-relaxed text-vn-ivory/75 md:mx-0 md:text-lg">
+              <p className="m-cap will-transform mx-auto mt-7 max-w-2xl font-body text-base leading-relaxed text-vn-ivory/80 md:mx-0 md:text-[length:clamp(19px,1.15vw,22px)]">
                 {m.caption}
               </p>
             </div>
@@ -158,7 +158,7 @@ export default function MilestoneChapter({ milestone: m }: { milestone: Mileston
             <p className="m-key will-transform mt-6 font-display text-2xl font-bold uppercase tracking-[0.16em] text-vn-gold md:text-4xl">
               {m.keyText}
             </p>
-            <p className="m-cap will-transform mt-7 max-w-xl text-pretty font-body text-base leading-relaxed text-vn-ivory/75 md:text-lg">
+            <p className="m-cap will-transform mt-7 max-w-2xl text-pretty font-body text-base leading-relaxed text-vn-ivory/80 md:text-[length:clamp(19px,1.15vw,22px)]">
               {m.caption}
             </p>
           </div>

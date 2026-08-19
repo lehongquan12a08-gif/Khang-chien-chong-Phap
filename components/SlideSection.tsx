@@ -231,7 +231,7 @@ export default function SlideSection({ id, eyebrow, title, groups, images = [], 
                   {g.bullets.map((b, bi) => (
                     <li key={bi} className="sl-row will-transform flex items-start gap-3 opacity-0">
                       <span className="mt-[9px] h-[7px] w-[7px] shrink-0 rotate-45 bg-vn-gold-antique/80" />
-                      <span className="text-pretty font-body text-[16px] leading-relaxed text-vn-ivory/90 md:text-[length:clamp(19px,1.2vw,23px)]">
+                      <span className="text-pretty font-body text-[17px] leading-relaxed text-vn-ivory/95 md:text-[length:clamp(21px,1.45vw,28px)]">
                         {b}
                       </span>
                     </li>
@@ -291,23 +291,23 @@ export default function SlideSection({ id, eyebrow, title, groups, images = [], 
                 <SmartTitle text={title} />
               </h2>
             )}
-            <div className="flex flex-col gap-7">
+            <div className="flex flex-col gap-6">
               {groups.map((g, gi) => (
                 <div key={gi}>
                   {g.title && (
-                    <h3 className="sl-row sl-group will-transform mb-4 text-pretty font-display text-[22px] font-semibold uppercase leading-snug tracking-[0.05em] text-vn-gold opacity-0 md:text-[length:clamp(32px,2.6vw,50px)]">
+                    <h3 className="sl-row sl-group will-transform mb-3 text-pretty font-display text-[22px] font-semibold uppercase leading-snug tracking-[0.05em] text-vn-gold opacity-0 md:text-[length:clamp(32px,2.6vw,50px)]">
                       <SmartTitle text={g.title} />
                     </h3>
                   )}
-                  <ul className="flex flex-col gap-3.5">
+                  <ul className="flex flex-col gap-3">
                     {g.bullets.map((b, bi) => (
                       <li key={bi} className="sl-row will-transform flex items-start gap-3.5 opacity-0">
-                        <span className={`mt-[13px] h-[8px] w-[8px] shrink-0 rotate-45 ${g.accent ? 'bg-vn-red' : 'bg-vn-gold-antique/80'}`} />
+                        <span className={`mt-[14px] h-[8px] w-[8px] shrink-0 rotate-45 ${g.accent ? 'bg-vn-red' : 'bg-vn-gold-antique/80'}`} />
                         <span
                           className={
                             g.accent
-                              ? 'text-pretty font-body text-[16.5px] font-semibold leading-relaxed text-vn-red md:text-[length:clamp(21px,1.3vw,25px)]'
-                              : 'text-pretty font-body text-[16px] leading-relaxed text-vn-ivory/90 md:text-[length:clamp(20px,1.25vw,24px)]'
+                              ? 'text-pretty font-body text-[17px] font-semibold leading-relaxed text-vn-red md:text-[length:clamp(22px,1.5vw,29px)]'
+                              : 'text-pretty font-body text-[17px] leading-relaxed text-vn-ivory/95 md:text-[length:clamp(21px,1.45vw,28px)]'
                           }
                         >
                           {b}

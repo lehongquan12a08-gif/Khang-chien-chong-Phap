@@ -120,9 +120,9 @@ export default function ConclusionSection() {
               5 thành tựu <span className="text-vn-gold text-glow-gold">lịch sử</span>
             </h2>
           </div>
-          <div className="cn-line gold-line mx-auto mb-8 mt-6 w-36 origin-center" style={{ transform: 'scaleX(0)' }} />
+          <div className="cn-line gold-line mx-auto mb-6 mt-5 w-36 origin-center" style={{ transform: 'scaleX(0)' }} />
 
-          <ol className="flex flex-col gap-4 md:gap-5">
+          <ol className="flex flex-col gap-3.5 md:gap-4">
             {ACHIEVEMENTS.map((a, i) => (
               <li
                 key={i}
@@ -131,14 +131,14 @@ export default function ConclusionSection() {
                 <span className="font-display text-3xl font-bold leading-none text-vn-gold/60 md:text-4xl">
                   {String(i + 1).padStart(2, '0')}
                 </span>
-                <p className="text-pretty pt-0.5 font-body text-sm leading-relaxed text-vn-ivory/85 md:text-lg">
+                <p className="text-pretty pt-0.5 font-body text-sm leading-relaxed text-vn-ivory/90 md:text-[length:clamp(18px,1.05vw,20px)]">
                   {a}
                 </p>
               </li>
             ))}
           </ol>
 
-          <div className="cn-final cn-reveal will-transform mt-8 border border-vn-gold-antique/30 bg-[rgba(218,37,29,0.06)] p-5 text-center opacity-0 md:p-7">
+          <div className="cn-final cn-reveal will-transform mt-6 border border-vn-gold-antique/30 bg-[rgba(218,37,29,0.06)] p-5 text-center opacity-0 md:p-6">
             <p className="text-balance font-body text-base leading-relaxed text-vn-ivory/90 md:text-xl">
               Thắng lợi lịch sử này đã khẳng định tính đúng đắn ngời sáng của đường lối
               kháng chiến do Đảng ta đề ra:

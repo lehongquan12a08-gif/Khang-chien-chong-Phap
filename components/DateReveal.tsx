@@ -97,7 +97,7 @@ export default function DateReveal({ id, parts, heading, sub, lines = [], backgr
                 <p
                   key={i}
                   className={[
-                    `d-line-${i} will-transform text-balance font-display text-lg font-semibold uppercase leading-snug tracking-[0.06em] opacity-0 md:text-3xl`,
+                    `d-line-${i} will-transform text-balance font-display text-lg font-semibold uppercase leading-snug tracking-[0.06em] opacity-0 md:text-[length:clamp(30px,2vw,38px)]`,
                     l.accent ? 'text-vn-red' : 'text-vn-ivory',
                   ].join(' ')}
                   style={l.accent ? { textShadow: '0 0 34px rgba(218,37,29,0.4)' } : undefined}
