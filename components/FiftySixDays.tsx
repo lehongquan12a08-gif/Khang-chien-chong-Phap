@@ -115,7 +115,8 @@ export default function FiftySixDays({ id }: { id?: string }) {
           />
 
           {/* nội dung */}
-          <div className="relative z-10 flex h-full flex-col justify-center px-6 md:px-16">
+          {/* pb chừa ĐAI ĐÁY cho nút tự lướt/loa — nhãn "56 NGÀY ĐÊM" không bị đè */}
+          <div className="relative z-10 flex h-full flex-col justify-center px-6 pb-16 md:px-16 md:pb-20">
             <p className="eyebrow mb-4 text-vn-gold-antique">
               Điện Biên Phủ · 13/03 → 07/05/1954
             </p>

@@ -41,26 +41,28 @@ export const NARRATION: NarrationCue[] = [
   // 1951–1953 — bản thu lại 66s CHIA 5 KHÚC bám đúng 5 màn (điểm cắt nằm giữa
   // các khoảng lặng, dò bằng sóng âm): câu nào vang lên thì màn đó trên hình.
   // 1) "Sau thắng lợi Biên giới 1950… phát triển thế và lực" → màn mốc
-  { id: 'chapter-1951', src: `/audio/voice/c1951.m4a?v=2`, end: 15.85, scroll: [0.05, 0.92], vol: 0.65 },
+  // (end đặt SÁT ĐẦU khoảng lặng: fade 350ms nằm trọn trong khoảng lặng,
+  //  không tràn sang câu sau; start đặt cuối khoảng lặng)
+  { id: 'chapter-1951', src: `/audio/voice/c1951.m4a?v=2`, end: 15.5, scroll: [0.05, 0.92], vol: 0.65 },
   // 2) "Đảng tập trung củng cố… Đại hội II năm 1951…" → slide 1951
-  { id: 'sl-1951', src: `/audio/voice/c1951.m4a?v=2`, start: 15.9, end: 34.65, scroll: [0.03, 0.95], vol: 0.65 },
+  { id: 'sl-1951', src: `/audio/voice/c1951.m4a?v=2`, start: 16.1, end: 34.5, scroll: [0.03, 0.95], vol: 0.65 },
   // 3) "Ở hậu phương, nhân dân tích cực tăng gia sản xuất…" → slide 1952
-  { id: 'sl-1952', src: `/audio/voice/c1951.m4a?v=2`, start: 34.7, end: 43.3, scroll: [0.03, 0.75], vol: 0.65 },
+  { id: 'sl-1952', src: `/audio/voice/c1951.m4a?v=2`, start: 34.8, end: 43.2, scroll: [0.03, 0.75], vol: 0.65 },
   // 4) "Trên chiến trường, quân ta tiếp tục mở các chiến dịch…" → slide 1953
-  { id: 'sl-1953', src: `/audio/voice/c1951.m4a?v=2`, start: 43.35, end: 52.65, scroll: [0.03, 0.8], vol: 0.65 },
+  { id: 'sl-1953', src: `/audio/voice/c1951.m4a?v=2`, start: 43.4, end: 52.4, scroll: [0.03, 0.8], vol: 0.65 },
   // 5) "Như vậy, từ năm 1951 đến 1953…" → chữ lướt KẾT LUẬN (sau câu hỏi)
-  { id: 'casc-1951-ket', src: `/audio/voice/c1951.m4a?v=2`, start: 52.85, scroll: [0.05, 0.9], vol: 0.65 },
+  { id: 'casc-1951-ket', src: `/audio/voice/c1951.m4a?v=2`, start: 52.9, scroll: [0.05, 0.9], vol: 0.65 },
   // ĐBP mở màn — màn TĨNH: đứng yên căn giữa suốt lúc đọc (như Mở đầu)
   { id: 'chapter-1954', src: `/audio/voice/dbp-intro.m4a?${VV}`, scroll: [0.5, 0.5] },
   // ĐBP chính — chia 3 khúc để THAY câu đọc nhầm "13 tháng 8" (22.3–27.4s trong
   // file) bằng bản vá "voice 13thang3" (điểm cắt nằm GIỮA khoảng lặng, không
   // chạm chữ nào — dò bằng phân tích sóng âm):
   // 1) 2 slide ĐBP: phát dbp.m4a từ đầu, DỪNG ở 21.8s (hết "…ra mặt trận")
-  { id: 'arc-dbp', src: `/audio/voice/dbp.m4a?${VV}`, end: 21.8, scroll: [0.02, 0.96], vol: 0.64 },
+  { id: 'arc-dbp', src: `/audio/voice/dbp.m4a?${VV}`, end: 21.4, scroll: [0.02, 0.96], vol: 0.64 },
   // 2) màn ngày 13/03/1954: đoạn vá đọc ĐÚNG "Ngày 13 tháng 3 năm 1954…"
   { id: 'kc-54-batdau', src: `/audio/voice/13thang3.m4a?${VV}`, scroll: [0.25, 0.7], vol: 0.88 },
-  // 3) màn 56 ngày đêm: đọc tiếp dbp.m4a từ 27.65s ("Chiến dịch kéo dài suốt…")
-  { id: 'kc-54-56ngaydem', src: `/audio/voice/dbp.m4a?${VV}`, start: 27.65, scroll: [0.02, 0.9], vol: 0.64 },
+  // 3) màn 56 ngày đêm: đọc tiếp dbp.m4a từ 27.8s ("Chiến dịch kéo dài suốt…")
+  { id: 'kc-54-56ngaydem', src: `/audio/voice/dbp.m4a?${VV}`, start: 27.8, scroll: [0.02, 0.9], vol: 0.64 },
   // Các mốc sự kiện trọng tâm (Giơ-ne-vơ · tiếp quản Thủ đô · giải phóng miền
   // Bắc) — slide ghim: ảnh + 3 mốc hiện dần theo giọng đọc
   { id: 'moc-su-kien', src: `/audio/voice/ketluan.m4a?${VV}`, scroll: [0.03, 0.92] },

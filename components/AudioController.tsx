@@ -26,8 +26,9 @@ const DECL_SCROLL: [number, number] = [0.44, 0.92];
 const AMBIENT_DUCK = 0.12; // có LỒNG TIẾNG → nhạc né sâu (rất bé dưới giọng đọc)
 const SFX_DUCK = 0.1; // supporting sounds drop hard under a voice (so it's clear)
 // how long a narration segment takes to fade out at its end (soft tail instead
-// of a hard cut) — long enough to feel gentle, not clipped
-const NARR_FADE_MS = 850;
+// of a hard cut). NGẮN — vì các điểm cắt giữa file nằm trong khoảng lặng giữa
+// hai câu: fade dài sẽ TRÀN sang câu sau (nghe sót chữ của câu bị bỏ).
+const NARR_FADE_MS = 350;
 
 // Background music (loops) + per-chapter ambience. Some clips are `loop:false`
 // one-shots (e.g. the real Tuyên ngôn recording) that fire inside a scroll
