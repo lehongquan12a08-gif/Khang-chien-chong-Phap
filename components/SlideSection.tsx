@@ -7,6 +7,8 @@ import { playChime } from '@/lib/uiSound';
 export interface SlideGroup {
   title?: string; // vd '1947 — Việt Bắc Thu – Đông'
   bullets: string[];
+  /** true = dòng nhấn (đỏ, đậm) — như câu highlight trong kịch bản. */
+  accent?: boolean;
 }
 
 export interface SlideImage {
@@ -39,6 +41,8 @@ export default function SlideSection({ id, eyebrow, title, groups, images = [], 
   const root = useRef<HTMLDivElement>(null);
   const rows = groups.reduce((n, g) => n + (g.title ? 1 : 0) + g.bullets.length, 0) + (title ? 1 : 0);
   const heightVh = 130 + rows * 26 + images.length * 16;
+  // slide chỉ có 1 ảnh + ít nội dung → ảnh làm NỀN full màn hình (điện ảnh)
+  const single = !imagesTop && images.length === 1;
 
   // ĐIỆN THOẠI: slide KHÔNG ghim (nội dung dài hơn màn hình sẽ bị cắt nếu ghim)
   // — chảy tự nhiên, từng dòng/ảnh hiện khi lướt tới. Desktop giữ kiểu ghim.
@@ -93,9 +97,13 @@ export default function SlideSection({ id, eyebrow, title, groups, images = [], 
     };
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
+    // ảnh nền slide 1-ảnh: hiện luôn trên mobile (không chờ hiệu ứng)
+    const bg = root.current.querySelector<HTMLElement>('.sl-bgimg');
+    if (bg) bg.style.opacity = '1';
     return () => {
       io.disconnect();
       window.removeEventListener('scroll', onScroll);
+      if (bg) bg.style.opacity = '';
       for (const el of els) {
         el.style.transition = '';
         el.style.transform = '';
@@ -128,6 +136,8 @@ export default function SlideSection({ id, eyebrow, title, groups, images = [], 
         const at = 0.18 + i * (0.5 / Math.max(1, imgs.length));
         tl.fromTo(el, { opacity: 0, y: 30, scale: 0.97 }, { opacity: 1, y: 0, scale: 1, duration: 0.12 }, at);
       });
+      // ảnh nền của slide 1-ảnh: hiện dần + Ken Burns rất nhẹ
+      tl.fromTo(q('.sl-bgimg'), { opacity: 0, scale: 1.06 }, { opacity: 1, scale: 1, ease: 'none', duration: 0.3 }, 0.04);
       tl.to(q('.sl-stage'), { opacity: 1, duration: 0.01 }, 0.99); // đệm tới ~1
     },
     { scope: root, dependencies: [isMobile], revertOnUpdate: true }
@@ -203,10 +213,37 @@ export default function SlideSection({ id, eyebrow, title, groups, images = [], 
             </div>
           </div>
         ) : (
+        <>
+        {single && (
+          /* SLIDE 1-ẢNH: ảnh làm nền full màn hình, chữ nổi bên trái */
+          <div className="sl-bgimg will-transform absolute inset-0 opacity-0">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={images[0].src}
+              alt={images[0].caption ?? ''}
+              className="h-full w-full object-cover"
+              style={{ objectPosition: 'center 25%', filter: 'contrast(1.05) brightness(0.55) sepia(0.12)' }}
+            />
+            <div
+              className="pointer-events-none absolute inset-0"
+              style={{
+                background:
+                  'linear-gradient(90deg, rgba(8,8,8,0.92) 0%, rgba(8,8,8,0.72) 36%, rgba(8,8,8,0.3) 64%, rgba(8,8,8,0.08) 100%)',
+              }}
+            />
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[26vh] bg-gradient-to-t from-vn-black/85 to-transparent" />
+            {images[0].caption && (
+              <p className="absolute bottom-5 right-6 max-w-[55vw] text-balance text-right font-body text-[11.5px] leading-snug text-vn-ivory/60">
+                {images[0].caption}
+              </p>
+            )}
+          </div>
+        )}
         <div
           className={[
             'sl-stage relative z-10 mx-auto grid w-full items-center gap-10 px-6 md:px-10',
-            images.length ? 'max-w-6xl md:grid-cols-[1.1fr_0.9fr]' : 'max-w-4xl',
+            images.length && !single ? 'max-w-6xl md:grid-cols-[1.1fr_0.9fr]' : 'max-w-4xl',
+            single ? 'md:mx-0 md:px-16' : '',
           ].join(' ')}
         >
           {/* cột chữ */}
@@ -229,8 +266,14 @@ export default function SlideSection({ id, eyebrow, title, groups, images = [], 
                   <ul className="flex flex-col gap-2.5">
                     {g.bullets.map((b, bi) => (
                       <li key={bi} className="sl-row will-transform flex items-start gap-3 opacity-0">
-                        <span className="mt-[9px] h-[7px] w-[7px] shrink-0 rotate-45 bg-vn-gold-antique/80" />
-                        <span className="text-pretty font-body text-[13.5px] leading-relaxed text-vn-ivory/85 md:text-[16px]">
+                        <span className={`mt-[9px] h-[7px] w-[7px] shrink-0 rotate-45 ${g.accent ? 'bg-vn-red' : 'bg-vn-gold-antique/80'}`} />
+                        <span
+                          className={
+                            g.accent
+                              ? 'text-pretty font-body text-[14px] font-semibold leading-relaxed text-vn-red md:text-[16.5px]'
+                              : 'text-pretty font-body text-[13.5px] leading-relaxed text-vn-ivory/85 md:text-[16px]'
+                          }
+                        >
                           {b}
                         </span>
                       </li>
@@ -242,7 +285,7 @@ export default function SlideSection({ id, eyebrow, title, groups, images = [], 
           </div>
 
           {/* cột ảnh — gộp ảnh của slide vào cùng một nơi */}
-          {images.length > 0 && (
+          {images.length > 0 && !single && (
             <div className="sl-imgcol will-transform flex flex-col items-center gap-5">
               {images.map((im, i) => (
                 <figure key={i} className="sl-img will-transform relative w-full max-w-md opacity-0">
@@ -265,6 +308,7 @@ export default function SlideSection({ id, eyebrow, title, groups, images = [], 
             </div>
           )}
         </div>
+        </>
         )}
       </div>
     </section>

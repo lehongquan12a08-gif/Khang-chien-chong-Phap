@@ -54,16 +54,17 @@ html.lenis body {
 /* ------------------------------------------------------------------ */
 /*  Typography helpers                                                 */
 /* ------------------------------------------------------------------ */
+/* Tiêu đề/danh mục: Be Vietnam Pro đậm — nét, dấu tiếng Việt chuẩn */
 .font-display {
-  font-family: var(--font-cormorant), 'Cormorant Garamond', serif;
+  font-family: var(--font-be-vietnam), 'Be Vietnam Pro', system-ui, sans-serif;
 }
 .font-serif-hist {
   font-family: var(--font-playfair), 'Playfair Display', serif;
 }
 
 .headline-mega {
-  font-family: var(--font-cormorant), 'Cormorant Garamond', serif;
-  font-weight: 600;
+  font-family: var(--font-playfair), 'Playfair Display', serif;
+  font-weight: 700;
   line-height: 0.9;
   letter-spacing: -0.01em;
   font-size: clamp(72px, 10vw, 190px);

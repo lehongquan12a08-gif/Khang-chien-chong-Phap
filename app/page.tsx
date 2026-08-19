@@ -51,7 +51,7 @@ export default function Home() {
             {
               bullets: [
                 'Pháp liên tiếp gây hấn, lấn chiếm.',
-                '18–19/12/1946: Quyết định phát động toàn quốc kháng chiến.',
+                '18–19/12/1946: Pháp gửi tối hậu thư, buộc ta lựa chọn chiến đấu để bảo vệ độc lập.',
                 '19/12/1946: Toàn quốc kháng chiến bùng nổ.',
                 'Đường lối: Toàn dân – Toàn diện – Trường kỳ – Tự lực cánh sinh – Tranh thủ quốc tế.',
                 'Nhân dân cả nước nhất tề đứng lên bảo vệ độc lập.',
@@ -140,7 +140,7 @@ export default function Home() {
             {
               title: '01/1950 — Bước ngoặt ngoại giao',
               bullets: [
-                'Trung Quốc công nhận Việt Nam.',
+                'Trung Quốc thiết lập quan hệ ngoại giao với Việt Nam.',
                 'Liên Xô và các nước xã hội chủ nghĩa thiết lập quan hệ.',
               ],
             },
@@ -153,10 +153,9 @@ export default function Home() {
               ],
             },
             {
-              title: 'Sau 1950',
+              accent: true,
               bullets: [
-                'Ta giành và giữ vững quyền chủ động chiến lược.',
-                'Kháng chiến chuyển dần sang phản công và tiến công.',
+                'Sau 1950: Ta giành và giữ vững quyền chủ động chiến lược, từng bước chuyển sang thế phản công và tiến công.',
               ],
             },
           ]}
@@ -180,7 +179,7 @@ export default function Home() {
         <ClosingText
           eyebrow="Biên giới Thu – Đông 1950"
           paragraphs={[
-            'Đánh dấu bước trưởng thành vượt bậc của lực lượng kháng chiến, tạo thế và lực cho những thắng lợi lớn tiếp theo.',
+            'Chiến thắng Biên giới 1950 đánh dấu bước trưởng thành của lực lượng kháng chiến, phá thế bao vây và tạo thế, lực cho những thắng lợi lớn tiếp theo.',
           ]}
         />
 

@@ -1,19 +1,8 @@
 import type { Metadata, Viewport } from 'next';
-import {
-  Cormorant_Garamond,
-  Playfair_Display,
-  Be_Vietnam_Pro,
-} from 'next/font/google';
+import { Playfair_Display, Be_Vietnam_Pro } from 'next/font/google';
 import './globals.css';
 import SmoothScrollProvider from '@/components/SmoothScrollProvider';
 import FilmGrain from '@/components/FilmGrain';
-
-const cormorant = Cormorant_Garamond({
-  subsets: ['latin', 'vietnamese'],
-  weight: ['400', '500', '600', '700'],
-  variable: '--font-cormorant',
-  display: 'swap',
-});
 
 const playfair = Playfair_Display({
   subsets: ['latin', 'vietnamese'],
@@ -50,7 +39,7 @@ export default function RootLayout({
   return (
     <html
       lang="vi"
-      className={`${cormorant.variable} ${playfair.variable} ${beVietnam.variable}`}
+      className={`${playfair.variable} ${beVietnam.variable}`}
     >
       <body className="bg-vn-black text-vn-ivory antialiased">
         <SmoothScrollProvider>{children}</SmoothScrollProvider>
