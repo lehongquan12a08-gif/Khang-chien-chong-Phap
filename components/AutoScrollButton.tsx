@@ -3,15 +3,11 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { getLenis } from '@/lib/lenisStore';
 import { narrationState } from '@/lib/narrationState';
-import { NARRATION } from '@/data/narration';
 
-// Auto-scroll pace. With narration cues present and sound ON, the scroll locks
-// to the narration audio clock (see step); SPEED_GAP then carries only the
-// silent interludes between narrated chapters. While there is NO narration yet
-// (NARRATION rỗng), always glide at the steady cinematic SPEED — never the
-// faster gap pace (nó làm cả trang chạy nhanh bất thường).
+// Auto-scroll pace. Khi chương có lồng tiếng, cuộn KHÓA theo đồng hồ giọng đọc
+// (see step). Các khoảng KHÔNG lời (chữ lướt, câu hỏi, màn ngày…) vẫn đi đúng
+// nhịp điện ảnh SPEED — không phóng nhanh, vì đó là các màn cần thời gian đọc.
 const SPEED = 235; // px/s — nhịp điện ảnh, đủ chậm để đọc slide
-const SPEED_GAP = 400; // px/s — chỉ dùng cho khoảng lặng giữa các câu thuyết minh
 const RING = 2 * Math.PI * 15; // circumference for r=15 progress ring
 
 export default function AutoScrollButton() {
@@ -97,6 +93,16 @@ export default function AutoScrollButton() {
           const target = Math.min(max, Math.max(0, startY + el.offsetHeight * band));
           const nextY = target > cur ? target : cur; // never snap backwards
           scrollToY(nextY);
+          // màn nào đã đi qua DƯỚI giọng đọc thì coi như "đã dừng đủ" — kẻo
+          // giọng vừa dứt lại đứng thêm N giây dwell ngay trên cùng màn đó
+          {
+            const vhNow = window.innerHeight;
+            for (const dEl of dwellElsRef.current) {
+              if (dwellDoneRef.current.has(dEl)) continue;
+              const r = dEl.getBoundingClientRect();
+              if (r.top + r.height / 2 <= vhNow / 2 + 4) dwellDoneRef.current.add(dEl);
+            }
+          }
           if (nextY >= max - 2) {
             pause();
             return;
@@ -131,11 +137,8 @@ export default function AutoScrollButton() {
         }
       }
 
-      // 2) STEADY GLIDE — chưa có thuyết minh (NARRATION rỗng) thì LUÔN đi nhịp
-      //    điện ảnh SPEED; tốc độ SPEED_GAP chỉ dành cho khoảng lặng khi đã có
-      //    lồng tiếng dẫn nhịp.
-      const speed = narrationState.enabled && NARRATION.length > 0 ? SPEED_GAP : SPEED;
-      const next = cur + speed * dt;
+      // 2) STEADY GLIDE — mọi khoảng không lời đi đúng nhịp điện ảnh SPEED
+      const next = cur + SPEED * dt;
       if (next >= max) {
         scrollToY(max);
         pause();

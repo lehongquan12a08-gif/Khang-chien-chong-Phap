@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { NARRATION, NARRATION_FILES, type NarrationCue } from '@/data/narration';
+import { NARRATION, type NarrationCue } from '@/data/narration';
 import { narrationState } from '@/lib/narrationState';
 import { initUiSound, resumeUiSound } from '@/lib/uiSound';
 import { getDeclVideo } from '@/lib/declVideo';
@@ -94,8 +94,9 @@ export default function AudioController() {
   const duckRef = useRef(false);
   const ambTargetRef = useRef(-1);
 
-  // narration (per-chapter voiceover, played as segments of 2 files)
-  const narrRef = useRef<Map<1 | 2, HTMLAudioElement>>(new Map());
+  // narration — MỘT element duy nhất, đổi `src` theo chương (1 file/chương).
+  // Một element = một MediaElementSource → không đụng giới hạn nguồn của iOS.
+  const narrAudioRef = useRef<HTMLAudioElement | null>(null);
   const narrActiveRef = useRef<string | null>(null);
   const narrStartRef = useRef(0);
   const narrEndRef = useRef(0);
@@ -141,18 +142,14 @@ export default function AudioController() {
     }
     sfxRef.current = m;
 
-    // narration files (2 parts) — only created once cues exist (no 404 spam
-    // while the voiceover hasn't been recorded yet)
-    const nm = new Map<1 | 2, HTMLAudioElement>();
+    // narration element — tạo MỘT lần; src đổi theo chương khi cuộn tới
+    let voiceEl: HTMLAudioElement | null = null;
     if (NARRATION.length > 0) {
-      ([1, 2] as const).forEach((part) => {
-        const a = new Audio(NARRATION_FILES[part]);
-        a.preload = 'auto';
-        a.volume = 0;
-        nm.set(part, a);
-      });
+      voiceEl = new Audio(NARRATION[0].src); // nạp sẵn chương đầu
+      voiceEl.preload = 'auto';
+      voiceEl.volume = 0;
+      narrAudioRef.current = voiceEl;
     }
-    narrRef.current = nm;
 
     // route narration through a Web Audio gain so the quiet voice can be lifted
     try {
@@ -176,13 +173,13 @@ export default function AudioController() {
         comp.connect(makeup);
         makeup.connect(ctx.destination);
         narrMakeupRef.current = makeup;
-        nm.forEach((a) => {
-          const src = ctx.createMediaElementSource(a);
+        if (voiceEl) {
+          const src = ctx.createMediaElementSource(voiceEl);
           const g = ctx.createGain();
           g.gain.value = narrBoost;
           src.connect(g);
           g.connect(comp);
-        });
+        }
         // NOTE: do NOT route the ambient here — adding another Web Audio source
         // pushed iOS over its media-source limit (narration silenced + tab crash).
         // Instead the ambient WAV is baked quieter (see AMBIENT_SRC) so it's low
@@ -206,7 +203,7 @@ export default function AudioController() {
     return () => {
       amb.pause();
       m.forEach((a) => a.pause());
-      nm.forEach((a) => a.pause());
+      voiceEl?.pause();
     };
   }, []);
 
@@ -219,20 +216,33 @@ export default function AudioController() {
   }, []);
   const narrWatch = useCallback(() => {
     const a = narrElRef.current;
-    if (!a || a.paused) {
+    if (!a) {
       stopNarrWatch();
       return;
     }
-    if (a.currentTime >= narrEndRef.current) {
+    // hết file (mặc định) hoặc chạm mốc end tuỳ chọn → chốt progress = 1
+    if (a.ended || a.currentTime >= narrEndRef.current) {
       stopNarrWatch();
       narrationState.progress = 1;
       narrationState.playing = false; // scroll moves on; the tail fades out
-      narrFadingRef.current = true;
-      fadeTo(a, 0, NARR_FADE_MS); // soft tail instead of a hard cut
+      if (!a.ended) {
+        narrFadingRef.current = true;
+        fadeTo(a, 0, NARR_FADE_MS); // soft tail instead of a hard cut
+      }
+      return;
+    }
+    if (a.paused) {
+      stopNarrWatch();
       return;
     }
     // publish the audio clock so the auto-scroll can lock the scroll to the voice
-    const dur = narrEndRef.current - narrStartRef.current;
+    // (end mặc định = độ dài file, chỉ biết sau khi metadata nạp xong)
+    const end = isFinite(narrEndRef.current)
+      ? narrEndRef.current
+      : isFinite(a.duration)
+        ? a.duration
+        : 0;
+    const dur = end - narrStartRef.current;
     narrationState.progress = dur > 0 ? clamp((a.currentTime - narrStartRef.current) / dur) : 0;
     narrationState.playing = true;
     narrationState.speaking = true;
@@ -285,18 +295,24 @@ export default function AudioController() {
     }
     if (narrCue) {
       if (narrCue.id !== narrActiveRef.current) {
-        const a = narrRef.current.get(narrCue.part);
-        narrRef.current.forEach((other) => {
-          if (other !== a) other.pause();
-        });
+        const a = narrAudioRef.current;
         if (a) {
           narrActiveRef.current = narrCue.id;
-          narrStartRef.current = narrCue.start;
-          narrEndRef.current = narrCue.end;
+          narrStartRef.current = narrCue.start ?? 0;
+          narrEndRef.current = narrCue.end ?? Number.POSITIVE_INFINITY;
+          // đổi sang file của chương này (nếu khác chương trước)
+          if (!a.src.endsWith(narrCue.src)) {
+            a.src = narrCue.src;
+            try {
+              a.load();
+            } catch {
+              /* ignore */
+            }
+          }
           try {
-            a.currentTime = narrCue.start;
+            a.currentTime = narrStartRef.current;
           } catch {
-            /* ignore */
+            /* ignore — sẽ phát từ đầu file */
           }
           // cancel any in-flight fade-out and restore full level for the new cue
           narrFadingRef.current = false;
@@ -320,7 +336,7 @@ export default function AudioController() {
         }
       }
     } else if (narrActiveRef.current) {
-      narrRef.current.forEach((a) => a.pause());
+      narrAudioRef.current?.pause();
       narrActiveRef.current = null;
       narrElRef.current = null;
       narrationState.activeId = null;
@@ -473,7 +489,7 @@ export default function AudioController() {
       }
     };
     if (ambientRef.current) unlock(ambientRef.current);
-    narrRef.current.forEach(unlock);
+    if (narrAudioRef.current) unlock(narrAudioRef.current);
     sfxRef.current.forEach(unlock);
     const dv = getDeclVideo();
     if (dv) unlock(dv);
@@ -494,7 +510,7 @@ export default function AudioController() {
     }
     setAmbient(0, 600);
     sfxRef.current.forEach((a) => fadeTo(a, 0, 600));
-    narrRef.current.forEach((a) => a.pause());
+    narrAudioRef.current?.pause();
     narrActiveRef.current = null;
     narrElRef.current = null;
     declFiredRef.current = false;
@@ -682,7 +698,7 @@ export default function AudioController() {
       if (document.hidden) {
         ambientRef.current?.pause();
         sfxRef.current.forEach((a) => a.pause());
-        narrRef.current.forEach((a) => a.pause());
+        narrAudioRef.current?.pause();
         narrActiveRef.current = null; // replay current chapter's line on return
         narrElRef.current = null;
         declFiredRef.current = false;

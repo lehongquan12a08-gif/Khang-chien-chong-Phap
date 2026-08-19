@@ -33,6 +33,7 @@ export default function Home() {
         {/* ═══ MỞ ĐẦU (Ảnh mở đầu) ═══ */}
         <Hero />
         <ClosingText
+          id="modau"
           eyebrow="Mở đầu"
           paragraphs={[
             'Sau Cách mạng Tháng Tám, nền độc lập vừa giành được đã phải đối mặt với sự trở lại của thực dân Pháp.',
@@ -184,6 +185,9 @@ export default function Home() {
         />
 
         {/* ═══ GIAI ĐOẠN 1951–1953: PHÁT TRIỂN THẾ VÀ LỰC ═══ */}
+        {/* arc-1951: vùng lồng tiếng chương 1951–53 (mốc mở màn → hết slide 1952,
+            câu hỏi tương tác đứng ngoài để người thuyết trình dẫn) */}
+        <div id="arc-1951">
         {/* Phần I. Mở đầu — 1 ảnh lớn */}
         <MilestoneChapter milestone={MILESTONES.theVaLuc} />
         {/* Phần II. Các mốc thời gian — slide + ảnh gộp, xen kẽ đúng docx */}
@@ -222,6 +226,7 @@ export default function Home() {
             { src: '/images/kc/y51-a3.webp', tag: 'Ảnh 3', caption: 'Bộ đội hành quân, chiến đấu' },
           ]}
         />
+        </div>
         {/* Câu hỏi tương tác (sau Ảnh 2 và 3 — 1952) */}
         <InteractiveQuestion
           question="Ai tạo nên sức mạnh kháng chiến?"
@@ -264,6 +269,8 @@ export default function Home() {
             'Cuối năm 1953, Điện Biên Phủ trở thành nơi tập trung lực lượng lớn nhất của quân Pháp. Từ đây, một chiến dịch lịch sử bắt đầu và kéo dài suốt 56 ngày đêm.',
           ]}
         />
+        {/* arc-dbp: vùng lồng tiếng ĐBP chính (xây cứ điểm → hết 56 ngày đêm) */}
+        <div id="arc-dbp">
         <SlideSection
           eyebrow="Điện Biên Phủ"
           groups={[
@@ -300,6 +307,7 @@ export default function Home() {
         <DateReveal id="kc-54-batdau" parts={['13', '03', '1954']} heading="CHIẾN DỊCH BẮT ĐẦU" />
         {/* 56 NGÀY ĐÊM — bộ đếm ngày chạy theo cuộn + ảnh tư liệu thay nhau làm nền */}
         <FiftySixDays id="kc-54-56ngaydem" />
+        </div>
         {/* LƯỚT XUỐNG (đưa ra ý chính) */}
         <WordCascade
           eyebrow="56 ngày đêm"
