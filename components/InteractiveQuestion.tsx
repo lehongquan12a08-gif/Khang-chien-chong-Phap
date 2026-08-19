@@ -54,7 +54,7 @@ export default function InteractiveQuestion({
     return (
       <section
         id={id}
-        data-dwell="8"
+        data-dwell="4"
         className="relative flex min-h-screen items-center justify-center px-6 py-[14vh]"
         style={{ background: 'radial-gradient(ellipse at 50% 40%, #16100c 0%, #080808 70%)' }}
       >
@@ -77,7 +77,7 @@ export default function InteractiveQuestion({
   return (
     <section
       id={id}
-      data-dwell="10"
+      data-dwell="4"
       className="relative flex min-h-screen items-center justify-center px-6 py-[14vh]"
       style={{ background: 'radial-gradient(ellipse at 50% 40%, #16100c 0%, #080808 70%)' }}
     >

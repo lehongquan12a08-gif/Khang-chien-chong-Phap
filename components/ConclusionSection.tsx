@@ -107,6 +107,16 @@ export default function ConclusionSection() {
         background: 'linear-gradient(180deg, #080808 0%, #1a0d0b 50%, #080808 100%)',
       }}
     >
+      {/* điểm neo DỪNG NHỊP: rơi vào đúng lúc màn ghim vừa hiện ĐỦ 5 thành tựu
+          (cuối dải cuộn của section) — tự lướt giữ lại 4s cho lớp đọc */}
+      {!isMobile && (
+        <div
+          data-dwell="4"
+          aria-hidden="true"
+          className="pointer-events-none absolute left-0 w-px"
+          style={{ bottom: '40vh', height: '20vh' }}
+        />
+      )}
       <div
         className={
           isMobile
