@@ -81,12 +81,12 @@ export default function InteractiveQuestion({
       className="relative flex min-h-screen items-center justify-center px-6 py-[14vh]"
       style={{ background: 'radial-gradient(ellipse at 50% 40%, #16100c 0%, #080808 70%)' }}
     >
-      <Reveal className="w-full max-w-3xl border border-vn-gold-antique/25 bg-[rgba(8,8,8,0.55)] p-8 backdrop-blur-[2px] md:p-12">
-        <h3 className="text-balance font-serif-hist text-2xl font-bold leading-snug text-vn-ivory md:text-3xl">
+      <Reveal className="w-full max-w-3xl border border-vn-gold-antique/25 bg-[rgba(8,8,8,0.55)] p-8 backdrop-blur-[2px] md:max-w-[62rem] md:p-14">
+        <h3 className="text-balance font-serif-hist text-2xl font-bold leading-snug text-vn-ivory md:text-[length:clamp(30px,2.2vw,42px)]">
           {question}
         </h3>
 
-        <div className="mt-8 flex flex-col gap-3">
+        <div className="mt-8 flex flex-col gap-3.5 md:mt-10">
           {options.map((o) => {
             const isChosen = chosen === o.key;
             const showCorrect = answered && o.correct;
@@ -98,7 +98,7 @@ export default function InteractiveQuestion({
                 disabled={answered}
                 onClick={() => setChosen(o.key)}
                 className={[
-                  'flex items-start gap-4 border px-5 py-4 text-left transition-all duration-300',
+                  'flex items-start gap-4 border px-5 py-4 text-left transition-all duration-300 md:px-6 md:py-5',
                   showCorrect
                     ? 'border-[#3fae66] bg-[#3fae66]/10'
                     : showWrong
@@ -110,7 +110,7 @@ export default function InteractiveQuestion({
               >
                 <span
                   className={[
-                    'flex h-7 w-7 shrink-0 items-center justify-center border font-body text-[13px] font-semibold',
+                    'flex h-7 w-7 shrink-0 items-center justify-center border font-body text-[13px] font-semibold md:h-9 md:w-9 md:text-[15px]',
                     showCorrect ? 'border-[#3fae66] text-[#6fd693]' : showWrong ? 'border-vn-red text-vn-red' : 'border-white/30 text-vn-ivory/70',
                   ].join(' ')}
                 >
@@ -118,7 +118,7 @@ export default function InteractiveQuestion({
                 </span>
                 <span
                   className={[
-                    'font-body text-sm leading-relaxed md:text-base',
+                    'font-body text-sm leading-relaxed md:pt-0.5 md:text-[length:clamp(17px,1.15vw,22px)]',
                     showCorrect ? 'text-[#8fe3ae]' : showWrong ? 'text-vn-red/90' : 'text-vn-ivory/85',
                   ].join(' ')}
                 >
@@ -130,9 +130,9 @@ export default function InteractiveQuestion({
         </div>
 
         {answered && (
-          <div className="mt-8 border-l-2 border-vn-gold pl-5">
+          <div className="mt-8 border-l-2 border-vn-gold pl-5 md:mt-10 md:pl-6">
             {answer && (
-              <p className="text-pretty font-serif-hist text-base italic leading-relaxed text-vn-ivory/85 md:text-lg">
+              <p className="text-pretty font-serif-hist text-base italic leading-relaxed text-vn-ivory/85 md:text-[length:clamp(18px,1.15vw,22px)]">
                 {answer}
               </p>
             )}
@@ -140,7 +140,7 @@ export default function InteractiveQuestion({
               <button
                 type="button"
                 onClick={goOn}
-                className="mt-6 border border-vn-gold px-7 py-3.5 font-body text-[12px] uppercase tracking-[0.22em] text-vn-gold transition-colors duration-300 hover:bg-vn-gold hover:text-vn-black"
+                className="mt-6 border border-vn-gold px-7 py-3.5 font-body text-[12px] uppercase tracking-[0.22em] text-vn-gold transition-colors duration-300 hover:bg-vn-gold hover:text-vn-black md:px-8 md:py-4 md:text-[13.5px]"
               >
                 {continueLabel} →
               </button>
