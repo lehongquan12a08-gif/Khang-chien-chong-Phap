@@ -11,11 +11,13 @@ interface ClosingTextProps {
   bgImage?: string;
 }
 
-/** "PHẦN CUỐI" — các câu kết của một giai đoạn, hiện dần, câu chốt tô vàng. */
+/** "PHẦN CUỐI" — các câu kết của một giai đoạn, hiện dần, câu chốt tô vàng.
+ *  data-dwell: tự động lướt DỪNG lại ~7s ở màn này cho người xem kịp đọc. */
 export default function ClosingText({ id, eyebrow, paragraphs, background, bgImage }: ClosingTextProps) {
   return (
     <section
       id={id}
+      data-dwell="7"
       className="relative flex min-h-screen items-center justify-center overflow-hidden px-6 py-[16vh]"
       style={{ background: background ?? 'radial-gradient(ellipse at 50% 45%, #150d0a 0%, #080808 72%)' }}
     >

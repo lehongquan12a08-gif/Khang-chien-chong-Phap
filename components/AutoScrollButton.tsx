@@ -21,6 +21,10 @@ export default function AutoScrollButton() {
   const playingRef = useRef(false);
   const rafRef = useRef<number | null>(null);
   const lastTs = useRef(0);
+  // "dừng nhịp": các section gắn data-dwell sẽ được giữ lại N giây khi tự lướt
+  const dwellElsRef = useRef<Element[]>([]);
+  const dwellDoneRef = useRef<Set<Element>>(new Set());
+  const dwellUntilRef = useRef(0);
 
   const maxScroll = () =>
     document.documentElement.scrollHeight - window.innerHeight;
@@ -102,6 +106,28 @@ export default function AutoScrollButton() {
         }
       }
 
+      // 1b) DỪNG NHỊP — các màn cần đọc (kết đoạn, câu hỏi) gắn data-dwell:
+      //     khi màn đó vào giữa khung hình, GIỮ NGUYÊN vị trí N giây rồi mới đi
+      //     tiếp (mỗi màn dừng một lần cho mỗi lượt phát).
+      if (dwellUntilRef.current > ts) {
+        rafRef.current = requestAnimationFrame(step);
+        return;
+      }
+      if (!narrationState.playing) {
+        const vh = window.innerHeight;
+        for (const el of dwellElsRef.current) {
+          if (dwellDoneRef.current.has(el)) continue;
+          const r = el.getBoundingClientRect();
+          if (r.top <= vh * 0.42 && r.bottom >= vh * 0.6) {
+            dwellDoneRef.current.add(el);
+            const secs = parseFloat(el.getAttribute('data-dwell') || '6') || 6;
+            dwellUntilRef.current = ts + secs * 1000;
+            rafRef.current = requestAnimationFrame(step);
+            return;
+          }
+        }
+      }
+
       // 2) STEADY GLIDE — chưa có thuyết minh (NARRATION rỗng) thì LUÔN đi nhịp
       //    điện ảnh SPEED; tốc độ SPEED_GAP chỉ dành cho khoảng lặng khi đã có
       //    lồng tiếng dẫn nhịp.
@@ -130,6 +156,10 @@ export default function AutoScrollButton() {
     playingRef.current = true;
     setPlaying(true);
     lastTs.current = 0;
+    // nạp danh sách màn cần dừng nhịp cho lượt phát này
+    dwellElsRef.current = Array.from(document.querySelectorAll('[data-dwell]'));
+    dwellDoneRef.current = new Set();
+    dwellUntilRef.current = 0;
     stopRaf();
     rafRef.current = requestAnimationFrame(step);
   }, [step]);
