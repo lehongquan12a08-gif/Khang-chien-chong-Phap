@@ -25,9 +25,10 @@ export interface NarrationCue {
 const VV = 'v=1'; // đổi khi thay file cùng tên (phá cache trình duyệt)
 
 export const NARRATION: NarrationCue[] = [
-  // Mở đầu — màn chữ vàng sau Hero (section ~1 màn hình: bắt đầu khi màn vào
-  // giữa khung, kết thúc khi màn kế tiếp đã lên nửa khung)
-  { id: 'modau', src: `/audio/voice/modau.m4a?${VV}`, scroll: [0.5, 1.0] },
+  // Mở đầu — màn TĨNH: căn khung chuẩn rồi ĐỨNG YÊN suốt lúc đọc ([0.5, 0.5]
+  // = giữ nguyên vị trí giữa màn), hết lời mới lướt tiếp — không trôi vào vùng
+  // chuyển tiếp trống khi giọng còn đang nói
+  { id: 'modau', src: `/audio/voice/modau.m4a?${VV}`, scroll: [0.5, 0.5] },
   // 1946 — giọng dẫn suốt slide Toàn quốc kháng chiến (chữ hiện theo lời đọc)
   { id: 'chapter-1946', src: `/audio/voice/c1946.m4a?${VV}`, scroll: [0.02, 0.88] },
   // 1947–1949 — slide Việt Bắc
@@ -37,8 +38,8 @@ export const NARRATION: NarrationCue[] = [
   // 1951–1953 — bọc từ màn mốc "Phát triển thế và lực" hết slide 1952 (Ảnh 1–3;
   // câu về Ảnh 4 rơi cuối slide 1952, câu hỏi tương tác đứng ngoài phần lồng tiếng)
   { id: 'arc-1951', src: `/audio/voice/c1951.m4a?${VV}`, scroll: [0.01, 0.97] },
-  // ĐBP mở màn — màn chữ vàng "Cuối năm 1953, Điện Biên Phủ trở thành…"
-  { id: 'chapter-1954', src: `/audio/voice/dbp-intro.m4a?${VV}`, scroll: [0.5, 1.0] },
+  // ĐBP mở màn — màn TĨNH: đứng yên căn giữa suốt lúc đọc (như Mở đầu)
+  { id: 'chapter-1954', src: `/audio/voice/dbp-intro.m4a?${VV}`, scroll: [0.5, 0.5] },
   // ĐBP chính — bọc từ slide "Pháp xây dựng tập đoàn cứ điểm" hết màn 56 ngày đêm
   { id: 'arc-dbp', src: `/audio/voice/dbp.m4a?${VV}`, scroll: [0.01, 0.97] },
   // Kết luận — CHƯA có file. Khi có, thêm:
