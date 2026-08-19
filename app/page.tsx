@@ -350,14 +350,15 @@ export default function Home() {
           groups={[
             {
               bullets: [
-                '21/07/1954: Hiệp định Giơ-ne-vơ về Đông Dương được ký kết.',
-                '10/10/1954: Giải phóng hoàn toàn miền Bắc (tiếp quản Thủ đô).',
+                '20/07/1954: Hiệp định Giơ-ne-vơ về Đông Dương được ký kết.',
+                '10/10/1954: Giải phóng Thủ đô Hà Nội – quân ta tiếp quản Thủ đô.',
+                '16/05/1955: Miền Bắc hoàn toàn được giải phóng.',
               ],
             },
           ]}
           images={[
             { src: '/images/kc/yn-a1.webp', tag: 'Ảnh 1', caption: 'Hiệp định Giơ-ne-vơ được ký kết' },
-            { src: '/images/kc/yn-a2.webp', tag: 'Ảnh 2', caption: 'Miền Bắc hoàn toàn giải phóng — tiếp quản Thủ đô, 10/10/1954' },
+            { src: '/images/kc/yn-a2.webp', tag: 'Ảnh 2', caption: 'Giải phóng Thủ đô Hà Nội — quân ta tiếp quản Thủ đô, 10/10/1954' },
           ]}
         />
         {/* 5 thành tựu + khẳng định đường lối */}
