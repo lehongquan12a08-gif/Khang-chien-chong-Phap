@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { gsap, useGSAP } from '@/lib/gsap';
 import { playChime } from '@/lib/uiSound';
+import { bindPairs } from '@/lib/typo';
 
 export interface SlideGroup {
   title?: string; // vd '1947 — Việt Bắc Thu – Đông'
@@ -31,22 +32,6 @@ interface SlideSectionProps {
   backgroundImage?: string;
   /** true = ẢNH TO nằm TRÊN (cạnh nhau), ghi chú + gạch đầu dòng ở DƯỚI. */
   imagesTop?: boolean;
-}
-
-/** Từ ghép 2 âm tiết trong tiêu đề — DÍNH CHẶT bằng khoảng-trắng-không-ngắt
- *  để máy không bao giờ bẻ đôi ("hoạt / động", "lực / lượng"…). */
-const WORD_PAIRS = [
-  'toàn quốc', 'kháng chiến', 'việt bắc', 'thu – đông', 'củng cố', 'phát triển',
-  'bước ngoặt', 'ngoại giao', 'chiến dịch', 'biên giới', 'lực lượng', 'mở rộng',
-  'hoạt động', 'quân sự', 'tạo thế', 'xây dựng', 'tập đoàn', 'cứ điểm', 'bắt đầu',
-];
-function bindPairs(s: string): string {
-  let r = s;
-  for (const p of WORD_PAIRS) {
-    const re = new RegExp(p.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
-    r = r.replace(re, (m) => m.split(' ').join(' '));
-  }
-  return r;
 }
 
 /** Tiêu đề dạng "1951 — Củng cố lực lượng": chỉ cho phép XUỐNG DÒNG tại dấu "—"

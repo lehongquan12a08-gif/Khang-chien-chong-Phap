@@ -4,6 +4,7 @@ import { useRef } from 'react';
 import { gsap, useGSAP } from '@/lib/gsap';
 import type { Milestone, MilestoneSymbol } from '@/data/milestones';
 import GoldStar from '@/components/objects/GoldStar';
+import { bindPairs } from '@/lib/typo';
 
 function Symbol({ kind }: { kind: MilestoneSymbol }) {
   const cls = 'h-[34vh] w-auto opacity-[0.16]';
@@ -74,8 +75,8 @@ export default function MilestoneChapter({ milestone: m }: { milestone: Mileston
               <h3 className="m-head will-transform mt-4 font-display text-xl font-semibold uppercase tracking-[0.14em] text-vn-ivory md:text-3xl">
                 {m.heading}
               </h3>
-              <p className="m-key will-transform mt-6 font-display text-[26px] font-bold uppercase tracking-[0.14em] text-vn-gold md:text-[length:clamp(38px,2.9vw,56px)]">
-                {m.keyText}
+              <p className="m-key will-transform mt-6 text-balance font-display text-[26px] font-bold uppercase tracking-[0.14em] text-vn-gold md:text-[length:clamp(38px,2.9vw,56px)]">
+                {bindPairs(m.keyText)}
               </p>
               <p className="m-cap will-transform mx-auto mt-7 max-w-2xl font-body text-base leading-relaxed text-vn-ivory/80 md:mx-0 md:text-[length:clamp(19px,1.15vw,22px)]">
                 {m.caption}
@@ -155,8 +156,8 @@ export default function MilestoneChapter({ milestone: m }: { milestone: Mileston
             <h3 className="m-head will-transform mt-4 font-display text-xl font-semibold uppercase tracking-[0.14em] text-vn-ivory md:text-3xl">
               {m.heading}
             </h3>
-            <p className="m-key will-transform mt-6 font-display text-[26px] font-bold uppercase tracking-[0.14em] text-vn-gold md:text-[length:clamp(38px,2.9vw,56px)]">
-              {m.keyText}
+            <p className="m-key will-transform mt-6 text-balance font-display text-[26px] font-bold uppercase tracking-[0.14em] text-vn-gold md:text-[length:clamp(38px,2.9vw,56px)]">
+              {bindPairs(m.keyText)}
             </p>
             <p className="m-cap will-transform mt-7 max-w-2xl text-pretty font-body text-base leading-relaxed text-vn-ivory/80 md:text-[length:clamp(19px,1.15vw,22px)]">
               {m.caption}

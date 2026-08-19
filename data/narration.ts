@@ -40,8 +40,10 @@ export const NARRATION: NarrationCue[] = [
   { id: 'arc-1951', src: `/audio/voice/c1951.m4a?${VV}`, scroll: [0.01, 0.97] },
   // ĐBP mở màn — màn TĨNH: đứng yên căn giữa suốt lúc đọc (như Mở đầu)
   { id: 'chapter-1954', src: `/audio/voice/dbp-intro.m4a?${VV}`, scroll: [0.5, 0.5] },
-  // ĐBP chính — bọc từ slide "Pháp xây dựng tập đoàn cứ điểm" hết màn 56 ngày đêm
-  { id: 'arc-dbp', src: `/audio/voice/dbp.m4a?${VV}`, scroll: [0.01, 0.97] },
+  // ĐBP chính — bọc ĐÚNG 2 slide (Pháp xây cứ điểm + 13/03 bắt đầu): giọng 50s
+  // trải chậm trên 2 slide cho lớp xem kỹ; màn ngày lớn + 56 ngày đêm sau đó
+  // chạy nhịp điện ảnh riêng
+  { id: 'arc-dbp', src: `/audio/voice/dbp.m4a?${VV}`, scroll: [0.02, 0.96] },
   // Các mốc sự kiện trọng tâm (Giơ-ne-vơ · tiếp quản Thủ đô · giải phóng miền
   // Bắc) — slide ghim: ảnh + 3 mốc hiện dần theo giọng đọc
   { id: 'moc-su-kien', src: `/audio/voice/ketluan.m4a?${VV}`, scroll: [0.03, 0.92] },

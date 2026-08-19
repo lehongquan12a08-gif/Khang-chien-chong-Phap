@@ -304,11 +304,11 @@ export default function Home() {
             { src: '/images/kc/y54-a4.webp', tag: 'Ảnh 4', caption: 'Quân ta trước giờ chiến đấu' },
           ]}
         />
+        </div>
         {/* LƯỚT XUỐNG (đưa ra ý chính) */}
         <DateReveal id="kc-54-batdau" parts={['13', '03', '1954']} heading="CHIẾN DỊCH BẮT ĐẦU" />
         {/* 56 NGÀY ĐÊM — bộ đếm ngày chạy theo cuộn + ảnh tư liệu thay nhau làm nền */}
         <FiftySixDays id="kc-54-56ngaydem" />
-        </div>
         {/* LƯỚT XUỐNG (đưa ra ý chính) */}
         <WordCascade
           eyebrow="56 ngày đêm"
