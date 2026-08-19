@@ -36,7 +36,7 @@ export default function ConclusionSection() {
               <span className="font-serif-hist text-4xl font-black leading-none text-vn-gold/60 md:text-5xl">
                 {String(i + 1).padStart(2, '0')}
               </span>
-              <p className="pt-1 font-serif-hist text-base leading-relaxed text-vn-ivory/85 md:text-xl">
+              <p className="text-pretty pt-1 font-serif-hist text-base leading-relaxed text-vn-ivory/85 md:text-xl">
                 {a}
               </p>
             </Reveal>
@@ -44,7 +44,7 @@ export default function ConclusionSection() {
         </ol>
 
         <Reveal className="mt-20 border border-vn-gold-antique/30 bg-[rgba(218,37,29,0.06)] p-8 text-center md:p-12">
-          <p className="font-serif-hist text-lg italic leading-relaxed text-vn-ivory/90 md:text-2xl">
+          <p className="text-balance font-serif-hist text-lg italic leading-relaxed text-vn-ivory/90 md:text-2xl">
             Thắng lợi lịch sử này đã khẳng định tính đúng đắn ngời sáng của đường lối
             kháng chiến do Đảng ta đề ra:
           </p>

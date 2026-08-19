@@ -99,7 +99,7 @@ export default function Hero() {
             <p className="hw-years will-transform mt-7 font-serif-hist text-xl tracking-[0.4em] text-vn-gold text-glow-gold opacity-0 md:text-3xl">
               1946&nbsp;—&nbsp;1954
             </p>
-            <p className="hw-tagline will-transform mt-6 max-w-2xl font-body text-[11px] font-light uppercase leading-relaxed tracking-[0.22em] text-vn-ivory/70 opacity-0 md:text-[13px]">
+            <p className="hw-tagline will-transform mt-6 max-w-2xl text-balance font-body text-[11px] font-light uppercase leading-relaxed tracking-[0.22em] text-vn-ivory/70 opacity-0 md:text-[13px]">
               Toàn dân · Toàn diện · Trường kỳ · Tự lực cánh sinh · Tranh thủ sự ủng hộ quốc tế
             </p>
           </div>

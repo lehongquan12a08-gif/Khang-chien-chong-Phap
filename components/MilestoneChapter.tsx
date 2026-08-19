@@ -158,7 +158,7 @@ export default function MilestoneChapter({ milestone: m }: { milestone: Mileston
             <p className="m-key will-transform mt-6 font-serif-hist text-2xl font-black uppercase tracking-[0.2em] text-vn-gold md:text-4xl">
               {m.keyText}
             </p>
-            <p className="m-cap will-transform mt-7 max-w-xl font-serif-hist text-base italic leading-relaxed text-vn-ivory/75 md:text-lg">
+            <p className="m-cap will-transform mt-7 max-w-xl text-pretty font-serif-hist text-base italic leading-relaxed text-vn-ivory/75 md:text-lg">
               {m.caption}
             </p>
           </div>

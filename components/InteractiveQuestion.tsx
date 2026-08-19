@@ -62,7 +62,7 @@ export default function InteractiveQuestion({
     >
       <Reveal className="w-full max-w-3xl border border-vn-gold-antique/25 bg-[rgba(8,8,8,0.55)] p-8 backdrop-blur-[2px] md:p-12">
         <p className="eyebrow mb-6 text-vn-gold">✦ {eyebrow}</p>
-        <h3 className="font-serif-hist text-2xl font-bold leading-snug text-vn-ivory md:text-3xl">
+        <h3 className="text-balance font-serif-hist text-2xl font-bold leading-snug text-vn-ivory md:text-3xl">
           {question}
         </h3>
 
@@ -81,7 +81,7 @@ export default function InteractiveQuestion({
                   className={[
                     'flex items-start gap-4 border px-5 py-4 text-left transition-all duration-300',
                     showCorrect
-                      ? 'border-vn-gold bg-vn-gold/10'
+                      ? 'border-[#3fae66] bg-[#3fae66]/10'
                       : showWrong
                         ? 'border-vn-red/70 bg-vn-red/10'
                         : answered
@@ -92,7 +92,7 @@ export default function InteractiveQuestion({
                   <span
                     className={[
                       'flex h-7 w-7 shrink-0 items-center justify-center border font-body text-[13px] font-semibold',
-                      showCorrect ? 'border-vn-gold text-vn-gold' : showWrong ? 'border-vn-red text-vn-red' : 'border-white/30 text-vn-ivory/70',
+                      showCorrect ? 'border-[#3fae66] text-[#6fd693]' : showWrong ? 'border-vn-red text-vn-red' : 'border-white/30 text-vn-ivory/70',
                     ].join(' ')}
                   >
                     {o.key}
@@ -100,7 +100,7 @@ export default function InteractiveQuestion({
                   <span
                     className={[
                       'font-body text-sm leading-relaxed md:text-base',
-                      showCorrect ? 'text-vn-gold' : showWrong ? 'text-vn-red/90' : 'text-vn-ivory/85',
+                      showCorrect ? 'text-[#8fe3ae]' : showWrong ? 'text-vn-red/90' : 'text-vn-ivory/85',
                     ].join(' ')}
                   >
                     {o.text}
@@ -123,7 +123,7 @@ export default function InteractiveQuestion({
 
         {answered && (
           <div className="mt-8 border-l-2 border-vn-gold pl-5">
-            <p className="font-serif-hist text-base italic leading-relaxed text-vn-ivory/85 md:text-lg">
+            <p className="text-pretty font-serif-hist text-base italic leading-relaxed text-vn-ivory/85 md:text-lg">
               {answer}
             </p>
             {continueTo && (

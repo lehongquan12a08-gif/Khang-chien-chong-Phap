@@ -126,8 +126,6 @@ export default function SlideSection({ id, eyebrow, title, groups, images = [], 
         const at = 0.18 + i * (0.5 / Math.max(1, imgs.length));
         tl.fromTo(el, { opacity: 0, y: 30, scale: 0.97 }, { opacity: 1, y: 0, scale: 1, duration: 0.12 }, at);
       });
-      // cột ảnh trôi nhẹ (parallax) suốt slide — tạo chiều sâu
-      tl.fromTo(q('.sl-imgcol'), { y: 34 }, { y: -34, ease: 'none', duration: 0.94 }, 0.03);
       tl.to(q('.sl-stage'), { opacity: 1, duration: 0.01 }, 0.99); // đệm tới ~1
     },
     { scope: root, dependencies: [isMobile], revertOnUpdate: true }
@@ -187,7 +185,7 @@ export default function SlideSection({ id, eyebrow, title, groups, images = [], 
                     {g.bullets.map((b, bi) => (
                       <li key={bi} className="sl-row will-transform flex items-start gap-3 opacity-0">
                         <span className="mt-[9px] h-[7px] w-[7px] shrink-0 rotate-45 bg-vn-gold-antique/80" />
-                        <span className="font-body text-[13.5px] leading-relaxed text-vn-ivory/85 md:text-[16px]">
+                        <span className="text-pretty font-body text-[13.5px] leading-relaxed text-vn-ivory/85 md:text-[16px]">
                           {b}
                         </span>
                       </li>
@@ -213,7 +211,7 @@ export default function SlideSection({ id, eyebrow, title, groups, images = [], 
                     />
                   </div>
                   {im.caption && (
-                    <figcaption className="mt-2 text-center font-body text-[11px] leading-snug text-vn-ivory/50">
+                    <figcaption className="mt-2 text-balance text-center font-body text-[11px] leading-snug text-vn-ivory/50">
                       {im.caption}
                     </figcaption>
                   )}

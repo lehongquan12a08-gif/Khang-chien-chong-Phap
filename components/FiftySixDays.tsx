@@ -99,7 +99,7 @@ export default function FiftySixDays({ id }: { id?: string }) {
                 className="h-full w-full object-cover"
                 style={{ objectPosition: 'center 30%', filter: 'contrast(1.05) brightness(0.5) sepia(0.15)' }}
               />
-              <p className="absolute bottom-6 right-6 max-w-[60vw] text-right font-serif-hist text-sm italic text-vn-ivory/70 md:text-base">
+              <p className="absolute bottom-6 right-6 max-w-[60vw] text-balance text-right font-serif-hist text-sm italic text-vn-ivory/70 md:text-base">
                 {p.caption}
               </p>
             </div>
@@ -152,7 +152,7 @@ export default function FiftySixDays({ id }: { id?: string }) {
               {BULLETS.map((b, i) => (
                 <li key={i} className={`b56-${i} will-transform flex items-start gap-3 opacity-0`}>
                   <span className="mt-[8px] h-[7px] w-[7px] shrink-0 rotate-45 bg-vn-gold-antique/80" />
-                  <span className="font-body text-[13.5px] leading-relaxed text-vn-ivory/90 md:text-[16px]">{b}</span>
+                  <span className="text-pretty font-body text-[13.5px] leading-relaxed text-vn-ivory/90 md:text-[16px]">{b}</span>
                 </li>
               ))}
             </ul>

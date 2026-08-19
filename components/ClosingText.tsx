@@ -48,8 +48,8 @@ export default function ClosingText({ id, eyebrow, paragraphs, background, bgIma
                 as="p"
                 className={
                   last
-                    ? 'font-serif-hist text-xl font-bold leading-relaxed text-vn-gold text-glow-gold md:text-3xl'
-                    : 'font-serif-hist text-lg italic leading-relaxed text-vn-ivory/85 md:text-2xl'
+                    ? 'text-balance font-serif-hist text-2xl font-bold leading-snug text-vn-gold text-glow-gold md:text-4xl'
+                    : 'text-balance font-serif-hist text-lg italic leading-relaxed text-vn-ivory/85 md:text-2xl'
                 }
               >
                 {p}
