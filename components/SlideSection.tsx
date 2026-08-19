@@ -33,6 +33,37 @@ interface SlideSectionProps {
   imagesTop?: boolean;
 }
 
+/** Từ ghép 2 âm tiết trong tiêu đề — DÍNH CHẶT bằng khoảng-trắng-không-ngắt
+ *  để máy không bao giờ bẻ đôi ("hoạt / động", "lực / lượng"…). */
+const WORD_PAIRS = [
+  'toàn quốc', 'kháng chiến', 'việt bắc', 'thu – đông', 'củng cố', 'phát triển',
+  'bước ngoặt', 'ngoại giao', 'chiến dịch', 'biên giới', 'lực lượng', 'mở rộng',
+  'hoạt động', 'quân sự', 'tạo thế', 'xây dựng', 'tập đoàn', 'cứ điểm', 'bắt đầu',
+];
+function bindPairs(s: string): string {
+  let r = s;
+  for (const p of WORD_PAIRS) {
+    const re = new RegExp(p.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+    r = r.replace(re, (m) => m.split(' ').join(' '));
+  }
+  return r;
+}
+
+/** Tiêu đề dạng "1951 — Củng cố lực lượng": chỉ cho phép XUỐNG DÒNG tại dấu "—"
+ *  (phần năm giữ nguyên khối, cụm chữ giữ nguyên khối) — không gãy giữa cụm từ. */
+function SmartTitle({ text }: { text: string }) {
+  const ix = text.indexOf(' — ');
+  if (ix === -1) return <>{bindPairs(text)}</>;
+  return (
+    <>
+      <span className="inline-block whitespace-nowrap">{text.slice(0, ix)} —</span>{' '}
+      {/* inline-block: cụm không vừa → RƠI NGUYÊN CỤM xuống dòng, không gãy giữa;
+          cụm dài quá một dòng → tự cân 2 dòng (balance) tại điểm ngắt đẹp */}
+      <span className="inline-block max-w-full [text-wrap:balance]">{bindPairs(text.slice(ix + 3))}</span>
+    </>
+  );
+}
+
 /**
  * "NỘI DUNG HIỆN TRÊN SLIDE" — tiêu đề + gạch đầu dòng hiện lần lượt khi lướt,
  * ẢNH của slide nằm cùng màn hình (gộp một nơi), gắn thẻ H1/H2… và chú thích.
@@ -244,7 +275,7 @@ export default function SlideSection({ id, eyebrow, title, groups, images = [], 
         <div
           className={[
             'sl-stage relative z-10 mx-auto grid w-full items-center gap-10 px-6 md:px-12',
-            insets.length > 0 ? 'max-w-7xl md:grid-cols-[1.05fr_0.95fr]' : 'max-w-4xl',
+            insets.length > 0 ? 'max-w-7xl md:max-w-[86rem] md:grid-cols-[1.18fr_0.82fr]' : 'max-w-4xl',
             bgSrc && insets.length === 0 ? 'md:mx-0 md:px-16' : '',
           ].join(' ')}
         >
@@ -256,27 +287,27 @@ export default function SlideSection({ id, eyebrow, title, groups, images = [], 
             <div className="sl-line gold-line mb-6 w-28 origin-left" style={{ transform: 'scaleX(0)' }} />
             {title && (
               /* tiêu đề có NGÀY THÁNG → sans đậm: số và chữ đồng cỡ, không vênh */
-              <h2 className="sl-row will-transform mb-8 text-balance font-display text-[26px] font-bold uppercase leading-snug tracking-[0.04em] text-vn-ivory opacity-0 md:text-[length:clamp(38px,2.8vw,54px)]">
-                {title}
+              <h2 className="sl-row will-transform mb-8 text-pretty font-display text-[26px] font-bold uppercase leading-snug tracking-[0.04em] text-vn-ivory opacity-0 md:text-[length:clamp(40px,3vw,58px)]">
+                <SmartTitle text={title} />
               </h2>
             )}
-            <div className="flex flex-col gap-8">
+            <div className="flex flex-col gap-7">
               {groups.map((g, gi) => (
                 <div key={gi}>
                   {g.title && (
-                    <h3 className="sl-row sl-group will-transform mb-4 text-balance font-display text-[22px] font-semibold uppercase tracking-[0.1em] text-vn-gold opacity-0 md:text-[length:clamp(30px,2.4vw,46px)]">
-                      {g.title}
+                    <h3 className="sl-row sl-group will-transform mb-4 text-pretty font-display text-[22px] font-semibold uppercase leading-snug tracking-[0.05em] text-vn-gold opacity-0 md:text-[length:clamp(32px,2.6vw,50px)]">
+                      <SmartTitle text={g.title} />
                     </h3>
                   )}
                   <ul className="flex flex-col gap-3.5">
                     {g.bullets.map((b, bi) => (
                       <li key={bi} className="sl-row will-transform flex items-start gap-3.5 opacity-0">
-                        <span className={`mt-[12px] h-[8px] w-[8px] shrink-0 rotate-45 ${g.accent ? 'bg-vn-red' : 'bg-vn-gold-antique/80'}`} />
+                        <span className={`mt-[13px] h-[8px] w-[8px] shrink-0 rotate-45 ${g.accent ? 'bg-vn-red' : 'bg-vn-gold-antique/80'}`} />
                         <span
                           className={
                             g.accent
-                              ? 'text-pretty font-body text-[16.5px] font-semibold leading-relaxed text-vn-red md:text-[length:clamp(20px,1.25vw,24px)]'
-                              : 'text-pretty font-body text-[16px] leading-relaxed text-vn-ivory/90 md:text-[length:clamp(19px,1.2vw,23px)]'
+                              ? 'text-pretty font-body text-[16.5px] font-semibold leading-relaxed text-vn-red md:text-[length:clamp(21px,1.3vw,25px)]'
+                              : 'text-pretty font-body text-[16px] leading-relaxed text-vn-ivory/90 md:text-[length:clamp(20px,1.25vw,24px)]'
                           }
                         >
                           {b}
