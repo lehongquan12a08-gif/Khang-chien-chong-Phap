@@ -57,6 +57,9 @@ export default function AutoScrollButton() {
     playingRef.current = false;
     setPlaying(false);
     stopRaf();
+    // ẤN DỪNG (hoặc cuộn tay chen ngang) → giọng đọc dừng theo ngay,
+    // giữ nguyên vị trí câu (AudioController đọc cờ này mỗi nhịp)
+    narrationState.userPaused = true;
   }, []);
 
   const scrollToY = (y: number) => {
@@ -162,6 +165,7 @@ export default function AutoScrollButton() {
     playingRef.current = true;
     setPlaying(true);
     lastTs.current = 0;
+    narrationState.userPaused = false; // phát lại → giọng đọc tiếp từ chỗ dừng
     // nạp danh sách màn cần dừng nhịp cho lượt phát này
     dwellElsRef.current = Array.from(document.querySelectorAll('[data-dwell]'));
     dwellDoneRef.current = new Set();

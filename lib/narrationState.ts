@@ -17,4 +17,8 @@ export const narrationState = {
   scroll0: 0, // start of the section fraction band this voice scrubs
   scroll1: 1, // end of the section fraction band this voice scrubs
   volume: 0.8, // master volume (0..1), so UI sounds can follow the slider
+  // NGƯỜI DÙNG ẤN DỪNG (nút tự lướt / cuộn tay chen ngang): giọng đọc phải
+  // dừng theo NGAY, giữ nguyên vị trí câu; ấn phát lại → đọc tiếp từ chỗ dừng.
+  // Lệnh dừng chỉ áp cho ĐOẠN hiện tại — sang chương khác thì tự xoá.
+  userPaused: false,
 };

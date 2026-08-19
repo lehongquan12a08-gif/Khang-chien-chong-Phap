@@ -297,6 +297,8 @@ export default function AudioController() {
       if (narrCue.id !== narrActiveRef.current) {
         const a = narrAudioRef.current;
         if (a) {
+          // sang CHƯƠNG KHÁC → lệnh dừng cũ (nếu có) hết hiệu lực
+          narrationState.userPaused = false;
           narrActiveRef.current = narrCue.id;
           narrStartRef.current = narrCue.start ?? 0;
           narrEndRef.current = narrCue.end ?? Number.POSITIVE_INFINITY;
@@ -333,6 +335,27 @@ export default function AudioController() {
           narrationState.scroll1 = narrCue.scroll ? narrCue.scroll[1] : 1;
           stopNarrWatch();
           narrWatchRef.current = requestAnimationFrame(narrWatch);
+        }
+      } else {
+        // CÙNG chương — xử lý DỪNG / ĐỌC TIẾP:
+        // - userPaused (ấn dừng tự lướt / cuộn tay chen ngang) → tạm dừng giọng
+        //   NGAY, giữ nguyên vị trí câu
+        // - hết lệnh dừng (ấn phát lại) hoặc quay lại tab → đọc TIẾP từ chỗ dừng
+        const a = narrElRef.current;
+        if (a) {
+          if (narrationState.userPaused) {
+            if (!a.paused) {
+              a.pause();
+              stopNarrWatch();
+              narrationState.playing = false;
+              narrationState.speaking = false;
+            }
+          } else if (a.paused && !a.ended && narrationState.progress < 1 && !narrFadingRef.current) {
+            narrCtxRef.current?.resume().catch(() => {});
+            a.play().catch(() => {});
+            stopNarrWatch();
+            narrWatchRef.current = requestAnimationFrame(narrWatch);
+          }
         }
       }
     } else if (narrActiveRef.current) {
@@ -698,14 +721,12 @@ export default function AudioController() {
       if (document.hidden) {
         ambientRef.current?.pause();
         sfxRef.current.forEach((a) => a.pause());
+        // giọng đọc: DỪNG tại chỗ, GIỮ vị trí câu — quay lại tab sẽ đọc TIẾP
+        // (không đọc lại từ đầu đoạn); apply() tự phát tiếp qua nhánh cùng-chương
         narrAudioRef.current?.pause();
-        narrActiveRef.current = null; // replay current chapter's line on return
-        narrElRef.current = null;
-        declFiredRef.current = false;
         getDeclVideo()?.pause();
         narrationState.speaking = false;
         narrationState.playing = false;
-        narrationState.activeId = null;
         stopNarrWatch();
       } else {
         ambientRef.current?.play().catch(() => {});
