@@ -86,8 +86,6 @@ export default function WordCascade({
         )}
         {words.map((w, i) => {
           const accent = accentWords.includes(w);
-          // Cụm có SỐ (năm/ngày) → sans đậm: số và chữ đồng cỡ, không vênh như serif.
-          const hasDigit = /\d/.test(w);
           // Cụm NGẮN: một dòng, cỡ điện ảnh. Cụm DÀI: cho xuống 2 dòng cân đối
           // (text-wrap: balance) — chữ vẫn to, không bị ép nhỏ/tràn mép.
           const long = w.length > 16;
@@ -99,13 +97,13 @@ export default function WordCascade({
                 maxWidth: '90vw',
                 lineHeight: 1.08,
               }
-            : { fontSize: 'clamp(38px, 9vw, 170px)', whiteSpace: 'nowrap', lineHeight: 1 };
+            : { fontSize: 'clamp(38px, 9vw, 170px)', whiteSpace: 'nowrap' };
           return (
             <h2
               key={`${w}-${i}`}
               className={[
-                'cascade-word will-transform absolute select-none text-center',
-                hasDigit ? 'font-display font-bold' : 'headline-mega',
+                // TẤT CẢ cụm chữ lướt dùng chung một font serif (nét trắng ngà)
+                'cascade-word will-transform headline-mega absolute select-none text-center',
                 accent ? 'text-vn-red' : 'text-vn-ivory',
               ].join(' ')}
               style={style}
