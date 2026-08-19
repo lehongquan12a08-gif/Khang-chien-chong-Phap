@@ -64,7 +64,7 @@ export default function InteractiveQuestion({
           </span>
           <h3
             className="text-balance font-display font-bold leading-snug text-vn-ivory"
-            style={{ fontSize: 'clamp(24px, 3.2vw, 52px)' }}
+            style={{ fontSize: 'clamp(27px, 3.6vw, 64px)' }}
           >
             {question}
           </h3>

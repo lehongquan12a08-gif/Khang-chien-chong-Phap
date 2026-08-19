@@ -78,10 +78,10 @@ export default function QuoteSection() {
         })}
 
         <div className="qattr absolute bottom-[14%] left-1/2 w-full -translate-x-1/2 text-center opacity-0">
-          <p className="font-body text-sm uppercase tracking-[0.28em] text-vn-brown">
+          <p className="font-body text-sm uppercase tracking-[0.28em] text-vn-brown md:text-base">
             — {verifiedQuote.attribution}
           </p>
-          <p className="mt-2 font-body text-[11px] uppercase tracking-[0.2em] text-vn-brown/60">
+          <p className="mt-2 font-body text-[11px] uppercase tracking-[0.2em] text-vn-brown/60 md:text-[13px]">
             {verifiedQuote.context}
           </p>
         </div>

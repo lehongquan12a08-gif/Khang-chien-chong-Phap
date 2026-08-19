@@ -117,7 +117,7 @@ export default function ConclusionSection() {
         <div className="cn-stage mx-auto w-full max-w-4xl">
           <div className="cn-head cn-reveal will-transform text-center opacity-0">
             <p className="eyebrow mb-4 text-vn-gold-antique">Trải qua 9 năm gian khổ · 1946 — 1954</p>
-            <h2 className="text-balance font-display text-2xl font-bold uppercase leading-snug tracking-[0.05em] text-vn-ivory md:text-4xl">
+            <h2 className="text-balance font-display text-[26px] font-bold uppercase leading-snug tracking-[0.05em] text-vn-ivory md:text-[length:clamp(40px,2.8vw,54px)]">
               5 thành tựu <span className="text-vn-gold text-glow-gold">lịch sử</span>
             </h2>
           </div>

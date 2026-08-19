@@ -123,7 +123,7 @@ export default function FiftySixDays({ id }: { id?: string }) {
             {/* bộ đếm ngày */}
             <div className="flex items-end gap-4">
               <div>
-                <p className="font-body text-[11px] uppercase tracking-[0.3em] text-vn-ivory/60">Ngày đêm thứ</p>
+                <p className="font-body text-[12px] uppercase tracking-[0.3em] text-vn-ivory/65 md:text-[14px]">Ngày đêm thứ</p>
                 <span
                   ref={counterRef}
                   className="block font-display font-bold leading-none text-vn-gold text-glow-gold"
