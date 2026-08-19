@@ -251,7 +251,8 @@ export default function SlideSection({ id, eyebrow, title, groups, images = [], 
             <p className="eyebrow mb-4 text-vn-gold-antique">{eyebrow}</p>
             <div className="sl-line gold-line mb-6 w-28 origin-left" style={{ transform: 'scaleX(0)' }} />
             {title && (
-              <h2 className="sl-row will-transform mb-8 font-serif-hist text-2xl font-black uppercase leading-tight text-vn-ivory opacity-0 md:text-4xl">
+              /* tiêu đề có NGÀY THÁNG → sans đậm: số và chữ đồng cỡ, không vênh */
+              <h2 className="sl-row will-transform mb-8 text-balance font-display text-xl font-bold uppercase leading-snug tracking-[0.04em] text-vn-ivory opacity-0 md:text-3xl">
                 {title}
               </h2>
             )}

@@ -159,7 +159,7 @@ export default function FiftySixDays({ id }: { id?: string }) {
 
             {/* nhãn chốt */}
             <p
-              className="d56-final mt-9 font-serif-hist text-3xl font-black uppercase tracking-[0.1em] text-vn-red opacity-0 md:text-5xl"
+              className="d56-final mt-9 font-display text-3xl font-bold uppercase tracking-[0.08em] text-vn-red opacity-0 md:text-5xl"
               style={{ textShadow: '0 0 40px rgba(218,37,29,0.45)' }}
             >
               56 ngày đêm
