@@ -36,10 +36,15 @@ const NARR_FADE_MS = 850;
 // Bump when a generated audio file changes so browsers fetch the new version
 // instead of a cached copy of the same filename.
 const V = 'v=5';
-// baked-quiet ambient (30% of the original) so it's low even on iOS where
-// element.volume is ignored; desktop compensates via AMBIENT_VOL below.
-const AMBIENT_SRC = `/audio/ambient-lo.wav?v=6`;
-const AMBIENT_VOL = 0.6;
+// NHẠC NỀN dịu (pad ngũ cung tự soạn, loop 96s không khục) — file đã bake NHỎ
+// (peak ≈ -18 dBFS) nên an toàn cả trên iOS (nơi element.volume bị bỏ qua).
+const AMBIENT_SRC = `/audio/nhac-nen.wav?v=1`;
+const AMBIENT_VOL = 0.34; // mức nền hành trình — bé, chỉ đủ "có không khí"
+// CUNG MỞ ĐẦU: nhạc nổi lên rõ lúc bắt đầu, rồi tự hạ về nền — đúng lúc phần
+// lồng tiếng sẽ vào (khi có giọng đọc, cơ chế duck còn hạ sâu hơn nữa).
+const INTRO_PEAK = 2.3; // × mức nền trong lúc mở màn
+const INTRO_HOLD_MS = 5200; // giữ mức nổi bật
+const INTRO_FALL_MS = 3200; // rồi hạ dần về nền
 
 // `voice: true` = a spoken clip (kept loud, ducks everything else).
 type Sfx = { id: string; src: string; vol: number; loop?: boolean; range?: [number, number]; voice?: boolean };
@@ -104,6 +109,7 @@ export default function AudioController() {
   // enabling the speaker only ARMS audio; nothing plays until the first scroll
   // / auto-scroll, so tapping the speaker doesn't blast sound on the spot.
   const startedRef = useRef(false);
+  const startedAtRef = useRef(0); // mốc bắt đầu — chạy cung nhạc mở đầu to→bé
 
   // create audio elements once
   useEffect(() => {
@@ -118,7 +124,7 @@ export default function AudioController() {
     // narration — "tiếng sông" too loud. Skip them entirely on touch: keep just
     // the narration + ambient music + the Tuyên ngôn video.
     const isTouch = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
-    ambientVolRef.current = isTouch ? 0.3 : AMBIENT_VOL; // quieter music on phones (Android)
+    ambientVolRef.current = isTouch ? 0.2 : AMBIENT_VOL; // quieter music on phones (Android)
     // the video FILE is now baked to 15% (iOS-safe, no Web Audio). element.volume
     // still trims it further where it works (desktop/Android); iOS plays the
     // baked 15% directly.
@@ -410,7 +416,15 @@ export default function AudioController() {
 
     // 4) background music --------------------------------------------------
     duckRef.current = voice;
-    const ambTarget = ambientVolRef.current * master * (voice ? AMBIENT_DUCK : 1);
+    // cung MỞ ĐẦU: nổi lên (INTRO_PEAK) rồi hạ dần về nền; có giọng đọc → duck
+    let intro = 1;
+    if (!voice && startedAtRef.current) {
+      const dt = performance.now() - startedAtRef.current;
+      if (dt < INTRO_HOLD_MS) intro = INTRO_PEAK;
+      else if (dt < INTRO_HOLD_MS + INTRO_FALL_MS)
+        intro = 1 + (INTRO_PEAK - 1) * (1 - (dt - INTRO_HOLD_MS) / INTRO_FALL_MS);
+    }
+    const ambTarget = clamp(ambientVolRef.current * master * (voice ? AMBIENT_DUCK : intro));
     if (ambientRef.current && Math.abs(ambTarget - ambTargetRef.current) > 0.001) {
       ambTargetRef.current = ambTarget;
       setAmbient(ambTarget, 700);
@@ -485,6 +499,7 @@ export default function AudioController() {
     narrElRef.current = null;
     declFiredRef.current = false;
     startedRef.current = false; // re-arm: next enable won't auto-play either
+    startedAtRef.current = 0; // bật lại sẽ chạy lại cung nhạc mở đầu
     getDeclVideo()?.pause();
     stopNarrWatch();
     narrationState.speaking = false;
@@ -574,7 +589,10 @@ export default function AudioController() {
     let ticking = false;
     const onScroll = () => {
       // the first scroll (manual or auto-scroll) is what actually starts sound
-      if (enabledRef.current) startedRef.current = true;
+      if (enabledRef.current && !startedRef.current) {
+        startedRef.current = true;
+        startedAtRef.current = performance.now(); // mở cung nhạc mở đầu
+      }
       if (ticking) return;
       ticking = true;
       requestAnimationFrame(() => {
@@ -588,7 +606,10 @@ export default function AudioController() {
     // tick, NOT every frame (running the heavy apply() at 60fps made auto-scroll
     // janky).
     const onLenisScroll = () => {
-      if (enabledRef.current) startedRef.current = true;
+      if (enabledRef.current && !startedRef.current) {
+        startedRef.current = true;
+        startedAtRef.current = performance.now(); // mở cung nhạc mở đầu
+      }
     };
     let bound: Lenis | null = null;
     const off = onLenis((l) => {
