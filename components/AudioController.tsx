@@ -103,6 +103,8 @@ export default function AudioController() {
   const narrElRef = useRef<HTMLAudioElement | null>(null);
   const narrCtxRef = useRef<AudioContext | null>(null);
   const narrMakeupRef = useRef<GainNode | null>(null); // output gain of the voice bus
+  const narrVoiceGainRef = useRef<GainNode | null>(null); // gain đầu vào (boost × vol từng đoạn)
+  const narrBaseBoostRef = useRef(NARR_BOOST); // boost gốc theo thiết bị
   const voiceMakeupRef = useRef(VOICE_MAKEUP); // makeup target (lower on mobile)
   const narrWatchRef = useRef<number | null>(null);
   const declFiredRef = useRef(false); // Tuyên ngôn one-shot: fire once per visit
@@ -179,6 +181,8 @@ export default function AudioController() {
           g.gain.value = narrBoost;
           src.connect(g);
           g.connect(comp);
+          narrVoiceGainRef.current = g;
+          narrBaseBoostRef.current = narrBoost;
         }
         // NOTE: do NOT route the ambient here — adding another Web Audio source
         // pushed iOS over its media-source limit (narration silenced + tab crash).
@@ -324,7 +328,15 @@ export default function AudioController() {
             fades.delete(a);
           }
           a.muted = false; // in case the mobile-unlock left it muted
-          a.volume = clamp(master); // Web Audio gain adds the boost on top
+          // CÂN BẰNG từng đoạn: nhân hệ số vol của cue vào gain (chạy cả trên
+          // iOS); không có Web Audio thì nhân vào element.volume
+          const cueVol = narrCue.vol ?? 1;
+          if (narrVoiceGainRef.current) {
+            narrVoiceGainRef.current.gain.value = narrBaseBoostRef.current * cueVol;
+            a.volume = clamp(master);
+          } else {
+            a.volume = clamp(master * cueVol);
+          }
           narrCtxRef.current?.resume().catch(() => {});
           a.play().catch(() => {});
           narrElRef.current = a;
