@@ -19,19 +19,15 @@ export default function TimelineIndicator() {
       const scrollable = doc.scrollHeight - window.innerHeight;
       setProgress(scrollable > 0 ? window.scrollY / scrollable : 0);
 
-      // active section = the marker section closest to viewport centre
+      // active = mục CUỐI CÙNG mà ĐẦU section đã đi qua giữa màn hình (scrollspy
+      // chuẩn) — không so "tâm gần nhất" vì section dài/ngắn chênh nhau làm
+      // thắp nhầm mốc chưa tới (vd đứng ở Mở đầu mà sáng 1946)
       const mid = window.innerHeight / 2;
       let best = timelineMarkers[0].id;
-      let bestDist = Infinity;
       for (const m of timelineMarkers) {
         const el = document.getElementById(m.id);
         if (!el) continue;
-        const rect = el.getBoundingClientRect();
-        const dist = Math.abs(rect.top + rect.height / 2 - mid);
-        if (dist < bestDist) {
-          bestDist = dist;
-          best = m.id;
-        }
+        if (el.getBoundingClientRect().top <= mid) best = m.id;
       }
       setActiveId(best);
       ticking.current = false;
