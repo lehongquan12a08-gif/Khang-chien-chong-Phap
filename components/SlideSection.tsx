@@ -169,7 +169,9 @@ export default function SlideSection({ id, eyebrow, title, groups, images = [], 
           /* BỐ CỤC ẢNH-TO-TRÊN: 2 ảnh lớn cạnh nhau, ghi chú + nội dung ở dưới */
           <div className="sl-stage relative z-10 mx-auto w-full max-w-6xl px-6 md:px-10">
             <div className="mb-7 text-center">
-              <p className="eyebrow mb-3 text-vn-gold-antique">{eyebrow}</p>
+              <p className="eyebrow mb-3 text-vn-gold-antique" style={{ fontSize: 'clamp(12px, 0.95vw, 15px)' }}>
+                {eyebrow}
+              </p>
               <div className="sl-line gold-line mx-auto w-28 origin-center" style={{ transform: 'scaleX(0)' }} />
             </div>
             <div className="grid gap-6 md:grid-cols-2">
@@ -185,7 +187,7 @@ export default function SlideSection({ id, eyebrow, title, groups, images = [], 
                     />
                   </div>
                   {im.caption && (
-                    <figcaption className="mt-2.5 text-balance text-center font-body text-[12px] leading-snug text-vn-ivory/60">
+                    <figcaption className="mt-2.5 text-balance text-center font-body text-[13px] leading-snug text-vn-ivory/65 md:text-[length:clamp(13px,0.8vw,15.5px)]">
                       {im.caption}
                     </figcaption>
                   )}
@@ -198,7 +200,7 @@ export default function SlideSection({ id, eyebrow, title, groups, images = [], 
                   {g.bullets.map((b, bi) => (
                     <li key={bi} className="sl-row will-transform flex items-start gap-3 opacity-0">
                       <span className="mt-[9px] h-[7px] w-[7px] shrink-0 rotate-45 bg-vn-gold-antique/80" />
-                      <span className="text-pretty font-body text-[15px] leading-relaxed text-vn-ivory/90 md:text-lg">
+                      <span className="text-pretty font-body text-[16px] leading-relaxed text-vn-ivory/90 md:text-[length:clamp(19px,1.2vw,23px)]">
                         {b}
                       </span>
                     </li>
@@ -230,7 +232,7 @@ export default function SlideSection({ id, eyebrow, title, groups, images = [], 
             {bgCap && (
               <p
                 className={[
-                  'absolute bottom-5 max-w-[50vw] text-balance font-body text-[11.5px] leading-snug text-vn-ivory/60',
+                  'absolute bottom-5 max-w-[50vw] text-balance font-body text-[12.5px] leading-snug text-vn-ivory/60 md:text-[length:clamp(12.5px,0.75vw,14.5px)]',
                   insets.length > 0 ? 'left-6 text-left md:left-14' : 'right-6 text-right',
                 ].join(' ')}
               >
@@ -246,13 +248,15 @@ export default function SlideSection({ id, eyebrow, title, groups, images = [], 
             bgSrc && insets.length === 0 ? 'md:mx-0 md:px-16' : '',
           ].join(' ')}
         >
-          {/* cột chữ */}
+          {/* cột chữ — cỡ chữ NỞ theo chiều rộng màn hình (màn to chữ to) */}
           <div>
-            <p className="eyebrow mb-4 text-vn-gold-antique">{eyebrow}</p>
+            <p className="eyebrow mb-4 text-vn-gold-antique" style={{ fontSize: 'clamp(12px, 0.95vw, 15px)' }}>
+              {eyebrow}
+            </p>
             <div className="sl-line gold-line mb-6 w-28 origin-left" style={{ transform: 'scaleX(0)' }} />
             {title && (
               /* tiêu đề có NGÀY THÁNG → sans đậm: số và chữ đồng cỡ, không vênh */
-              <h2 className="sl-row will-transform mb-8 text-balance font-display text-2xl font-bold uppercase leading-snug tracking-[0.04em] text-vn-ivory opacity-0 md:text-4xl">
+              <h2 className="sl-row will-transform mb-8 text-balance font-display text-[26px] font-bold uppercase leading-snug tracking-[0.04em] text-vn-ivory opacity-0 md:text-[length:clamp(38px,2.8vw,54px)]">
                 {title}
               </h2>
             )}
@@ -260,19 +264,19 @@ export default function SlideSection({ id, eyebrow, title, groups, images = [], 
               {groups.map((g, gi) => (
                 <div key={gi}>
                   {g.title && (
-                    <h3 className="sl-row sl-group will-transform mb-4 text-balance font-display text-xl font-semibold uppercase tracking-[0.1em] text-vn-gold opacity-0 md:text-3xl">
+                    <h3 className="sl-row sl-group will-transform mb-4 text-balance font-display text-[22px] font-semibold uppercase tracking-[0.1em] text-vn-gold opacity-0 md:text-[length:clamp(30px,2.4vw,46px)]">
                       {g.title}
                     </h3>
                   )}
-                  <ul className="flex flex-col gap-3">
+                  <ul className="flex flex-col gap-3.5">
                     {g.bullets.map((b, bi) => (
                       <li key={bi} className="sl-row will-transform flex items-start gap-3.5 opacity-0">
-                        <span className={`mt-[11px] h-[8px] w-[8px] shrink-0 rotate-45 ${g.accent ? 'bg-vn-red' : 'bg-vn-gold-antique/80'}`} />
+                        <span className={`mt-[12px] h-[8px] w-[8px] shrink-0 rotate-45 ${g.accent ? 'bg-vn-red' : 'bg-vn-gold-antique/80'}`} />
                         <span
                           className={
                             g.accent
-                              ? 'text-pretty font-body text-[15.5px] font-semibold leading-relaxed text-vn-red md:text-[19px]'
-                              : 'text-pretty font-body text-[15px] leading-relaxed text-vn-ivory/90 md:text-lg'
+                              ? 'text-pretty font-body text-[16.5px] font-semibold leading-relaxed text-vn-red md:text-[length:clamp(20px,1.25vw,24px)]'
+                              : 'text-pretty font-body text-[16px] leading-relaxed text-vn-ivory/90 md:text-[length:clamp(19px,1.2vw,23px)]'
                           }
                         >
                           {b}
@@ -300,7 +304,7 @@ export default function SlideSection({ id, eyebrow, title, groups, images = [], 
                     />
                   </div>
                   {im.caption && (
-                    <figcaption className="mt-2.5 text-balance text-center font-body text-[12px] leading-snug text-vn-ivory/60 md:text-right">
+                    <figcaption className="mt-2.5 text-balance text-center font-body text-[13px] leading-snug text-vn-ivory/65 md:text-right md:text-[length:clamp(13px,0.8vw,15.5px)]">
                       {im.caption}
                     </figcaption>
                   )}
