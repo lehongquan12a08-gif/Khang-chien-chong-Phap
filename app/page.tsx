@@ -35,8 +35,6 @@ export default function Home() {
         <ClosingText
           eyebrow="Mở đầu"
           paragraphs={[
-            'Năm 1945, nước Việt Nam Dân chủ Cộng hòa vừa ra đời sau thắng lợi của Cách mạng Tháng Tám. Tuy nhiên, nền độc lập non trẻ ngay lập tức phải đối mặt với nhiều khó khăn.',
-            'Thực dân Pháp quay trở lại xâm lược nước ta với âm mưu tái lập ách thống trị.',
             'Trước tình thế đó, Đảng và Chủ tịch Hồ Chí Minh đã xác định một đường lối kháng chiến đúng đắn, đưa dân tộc Việt Nam đi đến thắng lợi vẻ vang.',
           ]}
         />
@@ -72,9 +70,8 @@ export default function Home() {
         {/* Phần cuối */}
         <ClosingText
           eyebrow="Tinh thần 19/12/1946"
+          bgImage="/images/kc/y46-h2.webp"
           paragraphs={[
-            'Ngày 19 tháng 12 năm 1946 không chỉ đánh dấu một cuộc chiến bắt đầu. Đó là thời khắc cả dân tộc cùng đứng lên bảo vệ nền độc lập vừa giành được.',
-            'Từ một dân tộc đứng trước thử thách sống còn, Việt Nam đã lựa chọn đoàn kết, trường kỳ và tự lực để chiến đấu vì độc lập, tự do.',
             'Đó chính là tinh thần của Toàn quốc kháng chiến.',
           ]}
         />
@@ -261,9 +258,7 @@ export default function Home() {
           eyebrow="Giai đoạn 1953 – 1954 · Điện Biên Phủ"
           bgImage="/images/kc/y54-keophao.webp"
           paragraphs={[
-            'Sau những thắng lợi liên tiếp và quá trình phát triển thế, lực trong giai đoạn 1951–1953, cuộc kháng chiến chống thực dân Pháp bước vào một bước ngoặt quyết định.',
             'Cuối năm 1953, Điện Biên Phủ trở thành nơi tập trung lực lượng lớn nhất của quân Pháp. Từ đây, một chiến dịch lịch sử bắt đầu và kéo dài suốt 56 ngày đêm.',
-            'Hãy cùng nhìn lại những dấu mốc quan trọng dẫn đến Chiến thắng Điện Biên Phủ năm 1954.',
           ]}
         />
         <SlideSection
@@ -340,9 +335,8 @@ export default function Home() {
         <ClosingText
           id="y-nghia"
           eyebrow="Dấu ấn lịch sử · 1946 – 1954"
-          bgImage="/images/kc/yn-dbp.webp"
+          bgImage="/images/kc/giai-phong-ket-cuoi.webp"
           paragraphs={[
-            'Trải qua 9 năm gian khổ với bao hy sinh, mất mát — từ mùa đông năm 1946 khói lửa tại Thủ đô Hà Nội cho đến mùa xuân năm 1954 rực rỡ tại lòng chảo Điện Biên — dân tộc Việt Nam ta đã viết nên một bản anh hùng ca bất diệt.',
             'Thắng lợi vang dội của cuộc kháng chiến chống thực dân Pháp không chỉ là một mốc son chói lọi trong lịch sử dân tộc, mà còn mang lại những kết quả và ý nghĩa vô cùng to lớn.',
           ]}
         />

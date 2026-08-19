@@ -41,8 +41,16 @@ export default function SlideSection({ id, eyebrow, title, groups, images = [], 
   const root = useRef<HTMLDivElement>(null);
   const rows = groups.reduce((n, g) => n + (g.title ? 1 : 0) + g.bullets.length, 0) + (title ? 1 : 0);
   const heightVh = 130 + rows * 26 + images.length * 16;
-  // slide chỉ có 1 ảnh + ít nội dung → ảnh làm NỀN full màn hình (điện ảnh)
-  const single = !imagesTop && images.length === 1;
+  // BỐ CỤC MÀN ẢNH: 1 ảnh làm NỀN full màn hình, ảnh còn lại đóng KHUNG bên phải.
+  // - backgroundImage (ảnh nền đã đặt sẵn) → làm nền, mọi ảnh slide thành khung phải
+  // - không có → ảnh CHỤP đầu tiên làm nền (tài liệu/lược đồ 'contain' luôn vào khung)
+  const { bgSrc, bgCap, insets } = (() => {
+    if (imagesTop) return { bgSrc: null as string | null, bgCap: null as string | null, insets: images };
+    if (backgroundImage) return { bgSrc: backgroundImage, bgCap: null, insets: images };
+    if (images.length === 0) return { bgSrc: null, bgCap: null, insets: images };
+    const bi = Math.max(0, images.findIndex((im) => im.fit !== 'contain'));
+    return { bgSrc: images[bi].src, bgCap: images[bi].caption ?? null, insets: images.filter((_, i) => i !== bi) };
+  })();
 
   // ĐIỆN THOẠI: slide KHÔNG ghim (nội dung dài hơn màn hình sẽ bị cắt nếu ghim)
   // — chảy tự nhiên, từng dòng/ảnh hiện khi lướt tới. Desktop giữ kiểu ghim.
@@ -157,19 +165,6 @@ export default function SlideSection({ id, eyebrow, title, groups, images = [], 
             : 'sticky top-0 flex h-screen items-center overflow-hidden'
         }
       >
-        {backgroundImage && (
-          <>
-            <div
-              aria-hidden="true"
-              className="absolute inset-0 bg-cover bg-center opacity-45 grayscale"
-              style={{ backgroundImage: `url(${backgroundImage})` }}
-            />
-            <div
-              aria-hidden="true"
-              className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(8,8,8,0.28),rgba(8,8,8,0.88)_74%),linear-gradient(90deg,rgba(8,8,8,0.78),rgba(8,8,8,0.4)_52%,rgba(8,8,8,0.78))]"
-            />
-          </>
-        )}
         {imagesTop ? (
           /* BỐ CỤC ẢNH-TO-TRÊN: 2 ảnh lớn cạnh nhau, ghi chú + nội dung ở dưới */
           <div className="sl-stage relative z-10 mx-auto w-full max-w-6xl px-6 md:px-10">
@@ -203,7 +198,7 @@ export default function SlideSection({ id, eyebrow, title, groups, images = [], 
                   {g.bullets.map((b, bi) => (
                     <li key={bi} className="sl-row will-transform flex items-start gap-3 opacity-0">
                       <span className="mt-[9px] h-[7px] w-[7px] shrink-0 rotate-45 bg-vn-gold-antique/80" />
-                      <span className="text-pretty font-body text-[14px] leading-relaxed text-vn-ivory/90 md:text-[17px]">
+                      <span className="text-pretty font-body text-[15px] leading-relaxed text-vn-ivory/90 md:text-lg">
                         {b}
                       </span>
                     </li>
@@ -214,13 +209,13 @@ export default function SlideSection({ id, eyebrow, title, groups, images = [], 
           </div>
         ) : (
         <>
-        {single && (
-          /* SLIDE 1-ẢNH: ảnh làm nền full màn hình, chữ nổi bên trái */
+        {bgSrc && (
+          /* NỀN MÀN ẢNH: 1 ảnh phủ kín màn hình + lớp tối cho chữ nổi */
           <div className="sl-bgimg will-transform absolute inset-0 opacity-0">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={images[0].src}
-              alt={images[0].caption ?? ''}
+              src={bgSrc}
+              alt=""
               className="h-full w-full object-cover"
               style={{ objectPosition: 'center 25%', filter: 'contrast(1.05) brightness(0.55) sepia(0.12)' }}
             />
@@ -228,22 +223,27 @@ export default function SlideSection({ id, eyebrow, title, groups, images = [], 
               className="pointer-events-none absolute inset-0"
               style={{
                 background:
-                  'linear-gradient(90deg, rgba(8,8,8,0.92) 0%, rgba(8,8,8,0.72) 36%, rgba(8,8,8,0.3) 64%, rgba(8,8,8,0.08) 100%)',
+                  'linear-gradient(90deg, rgba(8,8,8,0.93) 0%, rgba(8,8,8,0.74) 36%, rgba(8,8,8,0.34) 64%, rgba(8,8,8,0.12) 100%)',
               }}
             />
-            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[26vh] bg-gradient-to-t from-vn-black/85 to-transparent" />
-            {images[0].caption && (
-              <p className="absolute bottom-5 right-6 max-w-[55vw] text-balance text-right font-body text-[11.5px] leading-snug text-vn-ivory/60">
-                {images[0].caption}
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[24vh] bg-gradient-to-t from-vn-black/85 to-transparent" />
+            {bgCap && (
+              <p
+                className={[
+                  'absolute bottom-5 max-w-[50vw] text-balance font-body text-[11.5px] leading-snug text-vn-ivory/60',
+                  insets.length > 0 ? 'left-6 text-left md:left-14' : 'right-6 text-right',
+                ].join(' ')}
+              >
+                {bgCap}
               </p>
             )}
           </div>
         )}
         <div
           className={[
-            'sl-stage relative z-10 mx-auto grid w-full items-center gap-10 px-6 md:px-10',
-            images.length && !single ? 'max-w-6xl md:grid-cols-[1.1fr_0.9fr]' : 'max-w-4xl',
-            single ? 'md:mx-0 md:px-16' : '',
+            'sl-stage relative z-10 mx-auto grid w-full items-center gap-10 px-6 md:px-12',
+            insets.length > 0 ? 'max-w-7xl md:grid-cols-[1.05fr_0.95fr]' : 'max-w-4xl',
+            bgSrc && insets.length === 0 ? 'md:mx-0 md:px-16' : '',
           ].join(' ')}
         >
           {/* cột chữ */}
@@ -252,27 +252,27 @@ export default function SlideSection({ id, eyebrow, title, groups, images = [], 
             <div className="sl-line gold-line mb-6 w-28 origin-left" style={{ transform: 'scaleX(0)' }} />
             {title && (
               /* tiêu đề có NGÀY THÁNG → sans đậm: số và chữ đồng cỡ, không vênh */
-              <h2 className="sl-row will-transform mb-8 text-balance font-display text-xl font-bold uppercase leading-snug tracking-[0.04em] text-vn-ivory opacity-0 md:text-3xl">
+              <h2 className="sl-row will-transform mb-8 text-balance font-display text-2xl font-bold uppercase leading-snug tracking-[0.04em] text-vn-ivory opacity-0 md:text-4xl">
                 {title}
               </h2>
             )}
-            <div className="flex flex-col gap-7">
+            <div className="flex flex-col gap-8">
               {groups.map((g, gi) => (
                 <div key={gi}>
                   {g.title && (
-                    <h3 className="sl-row sl-group will-transform mb-3 font-display text-lg font-semibold uppercase tracking-[0.14em] text-vn-gold opacity-0 md:text-2xl">
+                    <h3 className="sl-row sl-group will-transform mb-4 text-balance font-display text-xl font-semibold uppercase tracking-[0.1em] text-vn-gold opacity-0 md:text-3xl">
                       {g.title}
                     </h3>
                   )}
-                  <ul className="flex flex-col gap-2.5">
+                  <ul className="flex flex-col gap-3">
                     {g.bullets.map((b, bi) => (
-                      <li key={bi} className="sl-row will-transform flex items-start gap-3 opacity-0">
-                        <span className={`mt-[9px] h-[7px] w-[7px] shrink-0 rotate-45 ${g.accent ? 'bg-vn-red' : 'bg-vn-gold-antique/80'}`} />
+                      <li key={bi} className="sl-row will-transform flex items-start gap-3.5 opacity-0">
+                        <span className={`mt-[11px] h-[8px] w-[8px] shrink-0 rotate-45 ${g.accent ? 'bg-vn-red' : 'bg-vn-gold-antique/80'}`} />
                         <span
                           className={
                             g.accent
-                              ? 'text-pretty font-body text-[14px] font-semibold leading-relaxed text-vn-red md:text-[16.5px]'
-                              : 'text-pretty font-body text-[13.5px] leading-relaxed text-vn-ivory/85 md:text-[16px]'
+                              ? 'text-pretty font-body text-[15.5px] font-semibold leading-relaxed text-vn-red md:text-[19px]'
+                              : 'text-pretty font-body text-[15px] leading-relaxed text-vn-ivory/90 md:text-lg'
                           }
                         >
                           {b}
@@ -285,22 +285,22 @@ export default function SlideSection({ id, eyebrow, title, groups, images = [], 
             </div>
           </div>
 
-          {/* cột ảnh — gộp ảnh của slide vào cùng một nơi */}
-          {images.length > 0 && !single && (
-            <div className="sl-imgcol will-transform flex flex-col items-center gap-5">
-              {images.map((im, i) => (
-                <figure key={i} className="sl-img will-transform relative w-full max-w-md opacity-0">
-                  <div className="relative overflow-hidden rounded-[3px] border border-vn-gold-antique/25 bg-vn-black/60 shadow-[0_24px_60px_rgba(0,0,0,0.55)]">
+          {/* KHUNG GÓC PHẢI — các ảnh còn lại của slide đóng khung nổi trên nền */}
+          {insets.length > 0 && (
+            <div className="sl-imgcol will-transform flex flex-col items-center justify-center gap-6 md:items-end">
+              {insets.map((im, i) => (
+                <figure key={i} className="sl-img will-transform relative w-full max-w-md opacity-0 md:max-w-[420px]">
+                  <div className="relative overflow-hidden rounded-[3px] border border-vn-gold-antique/30 bg-vn-black/65 shadow-[0_28px_70px_rgba(0,0,0,0.65)]">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={im.src}
                       alt={im.caption ?? ''}
                       className={im.fit === 'contain' ? 'w-full object-contain' : 'w-full object-cover'}
-                      style={{ height: images.length > 2 ? '24vh' : '32vh' }}
+                      style={{ height: insets.length > 1 ? '27vh' : '44vh' }}
                     />
                   </div>
                   {im.caption && (
-                    <figcaption className="mt-2 text-balance text-center font-body text-[11px] leading-snug text-vn-ivory/50">
+                    <figcaption className="mt-2.5 text-balance text-center font-body text-[12px] leading-snug text-vn-ivory/60 md:text-right">
                       {im.caption}
                     </figcaption>
                   )}

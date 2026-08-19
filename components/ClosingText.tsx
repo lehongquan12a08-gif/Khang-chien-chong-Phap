@@ -27,13 +27,13 @@ export default function ClosingText({ id, eyebrow, paragraphs, background, bgIma
           <img
             src={bgImage}
             alt=""
-            className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-25"
-            style={{ objectPosition: 'center 25%', filter: 'contrast(1.05) brightness(0.8)' }}
+            className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-55"
+            style={{ objectPosition: 'center 30%', filter: 'contrast(1.06) brightness(0.72) sepia(0.1)' }}
           />
-          <div className="pointer-events-none absolute inset-0 bg-vn-black/60" />
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(8,8,8,0.42),rgba(8,8,8,0.85)_82%)]" />
         </>
       )}
-      <div className="relative z-10 mx-auto max-w-3xl text-center">
+      <div className="relative z-10 mx-auto max-w-4xl text-center">
         {eyebrow && (
           <Reveal as="p" className="eyebrow mb-10 text-vn-gold-antique">
             {eyebrow}
@@ -48,7 +48,7 @@ export default function ClosingText({ id, eyebrow, paragraphs, background, bgIma
                 as="p"
                 className={
                   last
-                    ? 'text-balance font-serif-hist text-2xl font-bold leading-snug text-vn-gold text-glow-gold md:text-4xl'
+                    ? 'text-balance font-serif-hist text-[26px] font-bold leading-snug text-vn-gold text-glow-gold md:text-[44px]'
                     : 'text-balance font-serif-hist text-lg italic leading-relaxed text-vn-ivory/85 md:text-2xl'
                 }
               >
