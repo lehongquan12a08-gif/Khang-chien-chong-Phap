@@ -6,9 +6,10 @@
 // word for a gentle melodic feel.
 import { narrationState } from './narrationState';
 
-const SRC = '/audio/sfx/chime.wav?v=5';
+// v=6: âm TRUNG ấm (A3) thay cho tiếng trầm — loa lớp học/máy chiếu không rè
+const SRC = '/audio/sfx/chime.wav?v=6';
 const RATES = [1, 1.12, 0.94, 1.06, 0.88, 1.18];
-const BOOST = 2.3; // Web Audio gain — lifts the warm tone so it clearly carries
+const BOOST = 1.35; // gain nhẹ — âm trung tự rõ, không cần đẩy mạnh (chống rè)
 
 let pool: HTMLAudioElement[] = [];
 let idx = 0;
@@ -37,7 +38,7 @@ export function initUiSound() {
         matchMedia('(hover: none) and (pointer: coarse)').matches;
       ctx = new AC();
       gain = ctx.createGain();
-      gain.gain.value = touch ? 0.9 : BOOST;
+      gain.gain.value = touch ? 0.75 : BOOST;
       const limiter = ctx.createDynamicsCompressor();
       limiter.threshold.value = -6;
       limiter.knee.value = 6;
@@ -79,9 +80,8 @@ export function playChime(seq = 0, base = 0.7) {
   const master = narrationState.volume;
   const duck = narrationState.speaking ? 0.4 : 1; // stay under the voice
   const rate = RATES[((seq % RATES.length) + RATES.length) % RATES.length];
-  // on phones shift the tone ~an octave up into the mid range (small speakers
-  // reproduce it cleanly — the deep tone was distorting) and play it softer
-  a.playbackRate = touch ? rate * 1.9 : rate;
+  // âm gốc đã ở dải trung (v=6) — không cần dịch cao độ trên điện thoại nữa
+  a.playbackRate = rate;
   a.volume = Math.max(0, Math.min(1, (touch ? base * 0.7 : base) * master * duck));
   try {
     a.currentTime = 0;

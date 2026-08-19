@@ -23,7 +23,7 @@ export const MILESTONES: Record<string, Milestone> = {
   // PHẦN I giai đoạn 1951–1953 — "1 ảnh lớn" theo kịch bản
   theVaLuc: {
     id: 'chapter-1951',
-    year: '1951–53',
+    year: '1951–1953',
     eyebrow: 'Sau Chiến thắng Biên giới 1950',
     heading: 'Phát triển thế và lực',
     keyText: 'TÍCH LŨY SỨC MẠNH',
