@@ -13,6 +13,9 @@ export interface SlideImage {
   src: string;
   caption?: string;
   tag?: string; // 'H1' | 'Ảnh 1' ...
+  /** 'contain' cho TÀI LIỆU (lược đồ, sơ đồ, bút tích) — hiện trọn, không cắt.
+   *  Mặc định 'cover' (ảnh chụp) theo thiết kế chung. */
+  fit?: 'cover' | 'contain';
 }
 
 interface SlideSectionProps {
@@ -205,7 +208,7 @@ export default function SlideSection({ id, eyebrow, title, groups, images = [], 
                     <img
                       src={im.src}
                       alt={im.caption ?? ''}
-                      className="w-full object-cover"
+                      className={im.fit === 'contain' ? 'w-full object-contain' : 'w-full object-cover'}
                       style={{ height: images.length > 2 ? '24vh' : '32vh' }}
                     />
                   </div>

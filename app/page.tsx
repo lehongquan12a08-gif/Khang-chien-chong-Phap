@@ -59,7 +59,7 @@ export default function Home() {
             },
           ]}
           images={[
-            { src: '/images/kc/y46-h1.webp', tag: 'H1', caption: 'Bút tích "Lời kêu gọi Toàn quốc kháng chiến" của Chủ tịch Hồ Chí Minh' },
+            { src: '/images/kc/y46-h1.webp', tag: 'H1', fit: 'contain', caption: 'Bút tích "Lời kêu gọi Toàn quốc kháng chiến" của Chủ tịch Hồ Chí Minh' },
             { src: '/images/kc/y46-h2.webp', tag: 'H2', caption: 'Pháo đài Láng khai hỏa — khoảng 20 giờ, 19/12/1946' },
           ]}
         />
@@ -105,7 +105,7 @@ export default function Home() {
             },
           ]}
           images={[
-            { src: '/images/kc/y47-h1.webp', tag: 'H1', caption: 'Lược đồ Chiến dịch Việt Bắc Thu – Đông 1947' },
+            { src: '/images/kc/y47-h1.webp', tag: 'H1', fit: 'contain', caption: 'Lược đồ Chiến dịch Việt Bắc Thu – Đông 1947' },
             { src: '/images/kc/y47-h2.webp', tag: 'H2', caption: 'Bộ đội pháo binh trên sông Lô' },
             { src: '/images/kc/y47-h3.webp', tag: 'H3', caption: 'Chủ tịch Hồ Chí Minh và Hội đồng Chính phủ nghe Đại tướng Võ Nguyên Giáp báo cáo chiến sự' },
           ]}
@@ -162,7 +162,7 @@ export default function Home() {
           ]}
           images={[
             { src: '/images/kc/y50-h1.webp', tag: 'H1', caption: 'Chủ tịch Hồ Chí Minh tại mặt trận Đông Khê' },
-            { src: '/images/kc/y50-h2.webp', tag: 'H2', caption: 'Lược đồ Chiến dịch Biên giới Thu – Đông 1950' },
+            { src: '/images/kc/y50-h2.webp', tag: 'H2', fit: 'contain', caption: 'Lược đồ Chiến dịch Biên giới Thu – Đông 1950' },
           ]}
         />
         {/* Phần giữa */}
@@ -280,7 +280,7 @@ export default function Home() {
           ]}
           images={[
             { src: '/images/kc/y54-a1.webp', tag: 'Ảnh 1', caption: 'Quân Pháp xây dựng công sự, cứ điểm' },
-            { src: '/images/kc/y54-a2.webp', tag: 'Ảnh 2', caption: 'Sơ đồ tập đoàn cứ điểm Điện Biên Phủ' },
+            { src: '/images/kc/y54-a2.webp', tag: 'Ảnh 2', fit: 'contain', caption: 'Sơ đồ tập đoàn cứ điểm Điện Biên Phủ' },
           ]}
         />
         <SlideSection
