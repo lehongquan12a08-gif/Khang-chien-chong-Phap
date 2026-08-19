@@ -236,7 +236,8 @@ export default function AutoScrollButton() {
       onClick={toggle}
       aria-pressed={playing}
       aria-label={playing ? 'Tạm dừng tự động lướt' : 'Tự động lướt qua hành trình'}
-      className="group fixed bottom-7 left-6 z-[95] flex items-center gap-3 md:bottom-9 md:left-9"
+      title={label}
+      className="group fixed bottom-7 left-6 z-[95] flex items-center md:bottom-9 md:left-9"
     >
       <span className="relative flex h-[46px] w-[46px] items-center justify-center">
         {/* progress ring */}
@@ -269,10 +270,6 @@ export default function AutoScrollButton() {
             </svg>
           )}
         </span>
-      </span>
-
-      <span className="font-body text-[11px] uppercase tracking-[0.24em] text-vn-ivory/70 transition-colors duration-300 group-hover:text-vn-ivory">
-        {label}
       </span>
     </button>
   );
