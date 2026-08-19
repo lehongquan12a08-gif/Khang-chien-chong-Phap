@@ -35,6 +35,7 @@ export default function Home() {
         <ClosingText
           id="modau"
           eyebrow="Mở đầu"
+          bgImage="/images/kc/modau-cmt8.webp"
           paragraphs={[
             'Sau Cách mạng Tháng Tám, nền độc lập vừa giành được đã phải đối mặt với sự trở lại của thực dân Pháp.',
             'Và hành trình chín năm ấy bắt đầu từ đây.',
