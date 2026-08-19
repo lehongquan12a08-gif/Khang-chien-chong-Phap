@@ -9,7 +9,7 @@
 //   c1946.m4a     = "X. Hòa Lạc 2 (1)"    60s — 1946 "…tưởng tượng Việt Nam cuối 1946…"
 //   c1947.m4a     = "1947-1949.m4a" (thu lại) 71s — 1947–49 "Vào Thu – Đông năm 1947…"
 //   c1950.m4a     = "X. Hòa Lạc 4"        74s — 1950 "Năm 1950, cuộc kháng chiến…"
-//   c1951.m4a     = "X. Hòa Lạc 5"        40s — 1951–53 "Sau thắng lợi của Chiến dịch Biên giới…"
+//   c1951.m4a     = "1951-1953.m4a" (thu lại) 66s — 1951–53 "Sau thắng lợi của Chiến dịch Biên giới…"
 //   dbp-intro.m4a = "X. Hòa Lạc 10"       32s — ĐBP mở màn "Sau những thắng lợi liên tiếp…"
 //   dbp.m4a       = "X. Hòa Lạc 11"       50s — ĐBP chính "Cuối năm 1953, thực dân Pháp…"
 //   ketluan.m4a   = "X. Hòa Lạc 12"       20s — Các mốc sự kiện (Hiệp định Giơ-ne-vơ…)
@@ -38,10 +38,9 @@ export const NARRATION: NarrationCue[] = [
   { id: 'chapter-1947', src: `/audio/voice/c1947.m4a?v=2`, scroll: [0.02, 0.9], vol: 0.62 },
   // 1950 — slide Bước ngoặt
   { id: 'chapter-1950', src: `/audio/voice/c1950.m4a?${VV}`, scroll: [0.02, 0.9], vol: 0.95 },
-  // 1951–1953 — bọc TRỌN mốc mở màn + 3 slide (câu hỏi đã dời xuống sau cụm).
-  // Giọng 40s hơi ngắn so với cả cụm → dải kết thúc ~78%: lời dứt đúng lúc vào
-  // slide 1953 (câu "Ảnh 4"), phần còn lại trôi nhịp điện ảnh — không bị vội.
-  { id: 'arc-1951', src: `/audio/voice/c1951.m4a?${VV}`, scroll: [0.01, 0.78] },
+  // 1951–1953 — bọc TRỌN mốc mở màn + 3 slide (câu hỏi đứng sau cụm). Bản thu
+  // lại 66s đủ dài → giọng phủ trọn cả cụm, nhịp thong thả ~160px/s (v=2).
+  { id: 'arc-1951', src: `/audio/voice/c1951.m4a?v=2`, scroll: [0.01, 0.96], vol: 0.65 },
   // ĐBP mở màn — màn TĨNH: đứng yên căn giữa suốt lúc đọc (như Mở đầu)
   { id: 'chapter-1954', src: `/audio/voice/dbp-intro.m4a?${VV}`, scroll: [0.5, 0.5] },
   // ĐBP chính — chia 3 khúc để THAY câu đọc nhầm "13 tháng 8" (22.3–27.4s trong
