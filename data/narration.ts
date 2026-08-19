@@ -45,7 +45,7 @@ export const NARRATION: NarrationCue[] = [
   // Các mốc sự kiện trọng tâm (Giơ-ne-vơ · tiếp quản Thủ đô · giải phóng miền
   // Bắc) — slide ghim: ảnh + 3 mốc hiện dần theo giọng đọc
   { id: 'moc-su-kien', src: `/audio/voice/ketluan.m4a?${VV}`, scroll: [0.03, 0.92] },
-  // Lá cờ "Quyết chiến – Quyết thắng" trên nóc hầm De Castries — CHỜ FILE.
-  // Khi có, đặt file vào public/audio/voice/laco.m4a rồi mở dòng dưới:
-  // { id: 'kc-54-toanthang', src: `/audio/voice/laco.m4a?${VV}`, scroll: [0.15, 0.75] },
+  // Lá cờ "Quyết chiến – Quyết thắng" trên nóc hầm De Castries ("X. Hòa Lạc 16", 19s)
+  // — màn mốc ghim: giữ khung lá cờ, chữ hiện theo giọng đọc
+  { id: 'kc-54-toanthang', src: `/audio/voice/laco.m4a?${VV}`, scroll: [0.15, 0.75] },
 ];
