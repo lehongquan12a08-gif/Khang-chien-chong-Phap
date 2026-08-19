@@ -8,11 +8,11 @@ import { getDeclVideo } from '@/lib/declVideo';
 import { onLenis } from '@/lib/lenisStore';
 import type Lenis from 'lenis';
 
-// The voice recordings are a bit quiet, so lift them with a Web Audio gain
-// (can exceed 1.0, unlike element.volume). Master slider still scales it.
-const NARR_BOOST = 2.8;
+// Voice level qua Web Audio gain (Master slider vẫn scale thêm bên trên).
+// Đã GIẢM theo yêu cầu: giọng đọc êm, không lấn át.
+const NARR_BOOST = 1.6;
 // makeup gain after the compressor — lifts the overall voice level
-const VOICE_MAKEUP = 1.5;
+const VOICE_MAKEUP = 1.1;
 // Tuyên ngôn Độc lập — now a VIDEO (Bác reads) living in the 1945 chapter.
 // It fires when the Ba Đình scene enters DECL_RANGE (after the 1945 narration
 // has finished), plays with its own audio, and the auto-scroll holds on it.
@@ -160,7 +160,7 @@ export default function AudioController() {
         // Phone speakers/DACs clip the heavily-boosted+compressed voice, which
         // sounds like "rè" (distortion). Use a much gentler lift on touch.
         const isTouch = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
-        const narrBoost = isTouch ? 1.5 : NARR_BOOST;
+        const narrBoost = isTouch ? 1.1 : NARR_BOOST;
         const makeupGain = isTouch ? 1.0 : VOICE_MAKEUP;
         voiceMakeupRef.current = makeupGain;
         const ctx = new AC();
