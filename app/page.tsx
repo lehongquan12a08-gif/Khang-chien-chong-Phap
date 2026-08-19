@@ -185,14 +185,13 @@ export default function Home() {
           ]}
         />
 
-        {/* ═══ GIAI ĐOẠN 1951–1953: PHÁT TRIỂN THẾ VÀ LỰC ═══ */}
-        {/* arc-1951: vùng lồng tiếng chương 1951–53 (mốc mở màn → hết slide 1952,
-            câu hỏi tương tác đứng ngoài để người thuyết trình dẫn) */}
-        <div id="arc-1951">
+        {/* ═══ GIAI ĐOẠN 1951–1953: PHÁT TRIỂN THẾ VÀ LỰC ═══
+            Lồng tiếng chia 5 KHÚC bám đúng 5 màn (xem data/narration.ts) */}
         {/* Phần I. Mở đầu — 1 ảnh lớn */}
         <MilestoneChapter milestone={MILESTONES.theVaLuc} />
         {/* Phần II. Các mốc thời gian — slide + ảnh gộp, xen kẽ đúng docx */}
         <SlideSection
+          id="sl-1951"
           eyebrow="Giai đoạn 1951 – 1953 · Phát triển thế và lực"
           backgroundImage="/images/kc/1951.jpg"
           groups={[
@@ -210,6 +209,7 @@ export default function Home() {
           ]}
         />
         <SlideSection
+          id="sl-1952"
           eyebrow="Giai đoạn 1951 – 1953 · Phát triển thế và lực"
           backgroundImage="/images/kc/1952.jpg"
           groups={[
@@ -228,6 +228,7 @@ export default function Home() {
           ]}
         />
         <SlideSection
+          id="sl-1953"
           eyebrow="Giai đoạn 1951 – 1953 · Phát triển thế và lực"
           groups={[
             {
@@ -243,7 +244,6 @@ export default function Home() {
             { src: '/images/kc/y51-a4.webp', tag: 'Ảnh 4', caption: 'Bộ đội, dân công, hậu phương trong thời kỳ chuẩn bị cho những chiến dịch lớn' },
           ]}
         />
-        </div>
         {/* Câu hỏi tương tác — đặt SAU cụm slide để giọng đọc 1951–53 liền mạch */}
         <InteractiveQuestion
           question="Ai tạo nên sức mạnh kháng chiến?"
@@ -253,8 +253,9 @@ export default function Home() {
           ]}
           answer="Toàn thể nhân dân. Kháng chiến là sự kết hợp giữa tiền tuyến và hậu phương, giữa quân đội và nhân dân."
         />
-        {/* Phần III. Kết luận — LƯỚT XUỐNG (đưa ra ý nghĩa) */}
+        {/* Phần III. Kết luận — LƯỚT XUỐNG (có lời đọc "Như vậy, từ năm 1951…") */}
         <WordCascade
+          id="casc-1951-ket"
           eyebrow="1951 – 1953 · Kết luận"
           words={['THẾ VÀ LỰC CỦA TA', 'NGÀY CÀNG ĐƯỢC CỦNG CỐ', 'TẠO TIỀN ĐỀ CHO', 'BƯỚC NGOẶT 1953–1954']}
           accentWords={['BƯỚC NGOẶT 1953–1954']}

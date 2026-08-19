@@ -38,9 +38,18 @@ export const NARRATION: NarrationCue[] = [
   { id: 'chapter-1947', src: `/audio/voice/c1947.m4a?v=2`, scroll: [0.02, 0.9], vol: 0.62 },
   // 1950 — slide Bước ngoặt
   { id: 'chapter-1950', src: `/audio/voice/c1950.m4a?${VV}`, scroll: [0.02, 0.9], vol: 0.95 },
-  // 1951–1953 — bọc TRỌN mốc mở màn + 3 slide (câu hỏi đứng sau cụm). Bản thu
-  // lại 66s đủ dài → giọng phủ trọn cả cụm, nhịp thong thả ~160px/s (v=2).
-  { id: 'arc-1951', src: `/audio/voice/c1951.m4a?v=2`, scroll: [0.01, 0.96], vol: 0.65 },
+  // 1951–1953 — bản thu lại 66s CHIA 5 KHÚC bám đúng 5 màn (điểm cắt nằm giữa
+  // các khoảng lặng, dò bằng sóng âm): câu nào vang lên thì màn đó trên hình.
+  // 1) "Sau thắng lợi Biên giới 1950… phát triển thế và lực" → màn mốc
+  { id: 'chapter-1951', src: `/audio/voice/c1951.m4a?v=2`, end: 15.85, scroll: [0.05, 0.92], vol: 0.65 },
+  // 2) "Đảng tập trung củng cố… Đại hội II năm 1951…" → slide 1951
+  { id: 'sl-1951', src: `/audio/voice/c1951.m4a?v=2`, start: 15.9, end: 34.65, scroll: [0.03, 0.95], vol: 0.65 },
+  // 3) "Ở hậu phương, nhân dân tích cực tăng gia sản xuất…" → slide 1952
+  { id: 'sl-1952', src: `/audio/voice/c1951.m4a?v=2`, start: 34.7, end: 43.3, scroll: [0.03, 0.75], vol: 0.65 },
+  // 4) "Trên chiến trường, quân ta tiếp tục mở các chiến dịch…" → slide 1953
+  { id: 'sl-1953', src: `/audio/voice/c1951.m4a?v=2`, start: 43.35, end: 52.65, scroll: [0.03, 0.8], vol: 0.65 },
+  // 5) "Như vậy, từ năm 1951 đến 1953…" → chữ lướt KẾT LUẬN (sau câu hỏi)
+  { id: 'casc-1951-ket', src: `/audio/voice/c1951.m4a?v=2`, start: 52.85, scroll: [0.05, 0.9], vol: 0.65 },
   // ĐBP mở màn — màn TĨNH: đứng yên căn giữa suốt lúc đọc (như Mở đầu)
   { id: 'chapter-1954', src: `/audio/voice/dbp-intro.m4a?${VV}`, scroll: [0.5, 0.5] },
   // ĐBP chính — chia 3 khúc để THAY câu đọc nhầm "13 tháng 8" (22.3–27.4s trong
