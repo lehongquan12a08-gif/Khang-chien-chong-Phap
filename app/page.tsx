@@ -353,6 +353,7 @@ export default function Home() {
         />
         {/* Phần II. Các mốc sự kiện trọng tâm — slide + 2 ảnh gộp */}
         <SlideSection
+          id="moc-su-kien"
           eyebrow="Các mốc sự kiện trọng tâm"
           imagesTop
           groups={[

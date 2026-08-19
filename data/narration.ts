@@ -12,7 +12,7 @@
 //   c1951.m4a     = "X. Hòa Lạc 5"        40s — 1951–53 "Sau thắng lợi của Chiến dịch Biên giới…"
 //   dbp-intro.m4a = "X. Hòa Lạc 10"       32s — ĐBP mở màn "Sau những thắng lợi liên tiếp…"
 //   dbp.m4a       = "X. Hòa Lạc 11"       50s — ĐBP chính "Cuối năm 1953, thực dân Pháp…"
-//   ketluan.m4a   = "X. Hòa Lạc 12"       20s — Kết luận "Sau 9 năm chiến đấu gian khổ…"
+//   ketluan.m4a   = "X. Hòa Lạc 12"       20s — Các mốc sự kiện (Hiệp định Giơ-ne-vơ…)
 export interface NarrationCue {
   id: string; // id của <section>/<div bọc> mà giọng đọc thuộc về
   src: string; // file audio của chương
@@ -42,6 +42,7 @@ export const NARRATION: NarrationCue[] = [
   { id: 'chapter-1954', src: `/audio/voice/dbp-intro.m4a?${VV}`, scroll: [0.5, 0.5] },
   // ĐBP chính — bọc từ slide "Pháp xây dựng tập đoàn cứ điểm" hết màn 56 ngày đêm
   { id: 'arc-dbp', src: `/audio/voice/dbp.m4a?${VV}`, scroll: [0.01, 0.97] },
-  // Kết luận — màn TĨNH "Dấu ấn lịch sử" (ảnh giải phóng): đứng yên lúc đọc
-  { id: 'y-nghia', src: `/audio/voice/ketluan.m4a?${VV}`, scroll: [0.5, 0.5] },
+  // Các mốc sự kiện trọng tâm (Giơ-ne-vơ · tiếp quản Thủ đô · giải phóng miền
+  // Bắc) — slide ghim: ảnh + 3 mốc hiện dần theo giọng đọc
+  { id: 'moc-su-kien', src: `/audio/voice/ketluan.m4a?${VV}`, scroll: [0.03, 0.92] },
 ];
