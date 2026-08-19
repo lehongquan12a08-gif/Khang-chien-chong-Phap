@@ -35,9 +35,10 @@ export const NARRATION: NarrationCue[] = [
   { id: 'chapter-1947', src: `/audio/voice/c1947.m4a?v=2`, scroll: [0.02, 0.9] },
   // 1950 — slide Bước ngoặt
   { id: 'chapter-1950', src: `/audio/voice/c1950.m4a?${VV}`, scroll: [0.02, 0.9] },
-  // 1951–1953 — bọc từ màn mốc "Phát triển thế và lực" hết slide 1952 (Ảnh 1–3;
-  // câu về Ảnh 4 rơi cuối slide 1952, câu hỏi tương tác đứng ngoài phần lồng tiếng)
-  { id: 'arc-1951', src: `/audio/voice/c1951.m4a?${VV}`, scroll: [0.01, 0.97] },
+  // 1951–1953 — bọc TRỌN mốc mở màn + 3 slide (câu hỏi đã dời xuống sau cụm).
+  // Giọng 40s hơi ngắn so với cả cụm → dải kết thúc ~78%: lời dứt đúng lúc vào
+  // slide 1953 (câu "Ảnh 4"), phần còn lại trôi nhịp điện ảnh — không bị vội.
+  { id: 'arc-1951', src: `/audio/voice/c1951.m4a?${VV}`, scroll: [0.01, 0.78] },
   // ĐBP mở màn — màn TĨNH: đứng yên căn giữa suốt lúc đọc (như Mở đầu)
   { id: 'chapter-1954', src: `/audio/voice/dbp-intro.m4a?${VV}`, scroll: [0.5, 0.5] },
   // ĐBP chính — bọc từ slide "Pháp xây dựng tập đoàn cứ điểm" hết màn 56 ngày đêm

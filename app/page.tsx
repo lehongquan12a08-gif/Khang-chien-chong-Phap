@@ -227,16 +227,6 @@ export default function Home() {
             { src: '/images/kc/y51-a3.webp', tag: 'Ảnh 3', caption: 'Bộ đội hành quân, chiến đấu' },
           ]}
         />
-        </div>
-        {/* Câu hỏi tương tác (sau Ảnh 2 và 3 — 1952) */}
-        <InteractiveQuestion
-          question="Ai tạo nên sức mạnh kháng chiến?"
-          options={[
-            { key: 'A', text: 'Chỉ người lính tiền tuyến' },
-            { key: 'B', text: 'Toàn thể nhân dân', correct: true },
-          ]}
-          answer="Toàn thể nhân dân. Kháng chiến là sự kết hợp giữa tiền tuyến và hậu phương, giữa quân đội và nhân dân."
-        />
         <SlideSection
           eyebrow="Giai đoạn 1951 – 1953 · Phát triển thế và lực"
           groups={[
@@ -252,6 +242,16 @@ export default function Home() {
           images={[
             { src: '/images/kc/y51-a4.webp', tag: 'Ảnh 4', caption: 'Bộ đội, dân công, hậu phương trong thời kỳ chuẩn bị cho những chiến dịch lớn' },
           ]}
+        />
+        </div>
+        {/* Câu hỏi tương tác — đặt SAU cụm slide để giọng đọc 1951–53 liền mạch */}
+        <InteractiveQuestion
+          question="Ai tạo nên sức mạnh kháng chiến?"
+          options={[
+            { key: 'A', text: 'Chỉ người lính tiền tuyến' },
+            { key: 'B', text: 'Toàn thể nhân dân', correct: true },
+          ]}
+          answer="Toàn thể nhân dân. Kháng chiến là sự kết hợp giữa tiền tuyến và hậu phương, giữa quân đội và nhân dân."
         />
         {/* Phần III. Kết luận — LƯỚT XUỐNG (đưa ra ý nghĩa) */}
         <WordCascade
