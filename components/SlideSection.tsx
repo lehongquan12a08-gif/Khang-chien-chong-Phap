@@ -49,12 +49,16 @@ export default function SlideSection({ id, eyebrow, title, groups, images = [], 
         if ((el as HTMLElement).classList.contains('sl-group')) tl.call(playChime, [i], at);
         tl.fromTo(el, { opacity: 0, x: -26 }, { opacity: 1, x: 0, duration: step * 0.6 }, at);
       });
+      // đường kẻ vàng tự vẽ dưới eyebrow — "đóng dấu" mở màn slide
+      tl.fromTo(q('.sl-line'), { scaleX: 0 }, { scaleX: 1, ease: 'power2.out', duration: 0.08 }, 0.03);
       // ảnh hiện xen kẽ trong lúc bullets chạy
       const imgs = q('.sl-img');
       imgs.forEach((el, i) => {
         const at = 0.18 + i * (0.5 / Math.max(1, imgs.length));
         tl.fromTo(el, { opacity: 0, y: 30, scale: 0.97 }, { opacity: 1, y: 0, scale: 1, duration: 0.12 }, at);
       });
+      // cột ảnh trôi nhẹ (parallax) suốt slide — tạo chiều sâu
+      tl.fromTo(q('.sl-imgcol'), { y: 34 }, { y: -34, ease: 'none', duration: 0.94 }, 0.03);
       tl.to(q('.sl-stage'), { opacity: 1, duration: 0.01 }, 0.99); // đệm tới ~1
     },
     { scope: root }
@@ -84,7 +88,8 @@ export default function SlideSection({ id, eyebrow, title, groups, images = [], 
         >
           {/* cột chữ */}
           <div>
-            <p className="eyebrow mb-6 text-vn-gold-antique">{eyebrow}</p>
+            <p className="eyebrow mb-4 text-vn-gold-antique">{eyebrow}</p>
+            <div className="sl-line gold-line mb-6 w-28 origin-left" style={{ transform: 'scaleX(0)' }} />
             {title && (
               <h2 className="sl-row will-transform mb-8 font-serif-hist text-2xl font-black uppercase leading-tight text-vn-ivory opacity-0 md:text-4xl">
                 {title}
@@ -115,7 +120,7 @@ export default function SlideSection({ id, eyebrow, title, groups, images = [], 
 
           {/* cột ảnh — gộp ảnh của slide vào cùng một nơi */}
           {images.length > 0 && (
-            <div className="flex flex-col items-center gap-5">
+            <div className="sl-imgcol will-transform flex flex-col items-center gap-5">
               {images.map((im, i) => (
                 <figure key={i} className="sl-img will-transform relative w-full max-w-md opacity-0">
                   <div className="relative overflow-hidden rounded-[3px] border border-vn-gold-antique/25 bg-vn-black/60 shadow-[0_24px_60px_rgba(0,0,0,0.55)]">

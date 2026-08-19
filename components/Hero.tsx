@@ -2,8 +2,8 @@
 
 import { useRef } from 'react';
 import { gsap, useGSAP } from '@/lib/gsap';
-import GoldStar from '@/components/objects/GoldStar';
 import { playChime } from '@/lib/uiSound';
+import EmberField from '@/components/EmberField';
 
 /**
  * HERO — landing page. LƯỚT XUỐNG: từng chữ của tiêu đề hiện ra lần lượt và
@@ -68,10 +68,8 @@ export default function Hero() {
           />
           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[24vh] bg-gradient-to-t from-vn-black/80 to-transparent" />
 
-          {/* sao vàng mờ phía sau khối chữ bên phải */}
-          <div className="pointer-events-none absolute right-[4vw] top-1/2 -translate-y-1/2 opacity-20">
-            <GoldStar breathe className="h-[46vh] w-[46vh]" />
-          </div>
+          {/* tàn lửa / bụi vàng bay chậm — chất điện ảnh (chỉ desktop) */}
+          <EmberField />
 
           {/* khối chữ — GÓC PHẢI màn hình (mobile: giữa), không che gương mặt */}
           <div className="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center md:items-end md:pr-[6vw] md:text-right">
