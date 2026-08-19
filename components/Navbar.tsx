@@ -10,18 +10,30 @@ export default function Navbar() {
   const [hidden, setHidden] = useState(false);
   const [open, setOpen] = useState(false);
   const lastY = useRef(0);
+  const acc = useRef(0); // quãng đường cộng dồn theo một hướng
 
   // Hide the bar while scrolling DOWN (so it never covers the content); reveal
-  // it near the top or when scrolling back up.
+  // it near the top or when scrolling back up. Dùng CỘNG DỒN quãng đường thay
+  // vì chênh lệch mỗi sự kiện — auto-scroll (Lenis) bắn sự kiện rất dày, mỗi
+  // sự kiện chỉ nhích 1-2px nên ngưỡng theo-sự-kiện không bao giờ kích hoạt.
   useEffect(() => {
     const onScroll = () => {
       const y = window.scrollY;
       setScrolled(y > 40);
-      if (y < 90) setHidden(false);
-      // small down-threshold so the slow auto-scroll (~3-4px/frame) also hides it
-      else if (y > lastY.current + 2) setHidden(true);
-      else if (y < lastY.current - 8) setHidden(false);
+      const dy = y - lastY.current;
       lastY.current = y;
+      if (y < 90) {
+        setHidden(false);
+        acc.current = 0;
+        return;
+      }
+      if (dy > 0) {
+        acc.current = Math.max(0, acc.current) + dy;
+        if (acc.current > 10) setHidden(true);
+      } else if (dy < 0) {
+        acc.current = Math.min(0, acc.current) + dy;
+        if (acc.current < -24) setHidden(false);
+      }
     };
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
