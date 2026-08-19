@@ -118,7 +118,10 @@ export default function AutoScrollButton() {
         for (const el of dwellElsRef.current) {
           if (dwellDoneRef.current.has(el)) continue;
           const r = el.getBoundingClientRect();
-          if (r.top <= vh * 0.42 && r.bottom >= vh * 0.6) {
+          // chỉ dừng khi TÂM của màn đã trôi tới đúng giữa khung hình (khung
+          // hình đẹp) — không phanh sớm lúc màn mới ló vào
+          const elCenter = r.top + r.height / 2;
+          if (elCenter <= vh / 2 + 4 && r.bottom >= vh * 0.55) {
             dwellDoneRef.current.add(el);
             const secs = parseFloat(el.getAttribute('data-dwell') || '6') || 6;
             dwellUntilRef.current = ts + secs * 1000;
