@@ -1,6 +1,8 @@
 'use client';
 
-import Reveal from '@/components/Reveal';
+import { useEffect, useRef, useState } from 'react';
+import { gsap, useGSAP } from '@/lib/gsap';
+import { playChime } from '@/lib/uiSound';
 
 const ACHIEVEMENTS = [
   'Đập tan hoàn toàn âm mưu xâm lược và ách thống trị kéo dài gần một thế kỷ của thực dân Pháp trên đất nước ta.',
@@ -10,48 +12,142 @@ const ACHIEVEMENTS = [
   'Cổ vũ mạnh mẽ phong trào giải phóng dân tộc trên toàn thế giới — mở đầu cho sự sụp đổ của chủ nghĩa thực dân cũ.',
 ];
 
-/** 5 thành tựu lịch sử + lời khẳng định đường lối — phần kết của hành trình. */
+/**
+ * 5 THÀNH TỰU LỊCH SỬ — màn GHIM full-screen: từng thành tựu hiện lần lượt và
+ * tích lũy theo đà cuộn (kèm chime), chốt bằng lời khẳng định đường lối.
+ * Mobile: không ghim — chảy tự nhiên, hiện dần khi lướt tới.
+ */
 export default function ConclusionSection() {
+  const root = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 767px)');
+    const on = () => setIsMobile(mq.matches);
+    on();
+    mq.addEventListener('change', on);
+    return () => mq.removeEventListener('change', on);
+  }, []);
+
+  // MOBILE: reveal bằng IO + fallback cuộn (như SlideSection)
+  useEffect(() => {
+    if (!isMobile || !root.current) return;
+    const els = [...root.current.querySelectorAll<HTMLElement>('.cn-reveal')];
+    for (const el of els) {
+      el.style.transition = 'opacity 0.55s ease, transform 0.55s ease';
+      el.style.transform = 'translateX(-18px)';
+    }
+    const pending = new Set<HTMLElement>(els);
+    const reveal = (el: HTMLElement) => {
+      if (!pending.has(el)) return;
+      pending.delete(el);
+      el.style.opacity = '1';
+      el.style.transform = 'none';
+      io.unobserve(el);
+    };
+    const io = new IntersectionObserver(
+      (es) => es.forEach((e) => e.isIntersecting && reveal(e.target as HTMLElement)),
+      { rootMargin: '0px 0px -8% 0px' }
+    );
+    els.forEach((el) => io.observe(el));
+    let last = 0;
+    const onScroll = () => {
+      const now = Date.now();
+      if (now - last < 120 || pending.size === 0) return;
+      last = now;
+      const vh = window.innerHeight;
+      for (const el of [...pending]) {
+        const r = el.getBoundingClientRect();
+        if (r.top < vh * 0.94 && r.bottom > 0) reveal(el);
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    return () => {
+      io.disconnect();
+      window.removeEventListener('scroll', onScroll);
+      for (const el of els) {
+        el.style.transition = '';
+        el.style.transform = '';
+        el.style.opacity = '';
+      }
+    };
+  }, [isMobile]);
+
+  useGSAP(
+    () => {
+      if (isMobile) return;
+      const q = gsap.utils.selector(root);
+      const tl = gsap.timeline({
+        scrollTrigger: { trigger: root.current, start: 'top top', end: 'bottom bottom', scrub: 1 },
+      });
+      tl.fromTo(q('.cn-head'), { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.06 }, 0.04);
+      tl.fromTo(q('.cn-line'), { scaleX: 0 }, { scaleX: 1, ease: 'power2.out', duration: 0.06 }, 0.07);
+      // từng thành tựu hiện và Ở LẠI
+      ACHIEVEMENTS.forEach((_, i) => {
+        const at = 0.14 + i * 0.13;
+        tl.call(playChime, [i], at);
+        tl.fromTo(q(`.cn-item-${i}`), { opacity: 0, x: -28 }, { opacity: 1, x: 0, duration: 0.07 }, at);
+      });
+      // lời khẳng định chốt
+      tl.call(playChime, [5], 0.84);
+      tl.fromTo(q('.cn-final'), { opacity: 0, scale: 1.06 }, { opacity: 1, scale: 1, duration: 0.07 }, 0.84);
+      tl.to(q('.cn-stage'), { opacity: 1, duration: 0.01 }, 0.99); // đệm tới ~1
+    },
+    { scope: root, dependencies: [isMobile], revertOnUpdate: true }
+  );
+
   return (
     <section
       id="ket-luan"
-      className="relative px-6 py-[18vh]"
-      style={{ background: 'linear-gradient(180deg, #080808 0%, #1a0d0b 50%, #080808 100%)' }}
+      ref={root}
+      className="relative"
+      style={{
+        height: isMobile ? 'auto' : '340vh',
+        background: 'linear-gradient(180deg, #080808 0%, #1a0d0b 50%, #080808 100%)',
+      }}
     >
-      <div className="mx-auto max-w-4xl">
-        <Reveal as="p" className="eyebrow mb-6 text-center text-vn-gold-antique">
-          Trải qua 9 năm gian khổ · 1946 — 1954
-        </Reveal>
-        <Reveal
-          as="h2"
-          className="text-center font-serif-hist text-4xl font-black uppercase leading-tight text-vn-ivory md:text-6xl"
-        >
-          5 thành tựu <span className="text-vn-gold text-glow-gold">lịch sử</span>
-        </Reveal>
-        <Reveal className="gold-line mx-auto mt-10 w-40" y={0} />
+      <div
+        className={
+          isMobile
+            ? 'relative overflow-hidden px-6 py-24'
+            : 'sticky top-0 flex h-screen items-center overflow-hidden px-6'
+        }
+      >
+        <div className="cn-stage mx-auto w-full max-w-4xl">
+          <div className="cn-head cn-reveal will-transform text-center opacity-0">
+            <p className="eyebrow mb-4 text-vn-gold-antique">Trải qua 9 năm gian khổ · 1946 — 1954</p>
+            <h2 className="text-balance font-serif-hist text-3xl font-black uppercase leading-tight text-vn-ivory md:text-5xl">
+              5 thành tựu <span className="text-vn-gold text-glow-gold">lịch sử</span>
+            </h2>
+          </div>
+          <div className="cn-line gold-line mx-auto mb-8 mt-6 w-36 origin-center" style={{ transform: 'scaleX(0)' }} />
 
-        <ol className="mt-16 flex flex-col gap-8">
-          {ACHIEVEMENTS.map((a, i) => (
-            <Reveal key={i} className="flex items-start gap-6 border-l-2 border-vn-gold-antique/40 pl-6">
-              <span className="font-serif-hist text-4xl font-black leading-none text-vn-gold/60 md:text-5xl">
-                {String(i + 1).padStart(2, '0')}
-              </span>
-              <p className="text-pretty pt-1 font-serif-hist text-base leading-relaxed text-vn-ivory/85 md:text-xl">
-                {a}
-              </p>
-            </Reveal>
-          ))}
-        </ol>
+          <ol className="flex flex-col gap-4 md:gap-5">
+            {ACHIEVEMENTS.map((a, i) => (
+              <li
+                key={i}
+                className={`cn-item-${i} cn-reveal will-transform flex items-start gap-5 border-l-2 border-vn-gold-antique/40 pl-5 opacity-0`}
+              >
+                <span className="font-serif-hist text-3xl font-black leading-none text-vn-gold/60 md:text-4xl">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <p className="text-pretty pt-0.5 font-serif-hist text-sm leading-relaxed text-vn-ivory/85 md:text-lg">
+                  {a}
+                </p>
+              </li>
+            ))}
+          </ol>
 
-        <Reveal className="mt-20 border border-vn-gold-antique/30 bg-[rgba(218,37,29,0.06)] p-8 text-center md:p-12">
-          <p className="text-balance font-serif-hist text-lg italic leading-relaxed text-vn-ivory/90 md:text-2xl">
-            Thắng lợi lịch sử này đã khẳng định tính đúng đắn ngời sáng của đường lối
-            kháng chiến do Đảng ta đề ra:
-          </p>
-          <p className="mt-6 font-body text-[12px] font-medium uppercase tracking-[0.22em] text-vn-gold md:text-sm">
-            Toàn dân · Toàn diện · Trường kỳ · Tự lực cánh sinh · Tranh thủ sự ủng hộ quốc tế
-          </p>
-        </Reveal>
+          <div className="cn-final cn-reveal will-transform mt-8 border border-vn-gold-antique/30 bg-[rgba(218,37,29,0.06)] p-5 text-center opacity-0 md:p-7">
+            <p className="text-balance font-serif-hist text-base italic leading-relaxed text-vn-ivory/90 md:text-xl">
+              Thắng lợi lịch sử này đã khẳng định tính đúng đắn ngời sáng của đường lối
+              kháng chiến do Đảng ta đề ra:
+            </p>
+            <p className="mt-4 text-balance font-body text-[11px] font-medium uppercase tracking-[0.22em] text-vn-gold md:text-sm">
+              Toàn dân · Toàn diện · Trường kỳ · Tự lực cánh sinh · Tranh thủ sự ủng hộ quốc tế
+            </p>
+          </div>
+        </div>
       </div>
     </section>
   );
