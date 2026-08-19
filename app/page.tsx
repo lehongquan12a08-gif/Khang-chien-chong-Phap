@@ -350,6 +350,7 @@ export default function Home() {
         {/* Phần II. Các mốc sự kiện trọng tâm — slide + 2 ảnh gộp */}
         <SlideSection
           eyebrow="Các mốc sự kiện trọng tâm"
+          imagesTop
           groups={[
             {
               bullets: [

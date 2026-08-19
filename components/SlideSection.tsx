@@ -27,13 +27,15 @@ interface SlideSectionProps {
   images?: SlideImage[];
   background?: string;
   backgroundImage?: string;
+  /** true = ẢNH TO nằm TRÊN (cạnh nhau), ghi chú + gạch đầu dòng ở DƯỚI. */
+  imagesTop?: boolean;
 }
 
 /**
  * "NỘI DUNG HIỆN TRÊN SLIDE" — tiêu đề + gạch đầu dòng hiện lần lượt khi lướt,
  * ẢNH của slide nằm cùng màn hình (gộp một nơi), gắn thẻ H1/H2… và chú thích.
  */
-export default function SlideSection({ id, eyebrow, title, groups, images = [], background = '#0b0a09', backgroundImage }: SlideSectionProps) {
+export default function SlideSection({ id, eyebrow, title, groups, images = [], background = '#0b0a09', backgroundImage, imagesTop = false }: SlideSectionProps) {
   const root = useRef<HTMLDivElement>(null);
   const rows = groups.reduce((n, g) => n + (g.title ? 1 : 0) + g.bullets.length, 0) + (title ? 1 : 0);
   const heightVh = 130 + rows * 26 + images.length * 16;
@@ -158,6 +160,49 @@ export default function SlideSection({ id, eyebrow, title, groups, images = [], 
             />
           </>
         )}
+        {imagesTop ? (
+          /* BỐ CỤC ẢNH-TO-TRÊN: 2 ảnh lớn cạnh nhau, ghi chú + nội dung ở dưới */
+          <div className="sl-stage relative z-10 mx-auto w-full max-w-6xl px-6 md:px-10">
+            <div className="mb-7 text-center">
+              <p className="eyebrow mb-3 text-vn-gold-antique">{eyebrow}</p>
+              <div className="sl-line gold-line mx-auto w-28 origin-center" style={{ transform: 'scaleX(0)' }} />
+            </div>
+            <div className="grid gap-6 md:grid-cols-2">
+              {images.map((im, i) => (
+                <figure key={i} className="sl-img will-transform relative w-full opacity-0">
+                  <div className="relative overflow-hidden rounded-[3px] border border-vn-gold-antique/25 bg-vn-black/60 shadow-[0_24px_60px_rgba(0,0,0,0.55)]">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={im.src}
+                      alt={im.caption ?? ''}
+                      className={im.fit === 'contain' ? 'w-full object-contain' : 'w-full object-cover'}
+                      style={{ height: '40vh' }}
+                    />
+                  </div>
+                  {im.caption && (
+                    <figcaption className="mt-2.5 text-balance text-center font-body text-[12px] leading-snug text-vn-ivory/60">
+                      {im.caption}
+                    </figcaption>
+                  )}
+                </figure>
+              ))}
+            </div>
+            <div className="mx-auto mt-9 w-fit">
+              {groups.map((g, gi) => (
+                <ul key={gi} className="flex flex-col gap-2.5">
+                  {g.bullets.map((b, bi) => (
+                    <li key={bi} className="sl-row will-transform flex items-start gap-3 opacity-0">
+                      <span className="mt-[9px] h-[7px] w-[7px] shrink-0 rotate-45 bg-vn-gold-antique/80" />
+                      <span className="text-pretty font-body text-[14px] leading-relaxed text-vn-ivory/90 md:text-[17px]">
+                        {b}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              ))}
+            </div>
+          </div>
+        ) : (
         <div
           className={[
             'sl-stage relative z-10 mx-auto grid w-full items-center gap-10 px-6 md:px-10',
@@ -220,6 +265,7 @@ export default function SlideSection({ id, eyebrow, title, groups, images = [], 
             </div>
           )}
         </div>
+        )}
       </div>
     </section>
   );

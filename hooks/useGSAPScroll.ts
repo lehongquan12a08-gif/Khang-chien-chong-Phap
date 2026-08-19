@@ -83,23 +83,54 @@ export function useSmoothScroll(): void {
     window.addEventListener('load', refresh);
     const settle = window.setTimeout(refresh, 600);
 
+    // NEO VỊ TRÍ THEO SECTION: liên tục ghi nhớ "tâm màn hình đang ở section
+    // nào, tiến độ bao nhiêu". Khi F11/resize đổi chiều cao, mọi section (tính
+    // theo vh) co giãn khác px cũ — khôi phục theo tỷ lệ trang sẽ lệch, còn neo
+    // theo section thì quay về ĐÚNG khoảnh khắc đang xem.
+    const anchor: { el: HTMLElement | null; frac: number } = { el: null, frac: 0 };
+    let pendingAnchor: { el: HTMLElement; frac: number } | null = null;
+    let anchorT = 0;
+    const updateAnchor = () => {
+      if (pendingAnchor) return; // đang khôi phục sau F11 — không ghi đè neo
+      const now = Date.now();
+      if (now - anchorT < 150) return;
+      anchorT = now;
+      const vc = window.scrollY + window.innerHeight / 2;
+      const sections = document.querySelectorAll<HTMLElement>('main > *');
+      for (const s of sections) {
+        const top = s.offsetTop;
+        const h = s.offsetHeight;
+        if (h > 0 && vc >= top && vc < top + h) {
+          anchor.el = s;
+          anchor.frac = (vc - top) / h;
+          return;
+        }
+      }
+    };
+    lenis.on('scroll', updateAnchor);
+    updateAnchor();
+
     // Recalculate when the viewport size changes — notably entering/leaving
-    // browser fullscreen (F11), which changes innerHeight and would otherwise
-    // leave the pinned/sticky sections misaligned. Debounced so it runs once the
-    // new layout has settled; it only recomputes positions (safe, non-visual).
+    // browser fullscreen (F11). CHỤP neo ngay lúc sự kiện nổ (trước khi bất kỳ
+    // cập nhật nào ghi đè), rồi sau khi layout ổn định thì nhảy về đúng
+    // section + tiến độ đó.
     let rt = 0;
     const doRefresh = () => {
+      if (!pendingAnchor && anchor.el) pendingAnchor = { el: anchor.el, frac: anchor.frac };
       window.clearTimeout(rt);
       rt = window.setTimeout(() => {
-        // preserve HOW FAR through the page we are across the refresh, so
-        // entering/leaving F11 (which changes the total scrollable height)
-        // keeps the same story point instead of jumping.
-        const maxBefore = document.documentElement.scrollHeight - window.innerHeight;
-        const frac = maxBefore > 0 ? window.scrollY / maxBefore : 0;
         lenis.resize();
         ScrollTrigger.refresh();
-        const maxAfter = document.documentElement.scrollHeight - window.innerHeight;
-        lenis.scrollTo(frac * maxAfter, { immediate: true, force: true });
+        const a = pendingAnchor;
+        pendingAnchor = null;
+        if (a && document.contains(a.el)) {
+          const target = a.el.offsetTop + a.frac * a.el.offsetHeight - window.innerHeight / 2;
+          const max = document.documentElement.scrollHeight - window.innerHeight;
+          lenis.scrollTo(Math.max(0, Math.min(max, target)), { immediate: true, force: true });
+          anchor.el = a.el;
+          anchor.frac = a.frac;
+          anchorT = Date.now();
+        }
       }, 160);
     };
     // Only refresh on a real WIDTH change (orientation / window resize / F11) —
