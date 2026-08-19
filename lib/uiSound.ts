@@ -9,7 +9,7 @@ import { narrationState } from './narrationState';
 // v=6: âm TRUNG ấm (A3) thay cho tiếng trầm — loa lớp học/máy chiếu không rè
 const SRC = '/audio/sfx/chime.wav?v=6';
 const RATES = [1, 1.12, 0.94, 1.06, 0.88, 1.18];
-const BOOST = 0.55; // tiếng từng chữ để RẤT nhỏ — chỉ như một cái chạm nhẹ
+const BOOST = 0.3; // tiếng từng chữ để RẤT nhỏ — chỉ như một cái chạm nhẹ
 
 let pool: HTMLAudioElement[] = [];
 let idx = 0;
@@ -38,7 +38,7 @@ export function initUiSound() {
         matchMedia('(hover: none) and (pointer: coarse)').matches;
       ctx = new AC();
       gain = ctx.createGain();
-      gain.gain.value = touch ? 0.32 : BOOST;
+      gain.gain.value = touch ? 0.2 : BOOST;
       const limiter = ctx.createDynamicsCompressor();
       limiter.threshold.value = -6;
       limiter.knee.value = 6;

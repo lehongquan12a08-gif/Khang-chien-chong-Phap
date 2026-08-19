@@ -9,10 +9,10 @@ import { onLenis } from '@/lib/lenisStore';
 import type Lenis from 'lenis';
 
 // Voice level qua Web Audio gain (Master slider vẫn scale thêm bên trên).
-// Đã GIẢM theo yêu cầu: giọng đọc êm, không lấn át.
-const NARR_BOOST = 1.6;
+// Đã GIẢM tiếp theo yêu cầu: giọng đọc êm, không lấn át.
+const NARR_BOOST = 1.15;
 // makeup gain after the compressor — lifts the overall voice level
-const VOICE_MAKEUP = 1.1;
+const VOICE_MAKEUP = 1.0;
 // Tuyên ngôn Độc lập — now a VIDEO (Bác reads) living in the 1945 chapter.
 // It fires when the Ba Đình scene enters DECL_RANGE (after the 1945 narration
 // has finished), plays with its own audio, and the auto-scroll holds on it.
@@ -39,7 +39,7 @@ const V = 'v=5';
 // NHẠC NỀN dịu (pad ngũ cung tự soạn, loop 96s không khục) — file đã bake NHỎ
 // (peak ≈ -18 dBFS) nên an toàn cả trên iOS (nơi element.volume bị bỏ qua).
 const AMBIENT_SRC = `/audio/nhac-nen.wav?v=1`;
-const AMBIENT_VOL = 0.5; // mức nền hành trình (đã tăng theo yêu cầu)
+const AMBIENT_VOL = 0.65; // mức nền hành trình (đã tăng thêm theo yêu cầu)
 // CUNG MỞ ĐẦU: nhạc nổi lên rõ lúc bắt đầu, rồi tự hạ về nền — đúng lúc phần
 // lồng tiếng sẽ vào (khi có giọng đọc, cơ chế duck còn hạ sâu hơn nữa).
 const INTRO_PEAK = 2.3; // × mức nền trong lúc mở màn
@@ -125,7 +125,7 @@ export default function AudioController() {
     // narration — "tiếng sông" too loud. Skip them entirely on touch: keep just
     // the narration + ambient music + the Tuyên ngôn video.
     const isTouch = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
-    ambientVolRef.current = isTouch ? 0.28 : AMBIENT_VOL; // quieter music on phones (Android)
+    ambientVolRef.current = isTouch ? 0.36 : AMBIENT_VOL; // quieter music on phones (Android)
     // the video FILE is now baked to 15% (iOS-safe, no Web Audio). element.volume
     // still trims it further where it works (desktop/Android); iOS plays the
     // baked 15% directly.
@@ -160,7 +160,7 @@ export default function AudioController() {
         // Phone speakers/DACs clip the heavily-boosted+compressed voice, which
         // sounds like "rè" (distortion). Use a much gentler lift on touch.
         const isTouch = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
-        const narrBoost = isTouch ? 1.1 : NARR_BOOST;
+        const narrBoost = isTouch ? 0.9 : NARR_BOOST;
         const makeupGain = isTouch ? 1.0 : VOICE_MAKEUP;
         voiceMakeupRef.current = makeupGain;
         const ctx = new AC();
@@ -592,6 +592,27 @@ export default function AudioController() {
     // chạm đầu tiên sẽ khởi động âm thanh (trình duyệt yêu cầu 1 thao tác thật
     // mới cho phát tiếng). Chỉ khi người dùng đã TẮT loa thì mới giữ im lặng.
     if (saved !== 'off') {
+      // THỬ PHÁT NGAY khi vào trang: Chrome cho phép autoplay-có-tiếng với site
+      // người dùng hay tương tác (Media Engagement) — thành công thì nhạc nổi
+      // luôn không cần cuộn; bị chặn thì rơi về cơ chế chờ thao tác đầu tiên.
+      {
+        const amb = ambientRef.current;
+        if (amb) {
+          amb.muted = false;
+          amb.volume = 0.001;
+          const p = amb.play();
+          if (p && typeof p.then === 'function') {
+            p.then(() => {
+              amb.pause();
+              enable();
+              startedRef.current = true;
+              startedAtRef.current = performance.now();
+            }).catch(() => {
+              /* autoplay bị chặn — chờ cú cuộn/chạm đầu tiên bên dưới */
+            });
+          }
+        }
+      }
       const resume = () => {
         enable();
         window.removeEventListener('pointerdown', resume);
