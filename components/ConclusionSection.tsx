@@ -4,12 +4,13 @@ import { useEffect, useRef, useState } from 'react';
 import { gsap, useGSAP } from '@/lib/gsap';
 import { playChime } from '@/lib/uiSound';
 
+// "Text hiện trên màn hình" — đúng 5 dòng theo kịch bản docx (bản rút gọn)
 const ACHIEVEMENTS = [
-  'Đập tan hoàn toàn âm mưu xâm lược và ách thống trị kéo dài gần một thế kỷ của thực dân Pháp trên đất nước ta.',
-  'Buộc chính phủ Pháp phải ký Hiệp định Giơ-ne-vơ năm 1954 — công nhận độc lập, chủ quyền, thống nhất và toàn vẹn lãnh thổ của Việt Nam.',
-  'Giải phóng hoàn toàn miền Bắc, chấm dứt ách bóc lột của thực dân, đưa miền Bắc bước vào thời kỳ quá độ lên chủ nghĩa xã hội.',
-  'Tạo tiền đề vững chắc cho cuộc đấu tranh giải phóng miền Nam, thống nhất đất nước sau này.',
-  'Cổ vũ mạnh mẽ phong trào giải phóng dân tộc trên toàn thế giới — mở đầu cho sự sụp đổ của chủ nghĩa thực dân cũ.',
+  'Đập tan ách thống trị của Pháp.',
+  'Giải phóng miền Bắc.',
+  'Tạo tiền đề thống nhất đất nước.',
+  'Cổ vũ phong trào giải phóng dân tộc.',
+  'Khẳng định đường lối kháng chiến đúng đắn.',
 ];
 
 /**
@@ -131,20 +132,16 @@ export default function ConclusionSection() {
                 <span className="font-display text-3xl font-bold leading-none text-vn-gold/60 md:text-4xl">
                   {String(i + 1).padStart(2, '0')}
                 </span>
-                <p className="text-pretty pt-0.5 font-body text-sm leading-relaxed text-vn-ivory/90 md:text-[length:clamp(18px,1.05vw,20px)]">
+                <p className="text-pretty pt-1 font-body text-base leading-relaxed text-vn-ivory/95 md:text-[length:clamp(21px,1.4vw,27px)]">
                   {a}
                 </p>
               </li>
             ))}
           </ol>
 
-          <div className="cn-final cn-reveal will-transform mt-6 border border-vn-gold-antique/30 bg-[rgba(218,37,29,0.06)] p-5 text-center opacity-0 md:p-6">
-            <p className="text-balance font-body text-base leading-relaxed text-vn-ivory/90 md:text-xl">
-              Thắng lợi lịch sử này đã khẳng định tính đúng đắn ngời sáng của đường lối
-              kháng chiến do Đảng ta đề ra:
-            </p>
-            <p className="mt-4 text-balance font-body text-[11px] font-medium uppercase tracking-[0.22em] text-vn-gold md:text-sm">
-              Toàn dân · Toàn diện · Trường kỳ · Tự lực cánh sinh · Tranh thủ sự ủng hộ quốc tế
+          <div className="cn-final cn-reveal will-transform mt-7 border border-vn-gold-antique/30 bg-[rgba(218,37,29,0.06)] p-6 text-center opacity-0 md:p-8">
+            <p className="text-balance font-display text-[15px] font-semibold uppercase tracking-[0.18em] text-vn-gold md:text-[length:clamp(18px,1.25vw,24px)]">
+              Toàn dân – Toàn diện – Trường kỳ – Tự lực cánh sinh – Quốc tế
             </p>
           </div>
         </div>

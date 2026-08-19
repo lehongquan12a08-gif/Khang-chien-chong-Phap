@@ -33,7 +33,7 @@ export default function ClosingText({ id, eyebrow, paragraphs, background, bgIma
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(8,8,8,0.42),rgba(8,8,8,0.85)_82%)]" />
         </>
       )}
-      <div className="relative z-10 mx-auto max-w-4xl text-center">
+      <div className="relative z-10 mx-auto max-w-5xl text-center">
         {eyebrow && (
           <Reveal as="p" className="eyebrow mb-10 text-vn-gold-antique">
             {eyebrow}
@@ -48,8 +48,8 @@ export default function ClosingText({ id, eyebrow, paragraphs, background, bgIma
                 as="p"
                 className={
                   last
-                    ? 'text-balance font-display text-[25px] font-bold leading-snug text-vn-gold text-glow-gold md:text-[42px]'
-                    : 'text-balance font-body text-lg leading-relaxed text-vn-ivory/85 md:text-2xl'
+                    ? 'text-balance font-display text-[27px] font-bold leading-snug text-vn-gold text-glow-gold md:text-[length:clamp(38px,2.7vw,52px)]'
+                    : 'text-balance font-body text-lg leading-relaxed text-vn-ivory/90 md:text-[length:clamp(22px,1.5vw,29px)]'
                 }
               >
                 {p}

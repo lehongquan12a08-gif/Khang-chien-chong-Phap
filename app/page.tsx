@@ -35,7 +35,8 @@ export default function Home() {
         <ClosingText
           eyebrow="Mở đầu"
           paragraphs={[
-            'Trước tình thế đó, Đảng và Chủ tịch Hồ Chí Minh đã xác định một đường lối kháng chiến đúng đắn, đưa dân tộc Việt Nam đi đến thắng lợi vẻ vang.',
+            'Sau Cách mạng Tháng Tám, nền độc lập vừa giành được đã phải đối mặt với sự trở lại của thực dân Pháp.',
+            'Và hành trình chín năm ấy bắt đầu từ đây.',
           ]}
         />
 
@@ -72,6 +73,8 @@ export default function Home() {
           eyebrow="Tinh thần 19/12/1946"
           bgImage="/images/kc/y46-h2.webp"
           paragraphs={[
+            'Ngày 19 tháng 12 năm 1946 không chỉ đánh dấu một cuộc chiến bắt đầu. Đó là thời khắc cả dân tộc cùng đứng lên bảo vệ nền độc lập vừa giành được.',
+            'Từ một dân tộc đứng trước thử thách sống còn, Việt Nam đã lựa chọn đoàn kết, trường kỳ và tự lực để chiến đấu vì độc lập, tự do.',
             'Đó chính là tinh thần của Toàn quốc kháng chiến.',
           ]}
         />
@@ -241,7 +244,7 @@ export default function Home() {
             },
           ]}
           images={[
-            { src: '/images/kc/y51-a4.webp', tag: 'Ảnh 4', caption: 'Bộ đội, dân công, hậu phương chuẩn bị cho những chiến dịch lớn' },
+            { src: '/images/kc/y51-a4.webp', tag: 'Ảnh 4', caption: 'Bộ đội, dân công, hậu phương trong thời kỳ chuẩn bị cho những chiến dịch lớn' },
           ]}
         />
         {/* Phần III. Kết luận — LƯỚT XUỐNG (đưa ra ý nghĩa) */}
@@ -273,7 +276,7 @@ export default function Home() {
             },
           ]}
           images={[
-            { src: '/images/kc/y54-a1.webp', tag: 'Ảnh 1', caption: 'Quân Pháp xây dựng công sự, cứ điểm' },
+            { src: '/images/kc/y54-a1.webp', tag: 'Ảnh 1', caption: 'Quân Pháp xây dựng cứ điểm' },
             { src: '/images/kc/y54-a2.webp', tag: 'Ảnh 2', fit: 'contain', caption: 'Sơ đồ tập đoàn cứ điểm Điện Biên Phủ' },
           ]}
         />
@@ -337,7 +340,7 @@ export default function Home() {
           eyebrow="Dấu ấn lịch sử · 1946 – 1954"
           bgImage="/images/kc/giai-phong-ket-cuoi.webp"
           paragraphs={[
-            'Thắng lợi vang dội của cuộc kháng chiến chống thực dân Pháp không chỉ là một mốc son chói lọi trong lịch sử dân tộc, mà còn mang lại những kết quả và ý nghĩa vô cùng to lớn.',
+            'Từ tiếng súng mở đầu ở Hà Nội năm 1946 đến chiến thắng Điện Biên Phủ năm 1954 — đó chính là hành trình biến ý chí độc lập của cả dân tộc thành sức mạnh để đi đến thắng lợi.',
           ]}
         />
         {/* Phần II. Các mốc sự kiện trọng tâm — slide + 2 ảnh gộp */}

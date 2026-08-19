@@ -158,12 +158,17 @@ export default function FiftySixDays({ id }: { id?: string }) {
             </ul>
 
             {/* nhãn chốt */}
-            <p
-              className="d56-final mt-9 font-display text-3xl font-bold uppercase tracking-[0.08em] text-vn-red opacity-0 md:text-5xl"
-              style={{ textShadow: '0 0 40px rgba(218,37,29,0.45)' }}
-            >
-              56 ngày đêm
-            </p>
+            <div className="d56-final will-transform mt-8 opacity-0">
+              <p className="font-body text-[15px] font-medium text-vn-gold-antique md:text-[length:clamp(17px,1.1vw,21px)]">
+                Hàng chục vạn người cùng hướng về Điện Biên Phủ
+              </p>
+              <p
+                className="mt-2 font-display text-3xl font-bold uppercase tracking-[0.08em] text-vn-red md:text-5xl"
+                style={{ textShadow: '0 0 40px rgba(218,37,29,0.45)' }}
+              >
+                56 ngày đêm
+              </p>
+            </div>
           </div>
         </div>
       </div>
