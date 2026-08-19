@@ -304,11 +304,11 @@ export default function Home() {
             { src: '/images/kc/y54-a4.webp', tag: 'Ảnh 4', caption: 'Quân ta trước giờ chiến đấu' },
           ]}
         />
-        {/* LƯỚT XUỐNG (đưa ra ý chính) */}
-        <DateReveal id="kc-54-batdau" parts={['13', '03', '1954']} heading="CHIẾN DỊCH BẮT ĐẦU" />
-        {/* 56 NGÀY ĐÊM — bộ đếm ngày chạy theo cuộn + ảnh tư liệu thay nhau làm nền */}
-        <FiftySixDays id="kc-54-56ngaydem" />
         </div>
+        {/* LƯỚT XUỐNG — màn ngày lớn: phát đoạn VÁ "13 tháng 3" đọc đúng tại đây */}
+        <DateReveal id="kc-54-batdau" parts={['13', '03', '1954']} heading="CHIẾN DỊCH BẮT ĐẦU" />
+        {/* 56 NGÀY ĐÊM — giọng đọc tiếp từ câu "Chiến dịch kéo dài suốt 56 ngày đêm…" */}
+        <FiftySixDays id="kc-54-56ngaydem" />
         {/* LƯỚT XUỐNG (đưa ra ý chính) */}
         <WordCascade
           eyebrow="56 ngày đêm"

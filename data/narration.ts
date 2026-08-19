@@ -41,8 +41,15 @@ export const NARRATION: NarrationCue[] = [
   { id: 'arc-1951', src: `/audio/voice/c1951.m4a?${VV}`, scroll: [0.01, 0.78] },
   // ĐBP mở màn — màn TĨNH: đứng yên căn giữa suốt lúc đọc (như Mở đầu)
   { id: 'chapter-1954', src: `/audio/voice/dbp-intro.m4a?${VV}`, scroll: [0.5, 0.5] },
-  // ĐBP chính — bọc từ slide "Pháp xây dựng tập đoàn cứ điểm" hết màn 56 ngày đêm
-  { id: 'arc-dbp', src: `/audio/voice/dbp.m4a?${VV}`, scroll: [0.01, 0.97] },
+  // ĐBP chính — chia 3 khúc để THAY câu đọc nhầm "13 tháng 8" (22.3–27.4s trong
+  // file) bằng bản vá "voice 13thang3" (điểm cắt nằm GIỮA khoảng lặng, không
+  // chạm chữ nào — dò bằng phân tích sóng âm):
+  // 1) 2 slide ĐBP: phát dbp.m4a từ đầu, DỪNG ở 21.8s (hết "…ra mặt trận")
+  { id: 'arc-dbp', src: `/audio/voice/dbp.m4a?${VV}`, end: 21.8, scroll: [0.02, 0.96] },
+  // 2) màn ngày 13/03/1954: đoạn vá đọc ĐÚNG "Ngày 13 tháng 3 năm 1954…"
+  { id: 'kc-54-batdau', src: `/audio/voice/13thang3.m4a?${VV}`, scroll: [0.25, 0.7] },
+  // 3) màn 56 ngày đêm: đọc tiếp dbp.m4a từ 27.65s ("Chiến dịch kéo dài suốt…")
+  { id: 'kc-54-56ngaydem', src: `/audio/voice/dbp.m4a?${VV}`, start: 27.65, scroll: [0.02, 0.9] },
   // Các mốc sự kiện trọng tâm (Giơ-ne-vơ · tiếp quản Thủ đô · giải phóng miền
   // Bắc) — slide ghim: ảnh + 3 mốc hiện dần theo giọng đọc
   { id: 'moc-su-kien', src: `/audio/voice/ketluan.m4a?${VV}`, scroll: [0.03, 0.92] },
