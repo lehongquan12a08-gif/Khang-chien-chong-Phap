@@ -3,13 +3,15 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { getLenis } from '@/lib/lenisStore';
 import { narrationState } from '@/lib/narrationState';
+import { NARRATION } from '@/data/narration';
 
-// Auto-scroll pace. With sound ON the scroll is LOCKED to the narration audio
-// clock (see step) so every chapter glides through in exactly its voiceover and
-// hands off seamlessly; SPEED_GAP only carries the silent interludes between
-// narrated chapters. With sound OFF, a steady cinematic pace throughout.
-const SPEED = 270; // px/s — sound off
-const SPEED_GAP = 400; // px/s — silent interludes / text reveals while sound is on
+// Auto-scroll pace. With narration cues present and sound ON, the scroll locks
+// to the narration audio clock (see step); SPEED_GAP then carries only the
+// silent interludes between narrated chapters. While there is NO narration yet
+// (NARRATION rỗng), always glide at the steady cinematic SPEED — never the
+// faster gap pace (nó làm cả trang chạy nhanh bất thường).
+const SPEED = 235; // px/s — nhịp điện ảnh, đủ chậm để đọc slide
+const SPEED_GAP = 400; // px/s — chỉ dùng cho khoảng lặng giữa các câu thuyết minh
 const RING = 2 * Math.PI * 15; // circumference for r=15 progress ring
 
 export default function AutoScrollButton() {
@@ -100,9 +102,10 @@ export default function AutoScrollButton() {
         }
       }
 
-      // 2) STEADY GLIDE — silent interludes between narrated chapters (sound on),
-      //    or the whole journey when sound is off.
-      const speed = narrationState.enabled ? SPEED_GAP : SPEED;
+      // 2) STEADY GLIDE — chưa có thuyết minh (NARRATION rỗng) thì LUÔN đi nhịp
+      //    điện ảnh SPEED; tốc độ SPEED_GAP chỉ dành cho khoảng lặng khi đã có
+      //    lồng tiếng dẫn nhịp.
+      const speed = narrationState.enabled && NARRATION.length > 0 ? SPEED_GAP : SPEED;
       const next = cur + speed * dt;
       if (next >= max) {
         scrollToY(max);
