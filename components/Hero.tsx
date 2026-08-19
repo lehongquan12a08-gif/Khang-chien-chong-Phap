@@ -84,19 +84,19 @@ export default function Hero() {
                 Đường lối
               </span>
               <span
-                className="hw-2 will-transform font-serif-hist font-black uppercase text-vn-ivory opacity-0"
-                style={{ fontSize: 'clamp(44px, 7.2vw, 132px)', lineHeight: 1.02 }}
+                className="hw-2 will-transform font-display font-bold uppercase text-vn-ivory opacity-0"
+                style={{ fontSize: 'clamp(42px, 6.8vw, 124px)', lineHeight: 1.04, letterSpacing: '0.01em' }}
               >
                 KHÁNG CHIẾN
               </span>
               <span
-                className="hw-3 will-transform font-serif-hist font-black uppercase text-vn-red opacity-0"
-                style={{ fontSize: 'clamp(44px, 7.2vw, 132px)', lineHeight: 1.02, textShadow: '0 0 44px rgba(218,37,29,0.5)' }}
+                className="hw-3 will-transform font-display font-bold uppercase text-vn-red opacity-0"
+                style={{ fontSize: 'clamp(42px, 6.8vw, 124px)', lineHeight: 1.04, letterSpacing: '0.01em', textShadow: '0 0 44px rgba(218,37,29,0.5)' }}
               >
                 CHỐNG PHÁP
               </span>
             </h1>
-            <p className="hw-years will-transform mt-7 font-serif-hist text-xl tracking-[0.4em] text-vn-gold text-glow-gold opacity-0 md:text-3xl">
+            <p className="hw-years will-transform mt-7 font-display font-semibold text-xl tracking-[0.4em] text-vn-gold text-glow-gold opacity-0 md:text-3xl">
               1946&nbsp;—&nbsp;1954
             </p>
             <p className="hw-tagline will-transform mt-6 max-w-2xl text-balance font-body text-[11px] font-light uppercase leading-relaxed tracking-[0.22em] text-vn-ivory/70 opacity-0 md:text-[13px]">

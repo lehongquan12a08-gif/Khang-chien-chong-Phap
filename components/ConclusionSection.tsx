@@ -128,10 +128,10 @@ export default function ConclusionSection() {
                 key={i}
                 className={`cn-item-${i} cn-reveal will-transform flex items-start gap-5 border-l-2 border-vn-gold-antique/40 pl-5 opacity-0`}
               >
-                <span className="font-serif-hist text-3xl font-black leading-none text-vn-gold/60 md:text-4xl">
+                <span className="font-display text-3xl font-bold leading-none text-vn-gold/60 md:text-4xl">
                   {String(i + 1).padStart(2, '0')}
                 </span>
-                <p className="text-pretty pt-0.5 font-serif-hist text-sm leading-relaxed text-vn-ivory/85 md:text-lg">
+                <p className="text-pretty pt-0.5 font-body text-sm leading-relaxed text-vn-ivory/85 md:text-lg">
                   {a}
                 </p>
               </li>
@@ -139,7 +139,7 @@ export default function ConclusionSection() {
           </ol>
 
           <div className="cn-final cn-reveal will-transform mt-8 border border-vn-gold-antique/30 bg-[rgba(218,37,29,0.06)] p-5 text-center opacity-0 md:p-7">
-            <p className="text-balance font-serif-hist text-base italic leading-relaxed text-vn-ivory/90 md:text-xl">
+            <p className="text-balance font-body text-base leading-relaxed text-vn-ivory/90 md:text-xl">
               Thắng lợi lịch sử này đã khẳng định tính đúng đắn ngời sáng của đường lối
               kháng chiến do Đảng ta đề ra:
             </p>

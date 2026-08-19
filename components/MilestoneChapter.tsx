@@ -67,17 +67,17 @@ export default function MilestoneChapter({ milestone: m }: { milestone: Mileston
             {/* text */}
             <div className="order-2 flex-1 text-center md:order-1 md:text-left">
               <p className="eyebrow mb-5 text-vn-gold-antique">{m.eyebrow}</p>
-              <h2 className="m-year will-transform font-serif-hist text-7xl font-black leading-none text-vn-ivory text-glow-gold md:text-8xl"
+              <h2 className="m-year will-transform font-display text-7xl font-bold leading-none tracking-[-0.01em] text-vn-ivory text-glow-gold md:text-8xl"
               style={m.year.length > 6 ? { fontSize: 'clamp(38px, 8.5vw, 88px)' } : undefined}>
                 {m.year}
               </h2>
               <h3 className="m-head will-transform mt-4 font-display text-xl font-semibold uppercase tracking-[0.14em] text-vn-ivory md:text-3xl">
                 {m.heading}
               </h3>
-              <p className="m-key will-transform mt-6 font-serif-hist text-2xl font-black uppercase tracking-[0.2em] text-vn-gold md:text-4xl">
+              <p className="m-key will-transform mt-6 font-display text-2xl font-bold uppercase tracking-[0.16em] text-vn-gold md:text-4xl">
                 {m.keyText}
               </p>
-              <p className="m-cap will-transform mx-auto mt-7 max-w-xl font-serif-hist text-base italic leading-relaxed text-vn-ivory/75 md:mx-0 md:text-lg">
+              <p className="m-cap will-transform mx-auto mt-7 max-w-xl font-body text-base leading-relaxed text-vn-ivory/75 md:mx-0 md:text-lg">
                 {m.caption}
               </p>
             </div>
@@ -148,17 +148,17 @@ export default function MilestoneChapter({ milestone: m }: { milestone: Mileston
         <div className="relative z-20 flex h-full items-center">
           <div className="max-w-2xl px-6 sm:px-10 md:px-16">
             <p className="eyebrow mb-5 text-vn-gold-antique">{m.eyebrow}</p>
-            <h2 className="m-year will-transform font-serif-hist text-7xl font-black leading-none text-vn-ivory text-glow-gold md:text-8xl"
+            <h2 className="m-year will-transform font-display text-7xl font-bold leading-none tracking-[-0.01em] text-vn-ivory text-glow-gold md:text-8xl"
               style={m.year.length > 6 ? { fontSize: 'clamp(38px, 8.5vw, 88px)' } : undefined}>
               {m.year}
             </h2>
             <h3 className="m-head will-transform mt-4 font-display text-xl font-semibold uppercase tracking-[0.14em] text-vn-ivory md:text-3xl">
               {m.heading}
             </h3>
-            <p className="m-key will-transform mt-6 font-serif-hist text-2xl font-black uppercase tracking-[0.2em] text-vn-gold md:text-4xl">
+            <p className="m-key will-transform mt-6 font-display text-2xl font-bold uppercase tracking-[0.16em] text-vn-gold md:text-4xl">
               {m.keyText}
             </p>
-            <p className="m-cap will-transform mt-7 max-w-xl text-pretty font-serif-hist text-base italic leading-relaxed text-vn-ivory/75 md:text-lg">
+            <p className="m-cap will-transform mt-7 max-w-xl text-pretty font-body text-base leading-relaxed text-vn-ivory/75 md:text-lg">
               {m.caption}
             </p>
           </div>

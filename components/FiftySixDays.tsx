@@ -99,7 +99,7 @@ export default function FiftySixDays({ id }: { id?: string }) {
                 className="h-full w-full object-cover"
                 style={{ objectPosition: 'center 30%', filter: 'contrast(1.05) brightness(0.5) sepia(0.15)' }}
               />
-              <p className="absolute bottom-6 right-6 max-w-[60vw] text-balance text-right font-serif-hist text-sm italic text-vn-ivory/70 md:text-base">
+              <p className="absolute bottom-6 right-6 max-w-[60vw] text-balance text-right font-body text-sm text-vn-ivory/70 md:text-base">
                 {p.caption}
               </p>
             </div>
@@ -126,13 +126,13 @@ export default function FiftySixDays({ id }: { id?: string }) {
                 <p className="font-body text-[11px] uppercase tracking-[0.3em] text-vn-ivory/60">Ngày đêm thứ</p>
                 <span
                   ref={counterRef}
-                  className="block font-serif-hist font-black leading-none text-vn-gold text-glow-gold"
-                  style={{ fontSize: 'clamp(110px, 20vw, 260px)' }}
+                  className="block font-display font-bold leading-none text-vn-gold text-glow-gold"
+                  style={{ fontSize: 'clamp(104px, 19vw, 248px)', letterSpacing: '-0.02em' }}
                 >
                   01
                 </span>
               </div>
-              <span className="mb-3 font-serif-hist text-3xl font-bold text-vn-ivory/40 md:mb-5 md:text-5xl">/ 56</span>
+              <span className="mb-3 font-display text-3xl font-bold text-vn-ivory/40 md:mb-5 md:text-5xl">/ 56</span>
             </div>
 
             {/* 3 đợt tiến công */}

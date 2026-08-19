@@ -59,12 +59,12 @@ export default function InteractiveQuestion({
         style={{ background: 'radial-gradient(ellipse at 50% 40%, #16100c 0%, #080808 70%)' }}
       >
         <Reveal className="mx-auto max-w-5xl text-center">
-          <span className="mb-8 block font-serif-hist text-6xl font-black leading-none text-vn-gold/70 md:text-7xl">
+          <span className="mb-8 block font-display text-6xl font-bold leading-none text-vn-gold/70 md:text-7xl">
             ?
           </span>
           <h3
-            className="text-balance font-serif-hist font-bold leading-snug text-vn-ivory"
-            style={{ fontSize: 'clamp(24px, 3.4vw, 54px)' }}
+            className="text-balance font-display font-bold leading-snug text-vn-ivory"
+            style={{ fontSize: 'clamp(24px, 3.2vw, 52px)' }}
           >
             {question}
           </h3>
@@ -82,7 +82,7 @@ export default function InteractiveQuestion({
       style={{ background: 'radial-gradient(ellipse at 50% 40%, #16100c 0%, #080808 70%)' }}
     >
       <Reveal className="w-full max-w-3xl border border-vn-gold-antique/25 bg-[rgba(8,8,8,0.55)] p-8 backdrop-blur-[2px] md:max-w-[62rem] md:p-14">
-        <h3 className="text-balance font-serif-hist text-2xl font-bold leading-snug text-vn-ivory md:text-[length:clamp(30px,2.2vw,42px)]">
+        <h3 className="text-balance font-display text-2xl font-bold leading-snug text-vn-ivory md:text-[length:clamp(28px,2vw,38px)]">
           {question}
         </h3>
 
@@ -132,7 +132,7 @@ export default function InteractiveQuestion({
         {answered && (
           <div className="mt-8 border-l-2 border-vn-gold pl-5 md:mt-10 md:pl-6">
             {answer && (
-              <p className="text-pretty font-serif-hist text-base italic leading-relaxed text-vn-ivory/85 md:text-[length:clamp(18px,1.15vw,22px)]">
+              <p className="text-pretty font-body text-base leading-relaxed text-vn-ivory/85 md:text-[length:clamp(18px,1.15vw,22px)]">
                 {answer}
               </p>
             )}

@@ -24,7 +24,7 @@ export default function Footer() {
 
       <Reveal
         as="p"
-        className="mx-auto mt-10 max-w-2xl font-serif-hist text-lg italic leading-relaxed text-vn-ivory/70 md:text-xl"
+        className="mx-auto mt-10 max-w-2xl font-body text-lg leading-relaxed text-vn-ivory/70 md:text-xl"
       >
         Từ mùa đông 1946 khói lửa tại Thủ đô đến mùa xuân 1954 rực rỡ tại lòng chảo
         Điện Biên — tìm hiểu lịch sử để hiểu giá trị của hòa bình, độc lập hôm nay.

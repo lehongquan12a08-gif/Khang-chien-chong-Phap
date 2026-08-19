@@ -18,7 +18,7 @@ function MediaCard({ item }: { item: MediaItem }) {
         <span className="font-body text-[10px] uppercase tracking-[0.22em] text-vn-gold-antique">
           {item.kind}
         </span>
-        <p className="mt-1 font-serif-hist text-lg leading-tight text-vn-ivory">{item.title}</p>
+        <p className="mt-1 font-body text-lg font-medium leading-tight text-vn-ivory">{item.title}</p>
         {item.by && <p className="mt-1 font-body text-[11px] text-vn-ivory/50">{item.by}</p>}
       </figcaption>
     </figure>
@@ -36,9 +36,14 @@ export default function MediaSection() {
       <div className="mx-auto max-w-6xl">
         <div className="mb-14 text-center">
           <p className="eyebrow mb-6 text-vn-gold-antique">Âm nhạc · Bản thu lịch sử</p>
-          <h2 className="headline-mega text-vn-ivory text-glow-gold">NGHE &amp; XEM</h2>
+          <h2
+            className="font-display font-bold uppercase text-vn-ivory text-glow-gold"
+            style={{ fontSize: 'clamp(44px, 6.5vw, 120px)', lineHeight: 1, letterSpacing: '0.01em' }}
+          >
+            NGHE &amp; XEM
+          </h2>
           <div className="gold-line mx-auto mt-8 w-40" />
-          <p className="mx-auto mt-8 max-w-xl font-serif-hist text-lg italic leading-relaxed text-vn-ivory/70">
+          <p className="mx-auto mt-8 max-w-xl font-body text-lg leading-relaxed text-vn-ivory/70">
             Những bài ca đi cùng cuộc kháng chiến — bấm để nghe.
           </p>
         </div>

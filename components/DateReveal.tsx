@@ -64,12 +64,17 @@ export default function DateReveal({ id, parts, heading, sub, lines = [], backgr
           <div className="flex items-baseline gap-3 md:gap-6">
             {parts.map((p, i) => (
               <span key={i} className="flex items-baseline gap-3 md:gap-6">
-                {i > 0 && <span className="headline-mega text-vn-gold/70">/</span>}
+                {i > 0 && (
+                  <span className="font-display font-bold text-vn-gold/70" style={{ fontSize: 'clamp(64px, 9vw, 168px)', lineHeight: 0.95 }}>
+                    /
+                  </span>
+                )}
                 <span
                   className={[
-                    `dp-${i} will-transform headline-mega opacity-0`,
+                    `dp-${i} will-transform font-display font-bold opacity-0`,
                     i === parts.length - 1 ? 'text-vn-gold text-glow-gold' : 'text-vn-ivory',
                   ].join(' ')}
+                  style={{ fontSize: 'clamp(64px, 9vw, 168px)', lineHeight: 0.95, letterSpacing: '-0.01em' }}
                 >
                   {p}
                 </span>
@@ -77,12 +82,12 @@ export default function DateReveal({ id, parts, heading, sub, lines = [], backgr
             ))}
           </div>
           {heading && (
-            <h2 className="d-heading will-transform mt-8 font-serif-hist text-3xl font-black uppercase leading-tight tracking-[0.14em] text-vn-ivory opacity-0 md:text-6xl">
+            <h2 className="d-heading will-transform mt-8 font-display text-3xl font-bold uppercase leading-tight tracking-[0.12em] text-vn-ivory opacity-0 md:text-6xl">
               {heading}
             </h2>
           )}
           {sub && (
-            <p className="d-sub will-transform mt-6 max-w-2xl text-balance font-serif-hist text-base italic leading-relaxed text-vn-ivory/70 opacity-0 md:text-xl">
+            <p className="d-sub will-transform mt-6 max-w-2xl text-balance font-body text-base leading-relaxed text-vn-ivory/70 opacity-0 md:text-xl">
               {sub}
             </p>
           )}
@@ -92,7 +97,7 @@ export default function DateReveal({ id, parts, heading, sub, lines = [], backgr
                 <p
                   key={i}
                   className={[
-                    `d-line-${i} will-transform text-balance font-serif-hist text-lg font-bold uppercase leading-snug tracking-[0.06em] opacity-0 md:text-3xl`,
+                    `d-line-${i} will-transform text-balance font-display text-lg font-semibold uppercase leading-snug tracking-[0.06em] opacity-0 md:text-3xl`,
                     l.accent ? 'text-vn-red' : 'text-vn-ivory',
                   ].join(' ')}
                   style={l.accent ? { textShadow: '0 0 34px rgba(218,37,29,0.4)' } : undefined}
