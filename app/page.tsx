@@ -326,20 +326,7 @@ export default function Home() {
           ]}
           background="radial-gradient(ellipse at 50% 42%, #23100c 0%, #080808 70%)"
         />
-        {/* Câu hỏi tương tác (trước khi hiện màn chiến thắng) */}
-        <InteractiveQuestion
-          question="Sau 56 ngày đêm, điều gì đã xảy ra tại Điện Biên Phủ?"
-          options={[
-            { key: 'A', text: 'Pháp tiếp tục giữ được tập đoàn cứ điểm' },
-            { key: 'B', text: 'Hai bên ký hiệp định ngay tại Điện Biên Phủ' },
-            { key: 'C', text: 'Tập đoàn cứ điểm Điện Biên Phủ bị tiêu diệt', correct: true },
-            { key: 'D', text: 'Quân ta rút khỏi Điện Biên Phủ' },
-          ]}
-          answer="Tập đoàn cứ điểm Điện Biên Phủ bị tiêu diệt. Và đây chính là khoảnh khắc đánh dấu thắng lợi của chiến dịch."
-          continueTo="#kc-54-toanthang"
-          continueLabel="Xem thời khắc lịch sử"
-        />
-        {/* Sau khi trả lời → chuyển màn hình sang ảnh lá cờ · LƯỚT XUỐNG (ý nghĩa) */}
+        {/* Màn lá cờ "Quyết chiến – Quyết thắng" — thời khắc toàn thắng */}
         <MilestoneChapter milestone={MILESTONES.toanThang} />
 
         {/* ═══ KẾT LUẬN VÀ Ý NGHĨA ═══ */}
