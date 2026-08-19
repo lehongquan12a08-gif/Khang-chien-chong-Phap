@@ -23,7 +23,7 @@ const DECL_VIDEO_VOL = 0.09; // video audio level (× master)
 const DECL_SCROLL: [number, number] = [0.44, 0.92];
 // how much the supporting sounds (music + waves/wind/crowd) drop while a voice
 // (narration or the Tuyên ngôn recording) is speaking
-const AMBIENT_DUCK = 0.18;
+const AMBIENT_DUCK = 0.12; // có LỒNG TIẾNG → nhạc né sâu (rất bé dưới giọng đọc)
 const SFX_DUCK = 0.1; // supporting sounds drop hard under a voice (so it's clear)
 // how long a narration segment takes to fade out at its end (soft tail instead
 // of a hard cut) — long enough to feel gentle, not clipped
@@ -39,7 +39,7 @@ const V = 'v=5';
 // NHẠC NỀN dịu (pad ngũ cung tự soạn, loop 96s không khục) — file đã bake NHỎ
 // (peak ≈ -18 dBFS) nên an toàn cả trên iOS (nơi element.volume bị bỏ qua).
 const AMBIENT_SRC = `/audio/nhac-nen.wav?v=1`;
-const AMBIENT_VOL = 0.34; // mức nền hành trình — bé, chỉ đủ "có không khí"
+const AMBIENT_VOL = 0.5; // mức nền hành trình (đã tăng theo yêu cầu)
 // CUNG MỞ ĐẦU: nhạc nổi lên rõ lúc bắt đầu, rồi tự hạ về nền — đúng lúc phần
 // lồng tiếng sẽ vào (khi có giọng đọc, cơ chế duck còn hạ sâu hơn nữa).
 const INTRO_PEAK = 2.3; // × mức nền trong lúc mở màn
@@ -125,7 +125,7 @@ export default function AudioController() {
     // narration — "tiếng sông" too loud. Skip them entirely on touch: keep just
     // the narration + ambient music + the Tuyên ngôn video.
     const isTouch = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
-    ambientVolRef.current = isTouch ? 0.2 : AMBIENT_VOL; // quieter music on phones (Android)
+    ambientVolRef.current = isTouch ? 0.28 : AMBIENT_VOL; // quieter music on phones (Android)
     // the video FILE is now baked to 15% (iOS-safe, no Web Audio). element.volume
     // still trims it further where it works (desktop/Android); iOS plays the
     // baked 15% directly.
@@ -588,7 +588,10 @@ export default function AudioController() {
     } catch {
       /* ignore */
     }
-    if (saved === 'on') {
+    // MẶC ĐỊNH BẬT: lần đầu vào (chưa lưu lựa chọn) coi như 'on' — cú cuộn /
+    // chạm đầu tiên sẽ khởi động âm thanh (trình duyệt yêu cầu 1 thao tác thật
+    // mới cho phát tiếng). Chỉ khi người dùng đã TẮT loa thì mới giữ im lặng.
+    if (saved !== 'off') {
       const resume = () => {
         enable();
         window.removeEventListener('pointerdown', resume);
@@ -616,10 +619,6 @@ export default function AudioController() {
         window.removeEventListener('wheel', resume);
         window.removeEventListener('keydown', onKey);
       };
-    }
-    if (saved === null) {
-      const t = window.setTimeout(() => setShowPrompt(true), 1600);
-      return () => window.clearTimeout(t);
     }
   }, [enable]);
 
