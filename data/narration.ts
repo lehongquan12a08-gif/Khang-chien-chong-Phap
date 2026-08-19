@@ -7,7 +7,7 @@
 // file trong cột `src` cho nhau. Danh sách gốc:
 //   modau.m4a     = "lồng tiếng.m4a"      36s — Mở đầu "1946–1954, chín năm…"
 //   c1946.m4a     = "X. Hòa Lạc 2 (1)"    60s — 1946 "…tưởng tượng Việt Nam cuối 1946…"
-//   c1947.m4a     = "X. Hòa Lạc 3"        50s — 1947–49 "Vào Thu – Đông năm 1947…"
+//   c1947.m4a     = "1947-1949.m4a" (thu lại) 71s — 1947–49 "Vào Thu – Đông năm 1947…"
 //   c1950.m4a     = "X. Hòa Lạc 4"        74s — 1950 "Năm 1950, cuộc kháng chiến…"
 //   c1951.m4a     = "X. Hòa Lạc 5"        40s — 1951–53 "Sau thắng lợi của Chiến dịch Biên giới…"
 //   dbp-intro.m4a = "X. Hòa Lạc 10"       32s — ĐBP mở màn "Sau những thắng lợi liên tiếp…"
@@ -31,8 +31,8 @@ export const NARRATION: NarrationCue[] = [
   { id: 'modau', src: `/audio/voice/modau.m4a?${VV}`, scroll: [0.5, 0.5] },
   // 1946 — giọng dẫn suốt slide Toàn quốc kháng chiến (chữ hiện theo lời đọc)
   { id: 'chapter-1946', src: `/audio/voice/c1946.m4a?${VV}`, scroll: [0.02, 0.88] },
-  // 1947–1949 — slide Việt Bắc
-  { id: 'chapter-1947', src: `/audio/voice/c1947.m4a?${VV}`, scroll: [0.02, 0.9] },
+  // 1947–1949 — slide Việt Bắc (v=2: bản thu lại "1947-1949.m4a")
+  { id: 'chapter-1947', src: `/audio/voice/c1947.m4a?v=2`, scroll: [0.02, 0.9] },
   // 1950 — slide Bước ngoặt
   { id: 'chapter-1950', src: `/audio/voice/c1950.m4a?${VV}`, scroll: [0.02, 0.9] },
   // 1951–1953 — bọc từ màn mốc "Phát triển thế và lực" hết slide 1952 (Ảnh 1–3;
