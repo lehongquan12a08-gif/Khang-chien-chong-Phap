@@ -23,13 +23,14 @@ interface SlideSectionProps {
   /** Ảnh của slide — hiện NGAY TRONG slide (cột phải desktop / dưới mobile). */
   images?: SlideImage[];
   background?: string;
+  backgroundImage?: string;
 }
 
 /**
  * "NỘI DUNG HIỆN TRÊN SLIDE" — tiêu đề + gạch đầu dòng hiện lần lượt khi lướt,
  * ẢNH của slide nằm cùng màn hình (gộp một nơi), gắn thẻ H1/H2… và chú thích.
  */
-export default function SlideSection({ id, eyebrow, title, groups, images = [], background = '#0b0a09' }: SlideSectionProps) {
+export default function SlideSection({ id, eyebrow, title, groups, images = [], background = '#0b0a09', backgroundImage }: SlideSectionProps) {
   const root = useRef<HTMLDivElement>(null);
   const rows = groups.reduce((n, g) => n + (g.title ? 1 : 0) + g.bullets.length, 0) + (title ? 1 : 0);
   const heightVh = 130 + rows * 26 + images.length * 16;
@@ -62,9 +63,22 @@ export default function SlideSection({ id, eyebrow, title, groups, images = [], 
   return (
     <section id={id} ref={root} className="relative" style={{ height: `${heightVh}vh`, background }}>
       <div className="sticky top-0 flex h-screen items-center overflow-hidden">
+        {backgroundImage && (
+          <>
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 bg-cover bg-center opacity-45 grayscale"
+              style={{ backgroundImage: `url(${backgroundImage})` }}
+            />
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(8,8,8,0.28),rgba(8,8,8,0.88)_74%),linear-gradient(90deg,rgba(8,8,8,0.78),rgba(8,8,8,0.4)_52%,rgba(8,8,8,0.78))]"
+            />
+          </>
+        )}
         <div
           className={[
-            'sl-stage mx-auto grid w-full items-center gap-10 px-6 md:px-10',
+            'sl-stage relative z-10 mx-auto grid w-full items-center gap-10 px-6 md:px-10',
             images.length ? 'max-w-6xl md:grid-cols-[1.1fr_0.9fr]' : 'max-w-4xl',
           ].join(' ')}
         >
@@ -109,14 +123,9 @@ export default function SlideSection({ id, eyebrow, title, groups, images = [], 
                     <img
                       src={im.src}
                       alt={im.caption ?? ''}
-                      className="h-auto w-full object-contain"
-                      style={{ maxHeight: images.length > 2 ? '24vh' : '32vh' }}
+                      className="w-full object-cover"
+                      style={{ height: images.length > 2 ? '24vh' : '32vh' }}
                     />
-                    {im.tag && (
-                      <span className="absolute left-2 top-2 border border-vn-gold/60 bg-vn-black/70 px-2 py-0.5 font-body text-[10px] font-semibold uppercase tracking-[0.18em] text-vn-gold">
-                        {im.tag}
-                      </span>
-                    )}
                   </div>
                   {im.caption && (
                     <figcaption className="mt-2 text-center font-body text-[11px] leading-snug text-vn-ivory/50">

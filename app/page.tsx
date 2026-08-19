@@ -46,6 +46,7 @@ export default function Home() {
           id="chapter-1946"
           eyebrow="Giai đoạn 1946 · Toàn quốc kháng chiến bùng nổ"
           title="Ngày 19/12/1946 — Toàn quốc kháng chiến"
+          backgroundImage="/images/kc/toan-quoc-khang-chien.jpg"
           groups={[
             {
               bullets: [
@@ -189,6 +190,7 @@ export default function Home() {
         {/* Phần II. Các mốc thời gian — slide + ảnh gộp, xen kẽ đúng docx */}
         <SlideSection
           eyebrow="Giai đoạn 1951 – 1953 · Phát triển thế và lực"
+          backgroundImage="/images/kc/1951.jpg"
           groups={[
             {
               title: '1951 — Củng cố lực lượng',
@@ -205,6 +207,7 @@ export default function Home() {
         />
         <SlideSection
           eyebrow="Giai đoạn 1951 – 1953 · Phát triển thế và lực"
+          backgroundImage="/images/kc/1952.jpg"
           groups={[
             {
               title: '1952 — Mở rộng hoạt động quân sự',
