@@ -106,6 +106,8 @@ export default function AudioController() {
   const narrMakeupRef = useRef<GainNode | null>(null); // output gain of the voice bus
   const narrVoiceGainRef = useRef<GainNode | null>(null); // gain đầu vào (boost × vol từng đoạn)
   const narrBaseBoostRef = useRef(NARR_BOOST); // boost gốc theo thiết bị
+  const isTouchRef = useRef(false); // điện thoại → giọng chạy chế độ audio-guide
+  const playedRef = useRef<Set<string>>(new Set()); // mobile: chương đã đọc (không lặp)
   const voiceMakeupRef = useRef(VOICE_MAKEUP); // makeup target (lower on mobile)
   const narrWatchRef = useRef<number | null>(null);
   const declFiredRef = useRef(false); // Tuyên ngôn one-shot: fire once per visit
@@ -146,12 +148,13 @@ export default function AudioController() {
     sfxRef.current = m;
 
     // narration element — tạo MỘT lần; src đổi theo chương khi cuộn tới.
-    // ĐIỆN THOẠI (touch): TẮT giọng đọc — slide không ghim nên khóa-cuộn-theo-
-    // giọng bò rất chậm và chạm/cuộn qua ranh giới chương làm giọng đọc lại từ
-    // đầu (lặp). Phone chỉ phát nhạc nền + hiệu ứng; bản trình chiếu máy tính
-    // giữ nguyên đầy đủ lồng tiếng.
+    // ĐIỆN THOẠI (touch): giọng chạy chế độ AUDIO-GUIDE — phát khi cuộn tới
+    // chương, KHÔNG khóa cuộn (slide mobile không ghim nên khóa sẽ bò rất chậm),
+    // mỗi chương chỉ đọc MỘT lần (không lặp khi lướt qua lại ranh giới), và
+    // đọc nốt câu kể cả khi người xem cuộn tiếp. Desktop giữ nguyên khóa cuộn.
+    isTouchRef.current = isTouch;
     let voiceEl: HTMLAudioElement | null = null;
-    if (NARRATION.length > 0 && !isTouch) {
+    if (NARRATION.length > 0) {
       voiceEl = new Audio(NARRATION[0].src); // nạp sẵn chương đầu
       voiceEl.preload = 'auto';
       voiceEl.volume = 0;
@@ -253,7 +256,8 @@ export default function AudioController() {
         : 0;
     const dur = end - narrStartRef.current;
     narrationState.progress = dur > 0 ? clamp((a.currentTime - narrStartRef.current) / dur) : 0;
-    narrationState.playing = true;
+    // MOBILE: không công bố playing → auto-lướt không khóa cuộn theo giọng
+    narrationState.playing = !isTouchRef.current;
     narrationState.speaking = true;
     narrWatchRef.current = requestAnimationFrame(narrWatch);
   }, [stopNarrWatch]);
@@ -302,13 +306,22 @@ export default function AudioController() {
         break;
       }
     }
+    const touchVoice = isTouchRef.current;
+    // MOBILE: về lại ĐẦU TRANG → reset danh sách "đã đọc" (xem lại từ đầu)
+    if (touchVoice && playedRef.current.size > 0 && window.scrollY < window.innerHeight * 0.5) {
+      playedRef.current.clear();
+    }
     if (narrCue) {
       if (narrCue.id !== narrActiveRef.current) {
         const a = narrAudioRef.current;
-        if (a) {
+        // MOBILE: chương đã đọc rồi → KHÔNG đọc lại khi lướt qua lại ranh giới
+        if (touchVoice && playedRef.current.has(narrCue.id)) {
+          narrActiveRef.current = narrCue.id;
+        } else if (a) {
           // sang CHƯƠNG KHÁC → lệnh dừng cũ (nếu có) hết hiệu lực
           narrationState.userPaused = false;
           narrActiveRef.current = narrCue.id;
+          playedRef.current.add(narrCue.id);
           narrStartRef.current = narrCue.start ?? 0;
           narrEndRef.current = narrCue.end ?? Number.POSITIVE_INFINITY;
           // đổi sang file của chương này (nếu khác chương trước)
@@ -345,22 +358,26 @@ export default function AudioController() {
           narrCtxRef.current?.resume().catch(() => {});
           a.play().catch(() => {});
           narrElRef.current = a;
-          narrationState.activeId = narrCue.id;
+          // MOBILE: KHÔNG công bố activeId/playing — auto-lướt không khóa cuộn
+          // theo giọng (slide mobile không ghim); giọng chạy như audio-guide
+          if (!touchVoice) {
+            narrationState.activeId = narrCue.id;
+            narrationState.playing = true;
+            narrationState.scroll0 = narrCue.scroll ? narrCue.scroll[0] : 0;
+            narrationState.scroll1 = narrCue.scroll ? narrCue.scroll[1] : 1;
+          }
           narrationState.progress = 0;
-          narrationState.playing = true;
-          narrationState.scroll0 = narrCue.scroll ? narrCue.scroll[0] : 0;
-          narrationState.scroll1 = narrCue.scroll ? narrCue.scroll[1] : 1;
           stopNarrWatch();
           narrWatchRef.current = requestAnimationFrame(narrWatch);
         }
       } else {
         // CÙNG chương — xử lý DỪNG / ĐỌC TIẾP:
         // - userPaused (ấn dừng tự lướt / cuộn tay chen ngang) → tạm dừng giọng
-        //   NGAY, giữ nguyên vị trí câu
+        //   NGAY, giữ nguyên vị trí câu (CHỈ desktop — mobile chạm là chuyện thường)
         // - hết lệnh dừng (ấn phát lại) hoặc quay lại tab → đọc TIẾP từ chỗ dừng
         const a = narrElRef.current;
         if (a) {
-          if (narrationState.userPaused) {
+          if (!touchVoice && narrationState.userPaused) {
             if (!a.paused) {
               a.pause();
               stopNarrWatch();
@@ -376,12 +393,18 @@ export default function AudioController() {
         }
       }
     } else if (narrActiveRef.current) {
-      narrAudioRef.current?.pause();
-      narrActiveRef.current = null;
-      narrElRef.current = null;
-      narrationState.activeId = null;
-      narrationState.playing = false;
-      stopNarrWatch();
+      if (touchVoice) {
+        // MOBILE: rời chương → giọng ĐỌC NỐT câu chuyện (không cắt ngang);
+        // chỉ bỏ đánh dấu để chương kế tiếp bắt được lượt của nó
+        narrActiveRef.current = null;
+      } else {
+        narrAudioRef.current?.pause();
+        narrActiveRef.current = null;
+        narrElRef.current = null;
+        narrationState.activeId = null;
+        narrationState.playing = false;
+        stopNarrWatch();
+      }
     }
 
     // 2) which supporting SFX are active? ----------------------------------
