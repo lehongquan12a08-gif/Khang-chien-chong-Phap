@@ -145,9 +145,13 @@ export default function AudioController() {
     }
     sfxRef.current = m;
 
-    // narration element — tạo MỘT lần; src đổi theo chương khi cuộn tới
+    // narration element — tạo MỘT lần; src đổi theo chương khi cuộn tới.
+    // ĐIỆN THOẠI (touch): TẮT giọng đọc — slide không ghim nên khóa-cuộn-theo-
+    // giọng bò rất chậm và chạm/cuộn qua ranh giới chương làm giọng đọc lại từ
+    // đầu (lặp). Phone chỉ phát nhạc nền + hiệu ứng; bản trình chiếu máy tính
+    // giữ nguyên đầy đủ lồng tiếng.
     let voiceEl: HTMLAudioElement | null = null;
-    if (NARRATION.length > 0) {
+    if (NARRATION.length > 0 && !isTouch) {
       voiceEl = new Audio(NARRATION[0].src); // nạp sẵn chương đầu
       voiceEl.preload = 'auto';
       voiceEl.volume = 0;
